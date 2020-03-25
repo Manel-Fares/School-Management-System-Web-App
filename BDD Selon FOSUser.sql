@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mar. 24 mars 2020 à 17:09
+-- Généré le :  mer. 25 mars 2020 à 18:10
 -- Version du serveur :  5.7.19
 -- Version de PHP :  5.6.31
 
@@ -298,7 +298,7 @@ INSERT INTO `matier` (`id`, `nom`, `coef`, `responsable`) VALUES
 DROP TABLE IF EXISTS `note`;
 CREATE TABLE IF NOT EXISTS `note` (
   `idEtudiant` int(11) NOT NULL,
-  `idMatiere` varchar(50) NOT NULL,
+  `idMatiere` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `idEnseignant` int(11) DEFAULT NULL,
   `dateNote` date NOT NULL,
   `noteCC` double DEFAULT NULL,
@@ -306,30 +306,9 @@ CREATE TABLE IF NOT EXISTS `note` (
   `noteExam` double DEFAULT NULL,
   `Moyenne` double DEFAULT NULL,
   PRIMARY KEY (`idEtudiant`,`idMatiere`,`dateNote`),
-  KEY `idEnseignant` (`idEnseignant`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Déchargement des données de la table `note`
---
-
-INSERT INTO `note` (`idEtudiant`, `idMatiere`, `idEnseignant`, `dateNote`, `noteCC`, `noteDS`, `noteExam`, `Moyenne`) VALUES
-(15, '3', 19, '2020-02-07', 20, 10.5, 15.5, 15.85),
-(18, '4', 18, '2020-02-13', 9, 7.25, 10, 9.15),
-(15, '2', 18, '2020-01-29', 10.25, 10.5, 2.25, 6.3),
-(25, '3', 19, '2020-02-14', 16.75, 12, 11.5, 13.175),
-(1, '4', 18, '2020-02-12', 11.5, 16, 7, 10.15),
-(16, '3', 19, '2020-02-05', 3.75, 9.25, 8.5, 7.225),
-(15, '6', 18, '2020-01-30', 17.5, 11.75, 9.5, 12.35),
-(15, '5', 18, '2020-02-06', 8.5, 13, 2.25, 6.275),
-(1, '3', 18, '2020-02-13', 12, 1, 15, 11.3),
-(25, '5', 19, '2020-02-05', 2.75, 3, 3, 2.925),
-(2, '8', 19, '2020-02-19', 9, 9, 9, 9),
-(4, '7', 19, '2020-01-14', 8.5, 5.2, 19, 13.09),
-(15, '1', 188, '2020-02-27', 15, 15, 15, 15),
-(15, '7', 188, '2020-02-21', 10, 10, 10, 10),
-(176, '5', 18, '2020-02-05', 5.75, 3.5, 2, 3.425),
-(15, '4', 18, '2020-03-18', 6.5, 7.25, 8, 7.4);
+  KEY `idEnseignant` (`idEnseignant`),
+  KEY `idMatiere` (`idMatiere`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -485,7 +464,7 @@ CREATE TABLE IF NOT EXISTS `resultat` (
   `idEtudiant` int(11) NOT NULL,
   `dateResultat` date NOT NULL,
   `resultat` float DEFAULT NULL,
-  PRIMARY KEY (`idEtudiant`,`dateResultat`)
+  PRIMARY KEY (`idEtudiant`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --

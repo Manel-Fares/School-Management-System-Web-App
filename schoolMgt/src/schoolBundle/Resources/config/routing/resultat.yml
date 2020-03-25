@@ -1,0 +1,24 @@
+resultat_index:
+    path:     /
+    defaults: { _controller: "schoolBundle:Resultat:index" }
+    methods:  GET
+
+resultat_show:
+    path:     /{etudiant}/show
+    defaults: { _controller: "schoolBundle:Resultat:show" }
+    methods:  GET
+
+resultat_new:
+    path:     /new
+    defaults: { _controller: "schoolBundle:Resultat:new" }
+    methods:  [GET, POST]
+
+resultat_edit:
+    path:     /{etudiant}/edit
+    defaults: { _controller: "schoolBundle:Resultat:edit" }
+    methods:  [GET, POST]
+
+resultat_delete:
+    path:     /{etudiant}/delete
+    defaults: { _controller: "schoolBundle:Resultat:delete" }
+    methods:  DELETE

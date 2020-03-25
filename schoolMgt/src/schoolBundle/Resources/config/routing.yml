@@ -1,3 +1,7 @@
+school_resultat:
+    resource: "@schoolBundle/Resources/config/routing/resultat.yml"
+    prefix:   /resultat
+
 school_homepage:
     path:     /
     defaults: { _controller: schoolBundle:Default:index }

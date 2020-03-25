@@ -7,35 +7,35 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Note
  *
- * @ORM\Table(name="note", indexes={@ORM\Index(name="idEnseignant", columns={"idEnseignant"})})
+ * @ORM\Table(name="note", indexes={@ORM\Index(name="idEnseignant", columns={"idEnseignant"}), @ORM\Index(name="idMatiere", columns={"idMatiere"})})
  * @ORM\Entity
  */
 class Note
 {
     /**
      * @var integer
-     *
+     * @ORM\ManyToOne(targetEntity="schoolBundle\Entity\Users")
      * @ORM\Column(name="idEtudiant", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="NONE")
      */
-    private $idetudiant;
+    private $etudiant;
 
     /**
      * @var string
-     *
+     * @ORM\ManyToOne(targetEntity="schoolBundle\Entity\Matier")
      * @ORM\Column(name="idMatiere", type="string", length=50, nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="NONE")
      */
-    private $idmatiere;
+    private $matiere;
 
     /**
      * @var integer
-     *
+     * @ORM\ManyToOne(targetEntity="schoolBundle\Entity\Users")
      * @ORM\Column(name="idEnseignant", type="integer", nullable=true)
      */
-    private $idenseignant;
+    private $enseignant;
 
     /**
      * @var \DateTime

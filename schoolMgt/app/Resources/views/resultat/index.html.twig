@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Resultats list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Etudiant</th>
+                <th>Dateresultat</th>
+                <th>Resultat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for resultat in resultats %}
+            <tr>
+                <td><a href="{{ path('resultat_show', { 'etudiant': resultat.etudiant }) }}">{{ resultat.etudiant }}</a></td>
+                <td>{% if resultat.dateresultat %}{{ resultat.dateresultat|date('Y-m-d') }}{% endif %}</td>
+                <td>{{ resultat.resultat }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('resultat_show', { 'etudiant': resultat.etudiant }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('resultat_edit', { 'etudiant': resultat.etudiant }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('resultat_new') }}">Create a new resultat</a>
+        </li>
+    </ul>
+{% endblock %}

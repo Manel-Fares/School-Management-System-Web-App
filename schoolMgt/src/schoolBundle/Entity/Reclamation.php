@@ -40,7 +40,7 @@ class Reclamation
      *
      * @ORM\Column(name="statutReclamation", type="string", length=11, nullable=false)
      */
-    private $statutreclamation = 'Non Traité';
+    private $statutreclamation;
 
     /**
      * @var \DateTime
