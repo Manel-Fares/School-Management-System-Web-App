@@ -2,6 +2,10 @@ school_resultat:
     resource: "@schoolBundle/Resources/config/routing/resultat.yml"
     prefix:   /resultat
 
+school_note:
+    resource: "@schoolBundle/Resources/config/routing/note.yml"
+    prefix:   /note
+
 school_homepage:
     path:     /
     defaults: { _controller: schoolBundle:Default:index }

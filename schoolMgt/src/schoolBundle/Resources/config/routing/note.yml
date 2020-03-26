@@ -1,0 +1,24 @@
+note_index:
+    path:     /
+    defaults: { _controller: "schoolBundle:Note:index" }
+    methods:  GET
+
+note_show:
+    path:     /{etudiant}/show
+    defaults: { _controller: "schoolBundle:Note:show" }
+    methods:  GET
+
+note_new:
+    path:     /new
+    defaults: { _controller: "schoolBundle:Note:new" }
+    methods:  [GET, POST]
+
+note_edit:
+    path:     /{etudiant}/edit
+    defaults: { _controller: "schoolBundle:Note:edit" }
+    methods:  [GET, POST]
+
+note_delete:
+    path:     /{etudiant}/delete
+    defaults: { _controller: "schoolBundle:Note:delete" }
+    methods:  DELETE

@@ -41,7 +41,7 @@ class Note
      * @var \DateTime
      *
      * @ORM\Column(name="dateNote", type="date", nullable=false)
-     * @ORM\Id
+     *
      * @ORM\GeneratedValue(strategy="NONE")
      */
     private $datenote;
@@ -73,6 +73,134 @@ class Note
      * @ORM\Column(name="Moyenne", type="float", precision=10, scale=0, nullable=true)
      */
     private $moyenne;
+
+    /**
+     * @return int
+     */
+    public function getEtudiant()
+    {
+        return $this->etudiant;
+    }
+
+    /**
+     * @param int $etudiant
+     */
+    public function setEtudiant($etudiant)
+    {
+        $this->etudiant = $etudiant;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMatiere()
+    {
+        return $this->matiere;
+    }
+
+    /**
+     * @param string $matiere
+     */
+    public function setMatiere($matiere)
+    {
+        $this->matiere = $matiere;
+    }
+
+    /**
+     * @return int
+     */
+    public function getEnseignant()
+    {
+        return $this->enseignant;
+    }
+
+    /**
+     * @param int $enseignant
+     */
+    public function setEnseignant($enseignant)
+    {
+        $this->enseignant = $enseignant;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDatenote()
+    {
+        return $this->datenote;
+    }
+
+    /**
+     * @param \DateTime $datenote
+     */
+    public function setDatenote($datenote)
+    {
+        $this->datenote = $datenote;
+    }
+
+    /**
+     * @return float
+     */
+    public function getNotecc()
+    {
+        return $this->notecc;
+    }
+
+    /**
+     * @param float $notecc
+     */
+    public function setNotecc($notecc)
+    {
+        $this->notecc = $notecc;
+    }
+
+    /**
+     * @return float
+     */
+    public function getNoteds()
+    {
+        return $this->noteds;
+    }
+
+    /**
+     * @param float $noteds
+     */
+    public function setNoteds($noteds)
+    {
+        $this->noteds = $noteds;
+    }
+
+    /**
+     * @return float
+     */
+    public function getNoteexam()
+    {
+        return $this->noteexam;
+    }
+
+    /**
+     * @param float $noteexam
+     */
+    public function setNoteexam($noteexam)
+    {
+        $this->noteexam = $noteexam;
+    }
+
+    /**
+     * @return float
+     */
+    public function getMoyenne()
+    {
+        return $this->moyenne;
+    }
+
+    /**
+     * @param float $moyenne
+     */
+    public function setMoyenne($moyenne)
+    {
+        $this->moyenne = $moyenne;
+    }
 
 
 }
