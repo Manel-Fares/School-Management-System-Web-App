@@ -16,6 +16,7 @@ class Note
      * @var integer
      * @ORM\ManyToOne(targetEntity="schoolBundle\Entity\Users")
      * @ORM\Column(name="idEtudiant", type="integer", nullable=false)
+     * @ORM\JoinColumn(name="idEtudiant",referencedColumnName="id")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="NONE")
      */
@@ -26,6 +27,7 @@ class Note
      * @ORM\ManyToOne(targetEntity="schoolBundle\Entity\Matier")
      * @ORM\Column(name="idMatiere", type="string", length=50, nullable=false)
      * @ORM\Id
+     * @ORM\JoinColumn(name="idMatiere",referencedColumnName="id")
      * @ORM\GeneratedValue(strategy="NONE")
      */
     private $matiere;
@@ -33,6 +35,7 @@ class Note
     /**
      * @var integer
      * @ORM\ManyToOne(targetEntity="schoolBundle\Entity\Users")
+     * @ORM\JoinColumn(name="idEnseignant",referencedColumnName="id")
      * @ORM\Column(name="idEnseignant", type="integer", nullable=true)
      */
     private $enseignant;
