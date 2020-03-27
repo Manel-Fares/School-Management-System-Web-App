@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\RangeType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -23,16 +24,25 @@ class NoteType extends AbstractType
             ->add('etudiant',TextType::class)
             ->add('matiere',TextType::class)
             ->add('enseignant',TextType::class)
-            ->add('datenote',DateTimeType::class,[
-                        'widget' => 'single_text',
-                        'format' => 'yyyy-MM-dd',])
-            ->add('notecc',NumberType::class)
-            ->add('noteds',NumberType::class)
+            ->add('datenote',DateType::class,[
+                'widget' => 'single_text',
+                'format' => 'yyyy-MM-dd',])
+            ->add('notecc',RangeType::class,[
+                'attr' => [
+                    'min' => 0,
+                    'max' => 20
+                ]
+            ])
+            ->add('noteds',NumberType::class,[
+                'attr' => [
+                    'min' => 0,
+                    'max' => 20
+                ]
+            ])
             ->add('noteexam',NumberType::class)
-            ->add('moyenne',NumberType::class)
+
             ->add('Envoyer',SubmitType::class)
-            ->add('reinitialiser',ResetType::class);
-    }/**
+            ->add('reinitialiser',ResetType::class);    }/**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)

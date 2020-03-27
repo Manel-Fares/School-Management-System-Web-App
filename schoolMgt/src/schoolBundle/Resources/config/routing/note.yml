@@ -9,8 +9,8 @@ note_show:
     methods:  GET
 
 note_new:
-    path:     /new
-    defaults: { _controller: "schoolBundle:Note:new" }
+    path:     /add
+    defaults: { _controller: "schoolBundle:Note:add" }
     methods:  [GET, POST]
 
 note_edit:

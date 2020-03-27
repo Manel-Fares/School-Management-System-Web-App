@@ -24,16 +24,18 @@ class NoteController extends Controller
     }
 
     /**
-     * Creates a new note entity.
+     *
      *
      */
-    public function newAction(Request $request)
+    public function addAction(Request $request)
     {
         $note = new Note();
         $form = $this->createForm(NoteType::class, $note);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $moyenne=$note->getNotecc()*0.2+$note->getNoteds()*0.3+$note->getNoteexam()*0.5;
+            $note->setMoyenne($moyenne);
             $em = $this->getDoctrine()->getManager();
             $em->persist($note);
             $em->flush();
@@ -60,6 +62,12 @@ class NoteController extends Controller
             'delete_form' => $deleteForm->createView(),
         ));
     }
+
+    /**
+     * Recuperer la liste des etudiant
+     */
+
+
 
     /**
      * Displays a form to edit an existing note entity.
