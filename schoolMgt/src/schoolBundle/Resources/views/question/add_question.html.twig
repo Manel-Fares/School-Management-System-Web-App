@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block dynamique %}
+
+    <style>
+        .btn{
+            background-color:#dc3545;
+            color:white;
+            font-weight: bold;
+
+        }
+    </style>
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="ui-block responsive-flex">
+
+                    <div class="ui-block-title" style="text-align: center;">
+                        <h1>Ajouter une question</h1>
+                    </div>
+                    <div class="col-12" style="text-align: left;margin: 15px;">
+                        {{ form(add_question_form, {'attr': {'novalidate': 'novalidate'}}) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

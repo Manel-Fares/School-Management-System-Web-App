@@ -1,0 +1,124 @@
+{% extends 'base.html.twig' %}
+
+{% block dynamique %}
+
+    <style>
+        .btn{
+            background-color:#dc3545;
+            color:white;
+            font-weight: bold;
+
+        }
+    </style>
+
+    <div class="container">
+    <br>
+    <br>
+    <br>
+    <br>
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="ui-block responsive-flex">
+                    <div class="ui-block-title">
+                        <div class="h6 title">All questions <small>{{ " ( Total " ~ pagination.getTotalItemCount ~ " ) " }}</small>
+                        </div>
+                        <form class="w-search" method="post">
+                            <div class="row" style="width:650px;">
+                                <div class="col-md-9">
+                                <input class="form-control" type="text" name="search" id="searchALLOp" placeholder="Chercher..." style="width: 350px;">
+
+                                </div>
+                                <div class="col-md-3" style="margin-left: -138px;">
+                                <button >
+                                    <svg class="olymp-magnifying-glass-icon" style="width:35px;height: 50px;">
+                                        <use xlink:href="{{ asset('svg-icons/sprites/icons.svg#olymp-magnifying-glass-icon') }}"></use>
+                                    </svg>
+                                </button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                    <div class="col-12" style="    text-align: right;">
+                        <a href="{{ path('add_question') }}">
+                            <button type="button" style="background-color: #cd2122;    margin-top: 15px;    border-color: #cd2122;" class="btn btn-success">Ask question</button>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+
+            <div class="col-12" >
+
+
+                {% for question in pagination %}
+                    <div class="ui-block" id="opResult">
+
+
+                        <article class="hentry post video">
+                            <div class="post__author author vcard inline-items" >
+                                <div class="author-date col-12">
+                                    <div class="post__date">
+                                        <time class="published" style="float: right;">
+
+                                            {{ " asked " ~ question.createdAt|date("d M Y") ~ " at " ~ question.createdAt|date("H:i") }}
+                                        </time>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                            <h5 class="col-12" >
+                                {% if (app.user) and ("ROLE_ADMIN" in app.user.roles) %}
+                                    <a href="{{ path('view_question', { id: question.id }) }}"><span style="font-weight: bold;">Question :</span> {{ question.title }}</a>
+                                    <a href="{{ path('delete_question', { id: question.id }) }}"><i class="fa fa-lg fa-times" aria-hidden="true"></i></a>
+                                {% else %}
+                                    <a href="{{ path('view_question', { id: question.id }) }}">{{ question.title }}</a>
+                                {% endif %}
+                            </h5>
+
+
+                        </article>
+
+
+
+
+
+                    </div>
+                {% endfor %}
+                <br>
+
+                <div class="pagination centered" >
+                    {{ knp_pagination_render(pagination) }}
+                </div>
+            </div>
+
+
+
+
+        </div>
+    </div>
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+{% endblock %}
