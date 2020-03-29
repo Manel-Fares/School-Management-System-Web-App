@@ -7,7 +7,7 @@ school_note:
     prefix:   /note
 
 school_homepage:
-    path:     /
+    path:     /home
     defaults: { _controller: schoolBundle:Default:index }
 
 add:

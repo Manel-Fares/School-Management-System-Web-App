@@ -21,6 +21,7 @@ class securityController extends Controller
         return $this->forward('schoolBundle:security:redirect');
     }
 
+
     public function redirectAction()
     {
         $authChecker = $this->container->get('security.authorization_checker');

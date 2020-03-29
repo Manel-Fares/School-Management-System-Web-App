@@ -11,10 +11,10 @@ namespace schoolBundle\Repository;
 class NoteRepository extends \Doctrine\ORM\EntityRepository
 {
 
-    public function listCinStudents(): array
+    public function listStudents(): array
     {
-        return $this->createQueryBuilder('a')
-            ->orderBy('a.title', 'ASC')
+        return $this->createQueryBuilder('user')
+            ->where()
             ->getQuery()->getResult();
     }
 }

@@ -7,26 +7,26 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Note
  *
- * @ORM\Table(name="note", indexes={@ORM\Index(name="idEnseignant", columns={"idEnseignant"}), @ORM\Index(name="idMatiere", columns={"idMatiere"})})
+ * @ORM\Table(name="note", indexes={@ORM\Index(name="idEtudiant", columns={"idEtudiant"}),@ORM\Index(name="idEnseignant", columns={"idEnseignant"}), @ORM\Index(name="idMatiere", columns={"idMatiere"})})
  * @ORM\Entity
  */
 class Note
 {
     /**
      * @var integer
-     * @ORM\ManyToOne(targetEntity="schoolBundle\Entity\Users")
-     * @ORM\Column(name="idEtudiant", type="integer", nullable=false)
-     * @ORM\JoinColumn(name="idEtudiant",referencedColumnName="id")
      * @ORM\Id
+     * @ORM\Column(name="idEtudiant", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="schoolBundle\Entity\Users")
+     * @ORM\JoinColumn(name="idEtudiant",referencedColumnName="id")
      * @ORM\GeneratedValue(strategy="NONE")
      */
     private $etudiant;
 
     /**
-     * @var string
+     * @var integer
+     * @ORM\Column(name="idMatiere", type="integer", nullable=false)
+     *
      * @ORM\ManyToOne(targetEntity="schoolBundle\Entity\Matier")
-     * @ORM\Column(name="idMatiere", type="string", length=50, nullable=false)
-     * @ORM\Id
      * @ORM\JoinColumn(name="idMatiere",referencedColumnName="id")
      * @ORM\GeneratedValue(strategy="NONE")
      */
@@ -34,17 +34,16 @@ class Note
 
     /**
      * @var integer
+     * @ORM\Column(name="idEnseignant", type="integer", nullable=true)
      * @ORM\ManyToOne(targetEntity="schoolBundle\Entity\Users")
      * @ORM\JoinColumn(name="idEnseignant",referencedColumnName="id")
-     * @ORM\Column(name="idEnseignant", type="integer", nullable=true)
+     *
      */
     private $enseignant;
 
     /**
      * @var \DateTime
-     *
      * @ORM\Column(name="dateNote", type="date", nullable=false)
-     *
      * @ORM\GeneratedValue(strategy="NONE")
      */
     private $datenote;
