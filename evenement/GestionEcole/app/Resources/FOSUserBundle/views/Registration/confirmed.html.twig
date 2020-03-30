@@ -1,0 +1,25 @@
+{% extends "@FOSUser/layout.html.twig" %}
+{% block bodydef %}<body class="sign-in" oncontextmenu="return false;">{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('template/css/animate.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('template/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('template/css/line-awesome.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('template/css/line-awesome-font-awesome.min.css')}}">
+    <link href="{{ asset('template/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('template/css/font-awesome.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('template/lib/slick/slick.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('template/lib/slick/slick-theme.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('template/css/style.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('template/css/responsive.css')}}">
+{% endblock %}
+{% block header %}{% endblock %}
+{% block fos_user_content %}
+    {% include "@FOSUser/Registration/confirmed_content.html.twig" %}
+{% endblock fos_user_content %}
+{% block javascripts %}
+<script type="text/javascript" src="{{ asset('template/js/jquery.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('template/js/popper.js')}}"></script>
+<script type="text/javascript" src="{{ asset('template/js/bootstrap.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('template/lib/slick/slick.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('template/js/script.js')}}"></script>
+{% endblock %}

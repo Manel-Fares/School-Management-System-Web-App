@@ -1,0 +1,20 @@
+
+
+            <div class="modal fade" id="myModalchoose" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content"style="background-color: red;">
+                        <div class="modal-header">
+
+                            <h5 class="modal-title" id="exampleModalCenterTitle">Date Debut: {{ evenement.datedebut|date("m/d/Y") }}</h5><br>
+                            <h5 class="modal-title" id="exampleModalCenterTitle">Date Fin: {{ evenement.datefin|date("m/d/Y") }}</h5>
+                            <img src="{{ asset('images/'~evenement.image)}} "style="height: 50px;width: 60px;" data-toggle="modal" data-target="#exampleModalCenter">
+
+                            <p>descriptio</p>
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+

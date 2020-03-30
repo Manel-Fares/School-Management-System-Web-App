@@ -5,7 +5,8 @@ namespace EvenementBundle\Controller;
 use EvenementBundle\Entity\Club;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Club controller.
@@ -18,16 +19,43 @@ class ClubController extends Controller
      * Lists all club entities.
      *
      * @Route("/", name="club_index")
-     * @Method("GET")
+     * @Method({"GET","POST"})
      */
-    public function indexAction()
-    {
-        $em = $this->getDoctrine()->getManager();
+    public function indexAction(Request $request)
+    { $em = $this->getDoctrine()->getManager();
 
         $clubs = $em->getRepository('EvenementBundle:Club')->findAll();
+        if($request ->isMethod('post')){
+            $varr=$request->get('search');
+            $clubs = $em->getRepository('EvenementBundle:Club')->search($varr);
+        }
+
+
 
         return $this->render('club/index.html.twig', array(
             'clubs' => $clubs,
+        ));
+    }
+    /**
+     * Finds and displays a club Image .
+     *
+     * @Route("/ListImage", name="club_show_image")
+     * @Method("GET")
+     */
+    public function ListImageAction(Request $request)
+    { $em = $this->getDoctrine()->getManager();
+
+        $clubs = $em->getRepository('EvenementBundle:Club')->afficerSpecifique();
+        $entities  = $this->get('knp_paginator')->paginate(
+            $clubs,
+            $request->query->get('page', 1)/*le numéro de la page à afficher*/,
+            1/*nbre d'éléments par page*/
+        );
+
+
+
+        return $this->render('club/listImageClub.html.twig', array(
+            'clubs' => $entities,
         ));
     }
 
@@ -132,5 +160,16 @@ class ClubController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+
+
+    public function nbrEvenementClubAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $clubs = $em->getRepository('EvenementBundle:Club')->nbrEvenementClub();
+        var_dump($clubs);
+        return $this->render('club/xx.html.twig', array(
+            'clubs' => $clubs,
+        ));
     }
 }

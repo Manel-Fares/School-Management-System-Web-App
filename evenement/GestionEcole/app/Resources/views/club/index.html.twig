@@ -1,6 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+
+    <div class="container">
+        <form method="post">
+            <input type="text" placeholder="your text .." name="search">
+            <input type="submit" value="rechercher">
+        </form>
     <h1>Clubs list</h1>
 
     <table>
@@ -40,4 +46,5 @@
             <a href="{{ path('club_new') }}">Create a new club</a>
         </li>
     </ul>
+    </div>
 {% endblock %}

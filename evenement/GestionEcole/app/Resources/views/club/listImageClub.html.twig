@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+{% block title %}List CLub{% endblock %}
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            {% for club in clubs %}
+                <div class="col-md-3">
+
+                    <img src="{{ asset('/images/' )}} {{ club.image}}">
+                </div>
+
+            {% endfor %}
+        </div>
+    </div>
+    <div class="text-center">{{ knp_pagination_render(clubs) }}</div>
+{% endblock %}

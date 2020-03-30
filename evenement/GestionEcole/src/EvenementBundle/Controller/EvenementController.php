@@ -5,7 +5,8 @@ namespace EvenementBundle\Controller;
 use EvenementBundle\Entity\Evenement;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Evenement controller.
@@ -30,7 +31,69 @@ class EvenementController extends Controller
             'evenements' => $evenements,
         ));
     }
+    /**
+     * Lists all image  evenement entities.
+     *
+     * @Route("/image", name="evenement_image")
+     * @Method("GET")
+     */
+    public function ListImageAction(Request $request)
+    { $em = $this->getDoctrine()->getManager();
 
+        $evenements = $em->getRepository('EvenementBundle:Evenement')->findAll();
+        $entities  = $this->get('knp_paginator')->paginate(
+            $evenements,
+            $request->query->get('page', 1)/*le numéro de la page à afficher*/,
+       4
+        );
+
+        return $this->render('evenement/listImageEvenement.html.twig', array(
+            'evenements' => $entities,
+        ));
+    }
+    /**
+     * Lists all image detail  evenement entities.
+     *
+     * @Route("/detailevenement/{idevenement}", name="evenement_detail")
+     * @Method("GET")
+     */
+    public function ListImageDetailAction(Request $request,$idevenement)
+    { $em = $this->getDoctrine()->getManager();
+
+        $evs = $em->getRepository('EvenementBundle:Evenement')->find($idevenement+0);
+
+
+        return $this->render('evenement/listImageEvenementxx.html.twig', array(
+            'evenement' => $evs,
+        ));
+    }
+    /**
+     * Lists all  Proche  evenement entities.
+     *
+     * @Route("/EvenementProche", name="evenement_Proche")
+     * @Method("GET")
+     */
+    public function EvenementProAction(Request $request)
+    { $em = $this->getDoctrine()->getManager();
+        //$evenements=null;
+        $ev = $em->getRepository('EvenementBundle:Evenement')->EvenementProch();
+          //  var_dump($ev);
+        //for ($i = 0; $i < sizeof($ev); $i++) {
+            //$evenements = $em->getRepository('EvenementBundle:Evenement')->find(12);
+        $entities  = $this->get('knp_paginator')->paginate(
+            $ev,
+            $request->query->get('page', 1)/*le numéro de la page à afficher*/,
+            4
+        );
+
+
+        // }
+        var_dump($ev);
+
+        return $this->render('evenement/procheEvenement.html.twig', array(
+            'evenements' => $entities,
+        ));
+    }
     /**
      * Creates a new evenement entity.
      *
@@ -45,6 +108,7 @@ class EvenementController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $evenement->UploadProfilePicture();
             $em->persist($evenement);
             $em->flush();
 
@@ -133,4 +197,7 @@ class EvenementController extends Controller
             ->getForm()
         ;
     }
+
+
+
 }

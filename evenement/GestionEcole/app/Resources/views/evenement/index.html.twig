@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+<div class="container">
     <h1>Evenements list</h1>
 
     <table>
@@ -21,7 +22,8 @@
                 <td>{% if evenement.datedebut %}{{ evenement.datedebut|date('Y-m-d') }}{% endif %}</td>
                 <td>{% if evenement.datefin %}{{ evenement.datefin|date('Y-m-d') }}{% endif %}</td>
                 <td>{{ evenement.idclub }}</td>
-                <td><img src="{{ asset( 'C:\wamp64\www\image\download.jpg'  )}}" ></td>
+                <td><img src="{{ asset('uploads/images/' ~ evenement.image) }}" height="100px" width="250px"></td>
+
                 <td>
                     <ul>
                         <li>
@@ -42,4 +44,5 @@
             <a href="{{ path('evenement_new') }}">Create a new evenement</a>
         </li>
     </ul>
+</div>
 {% endblock %}

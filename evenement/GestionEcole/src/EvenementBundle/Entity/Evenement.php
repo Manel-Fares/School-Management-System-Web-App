@@ -3,12 +3,13 @@
 namespace EvenementBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Evenement
  *
  * @ORM\Table(name="evenement", indexes={@ORM\Index(name="qsdqsdqsdqsd", columns={"idClub"})})
  * @ORM\Entity
+ * @ORM\Entity(repositoryClass="EvenementBundle\Repository\EvenementRepository")
  */
 class Evenement
 {
@@ -104,7 +105,28 @@ class Evenement
     {
         return $this->idclub;
     }
+    /**
+     * @return mixed
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+    /**
+     * @param mixed $file
+     */
+    public function setFile($file)
+    {
+        $this->file = $file;
+    }
 
+
+    /**
+     * @Assert\File(maxSize="500k")
+     *
+     * )
+     */
+    private $file;
     /**
      * @param int $idclub
      */
@@ -130,5 +152,23 @@ class Evenement
     }
 
 
+    public function getWebPath()
+    {
+        return null===$this->image ? null : $this->getUploadDir().'/'.$this->image;
+    }
+    protected function getUploadRootDir()
+    {
+        return __DIR__.'/../../../web/'.$this->getUploadDir();
+    }
+    protected function getUploadDir()
+    {
+        return 'images';
+    }
+    public function UploadProfilePicture()
+    {
+        $this->file->move($this->getUploadRootDir(),$this->file->getClientOriginalName());
+        $this->image=$this->file->getClientOriginalName();
+        $this->file=null;
+    }
 }
 
