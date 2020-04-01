@@ -1,3 +1,7 @@
+school_resultat:
+    resource: "@schoolBundle/Controller/ResultatController.php"
+    type:     annotation
+
 school:
     resource: "@schoolBundle/Resources/config/routing.yml"
     prefix:   /

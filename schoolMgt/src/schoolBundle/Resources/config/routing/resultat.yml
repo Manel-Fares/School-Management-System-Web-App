@@ -3,9 +3,9 @@ resultat_index:
     defaults: { _controller: "schoolBundle:Resultat:index" }
     methods:  GET
 
-resultat_show:
-    path:     /{etudiant}/show
-    defaults: { _controller: "schoolBundle:Resultat:show" }
+resultat_affiche:
+    path:     /affiche
+    defaults: { _controller: "schoolBundle:Resultat:resutlatEtudiant" }
     methods:  GET
 
 resultat_new:

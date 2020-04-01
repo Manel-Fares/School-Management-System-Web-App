@@ -2,6 +2,8 @@
 
 namespace schoolBundle\Repository;
 
+use Doctrine\ORM\Query\Expr\Select;
+
 /**
  * NoteRepository
  *
@@ -11,10 +13,5 @@ namespace schoolBundle\Repository;
 class NoteRepository extends \Doctrine\ORM\EntityRepository
 {
 
-    public function listStudents(): array
-    {
-        return $this->createQueryBuilder('user')
-            ->where()
-            ->getQuery()->getResult();
-    }
+
 }

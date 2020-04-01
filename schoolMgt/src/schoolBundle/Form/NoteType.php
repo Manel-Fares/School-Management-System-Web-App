@@ -2,6 +2,7 @@
 
 namespace schoolBundle\Form;
 
+use Doctrine\ORM\EntityRepository;
 use schoolBundle\Entity\Matier;
 use schoolBundle\Entity\Users;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -24,18 +25,23 @@ class NoteType extends AbstractType
         $builder
             ->add('etudiant',EntityType::class,[
                 'class' => Users::class,
-                'choice_label' => 'cinUser'
+                'choice_label' => 'cinUser',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('e')
+                        ->select('e')
+                        ->where('e.roleuser = :roleuser')
+                        ->andWhere()
+                        ->setParameter('roleuser','Etudiant');
+
+                }
             ])
+
         ->add('matiere',EntityType::class,[
 
             'class' => Matier::class,
             'choice_label' => 'nom'
     ])
-            ->add('enseignant',EntityType::class,[
 
-                'class' => Users::class,
-                'choice_label' => 'cinUser'
-            ])
         ->add('datenote',DateType::class,[
             'widget' => 'single_text',
             'format' => 'yyyy-MM-dd',])
@@ -53,7 +59,9 @@ class NoteType extends AbstractType
         ])
         ->add('noteexam',NumberType::class)
 
-        ->add('Envoyer',SubmitType::class)
+        ->add('Envoyer',SubmitType::class,[
+            'attr' => ['formnovalidate ' => 'formnovalidate']
+        ])
         ->add('reinitialiser  ',ResetType::class);
     }/**
     }/**

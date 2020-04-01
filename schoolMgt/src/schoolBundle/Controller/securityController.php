@@ -10,10 +10,10 @@ class securityController extends Controller
     {
         $userManger= $this->container->get('fos_user.user_manager');
         $user = $userManger->createUser();
-        $user->setUsername('John');
-        $user->setRoles(array('ROLE_ADMIN'));
-        $user->setEmail('john@gmail.com');
-        $user->setPlainPassword('userPassword');
+        $user->setUsername('lotfi');
+        $user->setRoles(array('ROLE_ENSEIGNIANT'));
+        $user->setEmail('lotfi@gmail.com');
+        $user->setPlainPassword('lotfi');
         $userManger->updateUser($user);
         $user->setEnabled(true);
 
@@ -25,10 +25,11 @@ class securityController extends Controller
     public function redirectAction()
     {
         $authChecker = $this->container->get('security.authorization_checker');
-        if($authChecker->isGranted('ROLE_ADMIN')) {
-            return $this->render('@school/security/admin_home.html.twig');
-        }else if ($authChecker->isGranted('ROLE_USER')){
-            return $this->render('@school/security/user_home.html.twig');
+        if($authChecker->isGranted('ROLE_ENSEIGNANT')) {
+            return $this->redirectToRoute('note_affiche_enseignant');
+
+        }else if ($authChecker->isGranted('ROLE_ETUDIANT')){
+            return $this->redirectToRoute('note_affiche_etudiant');
         }
         return $this->render('@FOSUser/Security/login.html.twig', array(
             // ...

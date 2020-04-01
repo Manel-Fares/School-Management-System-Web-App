@@ -105,7 +105,18 @@ class Matier
     {
         $this->responsable = $responsable;
     }
-
+    public function __toString(){
+        try {
+            // Note that the property needs to exist
+            // on the class, or therefore the exception
+            // will be thrown
+            return (string) $this->getId();
+        } catch (Exception $exception) {
+            // Optionally you can var_dump the error message to see why the exception is being thrown !
+            var_dump($exception->getMessage());
+            return '';
+        }
+    }
 
 }
 

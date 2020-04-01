@@ -1,0 +1,39 @@
+<head>
+    <title>Afficher Note</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body>
+<br>
+<h2 align="center" style="color: #ac151a" > Les Notes Des Modules</h2>
+<br>
+<table class="table table-striped">
+    <thead style="background-color: #37737f" >
+    <tr>
+        <th>Nom Matiere</th>
+        <th>Nom Enseignant</th>
+        <th>Coefficent</th>
+        <th>Note CC</th>
+        <th>Note DS</th>
+        <th>Note Examen</th>
+        <th>Moyenne</th>
+
+    </tr>
+    </thead>
+    {%  for n in note %}
+    <tr>
+        <td>{{ n.nom }}</td>
+        <td>{{ n.nomuser }} {{ n.prenomuser }}</td>
+        <td>{{ n.coef }}</td>
+        <td>{{ n.notecc }}</td>
+        <td>{{ n.noteds }}</td>
+        <td>{{ n.noteexam }}</td>
+        <td>{{ n.moyenne }}</td>
+
+    </tr>
+    {% endfor %}
+
+
+</table>
+
+</body>
