@@ -1,0 +1,19 @@
+school_resultat:
+    resource: "@schoolBundle/Resources/config/routing/resultat.yml"
+    prefix:   /resultat
+
+school_note:
+    resource: "@schoolBundle/Resources/config/routing/note.yml"
+    prefix:   /note
+
+school_homepage:
+    path:     /home
+    defaults: { _controller: schoolBundle:Default:index }
+
+add:
+    path:     /addUser
+    defaults: { _controller: schoolBundle:security:add }
+
+redirect:
+    path:     /redirect
+    defaults: { _controller: schoolBundle:security:redirect }
