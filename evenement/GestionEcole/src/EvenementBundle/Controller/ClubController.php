@@ -3,6 +3,7 @@
 namespace EvenementBundle\Controller;
 
 use EvenementBundle\Entity\Club;
+use EvenementBundle\Entity\Evenement;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -68,9 +69,13 @@ class ClubController extends Controller
     public function newAction(Request $request)
     {
         $club = new Club();
+
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
         $form = $this->createForm('EvenementBundle\Form\ClubType', $club);
         $form->handleRequest($request);
+        var_dump($user);
 
+        $club->setIdresponsable($user);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($club);
@@ -94,10 +99,20 @@ class ClubController extends Controller
     public function showAction(Club $club)
     {
         $deleteForm = $this->createDeleteForm($club);
+        $em = $this->getDoctrine()->getManager();
+        $Cl=new  Club();
+
+
+        $ct=$Cl->getConstants();
+        $bd = $em->getRepository('EvenementBundle:Demandeevenement')->budgetEvenementClub($club->getIdclub());
+
+        $clubs = $em->getRepository('EvenementBundle:Club')->nbrEvenementClub($club->getIdclub());
+        var_dump($clubs);
+        $evenements= $em->getRepository('EvenementBundle:Evenement')->nbrEvenementTotale();
 
         return $this->render('club/show.html.twig', array(
             'club' => $club,
-            'delete_form' => $deleteForm->createView(),
+            'delete_form' => $deleteForm->createView(),'clubs' => $clubs,'evenements'=>$evenements,'bd'=>$bd,'ct'=>$ct
         ));
     }
 
@@ -166,10 +181,14 @@ class ClubController extends Controller
     public function nbrEvenementClubAction()
     {
         $em = $this->getDoctrine()->getManager();
+        $bb = $em->getRepository('EvenementBundle:Evenement')->xx();
+
         $clubs = $em->getRepository('EvenementBundle:Club')->nbrEvenementClub();
-        var_dump($clubs);
+        $evenements= $em->getRepository('EvenementBundle:Evenement')->nbrEvenementTotale();
+
+        var_dump($bb);
         return $this->render('club/xx.html.twig', array(
-            'clubs' => $clubs,
+            'clubs' => $clubs,'evenements'=>$evenements
         ));
     }
 }

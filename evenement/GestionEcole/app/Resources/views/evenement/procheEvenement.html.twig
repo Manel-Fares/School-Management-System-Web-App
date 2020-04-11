@@ -3,55 +3,128 @@
                 {% block titleBarre %}List Evenements{% endblock %}
 
 {% block body %}
-
-    <div class="container" style="margin-top: +5%;">
-        <div id="tmpmodal"></div>
-        <div class="row">
-            {% for evenement in evenements %}
-
-                <div class="col-md-3">
+        <!-- Bulles -->
 
 
-                    <img src="{{ asset('images/'~evenement.image)}} "style="height: 50px;width: 60px;" data-toggle="modal" data-target="#exampleModalCenter"  onclick="print({{ evenement.idevenement }})">
+                <style>
+                    * {box-sizing: border-box;}
+                    body {font-family: Verdana, sans-serif;}
+                    .mySlides {display: none;}
+                    img {vertical-align: middle;}
 
-                    <!-- Modal -->
+                    /* Slideshow container */
+                    .slideshow-container {
+                        max-width: 1000px;
+                        position: relative;
+                        margin: auto;
+                    }
 
-                    <div class="modal fade" id="myModalchoose" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
+                    /* Caption text */
+                    .text {
+                        color: #f2f2f2;
+                        font-size: 15px;
+                        padding: 8px 12px;
+                        position: absolute;
+                        bottom: 8px;
+                        width: 100%;
+                        text-align: center;
+                    }
 
-                                    <h5 class="modal-title" id="exampleModalCenterTitle">Date Debut: {{ evenement.datedebut|date("m/d/Y") }}</h5><br>
-                                    <h5 class="modal-title" id="exampleModalCenterTitle">Date Fin: {{ evenement.datefin|date("m/d/Y") }}</h5>
-                                    <img src="{{ asset('images/'~evenement.image)}} "style="height: 5px;width: 5px;" data-toggle="modal" data-target="#exampleModalCenter">
+                    /* Number text (1/3 etc) */
+                    .numbertext {
+                        color: #f2f2f2;
+                        font-size: 12px;
+                        padding: 8px 12px;
+                        position: absolute;
+                        top: 0;
+                    }
 
-                                    <p>descriptio</p>
+                    /* The dots/bullets/indicators */
+                    .dot {
+                        height: 15px;
+                        width: 15px;
+                        margin: 0 2px;
+                        background-color: #bbb;
+                        border-radius: 50%;
+                        display: inline-block;
+                        transition: background-color 0.6s ease;
+                    }
+
+                    .active {
+                        background-color: #717171;
+                    }
+
+                    /* Fading animation */
+                    .fade {
+                        -webkit-animation-name: fade;
+                        -webkit-animation-duration: 1.5s;
+                        animation-name: fade;
+                        animation-duration: 1.5s;
+                    }
+
+                    @-webkit-keyframes fade {
+                        from {opacity: .4}
+                        to {opacity: 1}
+                    }
+
+                    @keyframes fade {
+                        from {opacity: .4}
+                        to {opacity: 1}
+                    }
+
+                    /* On smaller screens, decrease text size */
+                    @media only screen and (max-width: 300px) {
+                        .text {font-size: 11px}
+                    }
+                </style>
 
 
-                                </div>
 
-                            </div>
-                        </div>
-                    </div>
+
+
+            <div class="slideshow-container">
+                <h1>Actuelites</h1>
+                {% for evenement in evenements %}
+                <div class="mySlides fade">
+
+                    <img  src="{{ asset('images/' ~ evenement.image) }}" style="width:250px;height: 300px">
+                    <div class="text">aaaaaaaaaaa</div>
 
                 </div>
 
-            {% endfor %}
-        </div>
-    </div>
-    <div class="text-center">{{ knp_pagination_render(evenements) }}</div>
-    <script>
-        function print(x) {
-            let url = "{{ (path('evenement_detail', {'idevenement': 'ReplaceMeWithCorrectValue'})) }}";
-
-            url = url.replace("ReplaceMeWithCorrectValue", x);
-
-            $.post(url, function (xx) {
-                $('#tmpmodal').html(xx);
-                $('#myModalchoose').modal('show');
-            });
-        }
+                    <div style="display:  none">
+                        <span class="dot"></span>
+                    </div>
+                {% endfor %}
+            </div>
 
 
-    </script>
+
+
+
+
+            <script>
+                var slideIndex = 0;
+                showSlides();
+
+                function showSlides() {
+                    var i;
+                    var slides = document.getElementsByClassName("mySlides");
+                    var dots = document.getElementsByClassName("dot");
+                    for (i = 0; i < slides.length; i++) {
+                        slides[i].style.display = "none";
+                    }
+                    slideIndex++;
+                    if (slideIndex > slides.length) {slideIndex = 1}
+                    for (i = 0; i < dots.length; i++) {
+                        dots[i].className = dots[i].className.replace(" active", "");
+                    }
+                    slides[slideIndex-1].style.display = "block";
+                    dots[slideIndex-1].className += " active";
+                    setTimeout(showSlides, 2000); // Change image every 2 seconds
+                }
+            </script>
+
+
+
 {% endblock %}

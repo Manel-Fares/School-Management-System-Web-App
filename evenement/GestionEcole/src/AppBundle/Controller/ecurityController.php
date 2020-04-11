@@ -23,11 +23,13 @@ class ecurityController extends Controller
     public function redirectAction()
     {
         $authChecker=$this->container->get('security.authorization_checker');
-        if($authChecker->isGranted('ROLE_ADMIN ')){
-        return $this->render('@App/ecurity/user_home.twig');}
-        else if($authChecker->isGranted('ROLE_USER ')){
-            return $this->render('@App/ecurity/user_home.twig');}
-        return $this->render('@App/ecurity/user_home.twig');
+        if($authChecker->isGranted('ROLE_ADMIN')){
+        return $this->render('@App/ecurity/admin_home.html.twig');}
+        else if($authChecker->isGranted('ROLE_ETUDIANT')){
+            return $this->render('@App/ecurity/user_home.html.twig');}
+        else if($authChecker->isGranted('ROLE_USER')){
+            return $this->render('@App/ecurity/user_home.html.twig');}
+        return $this->render('@App/ecurity/admin_home.html.twig');
     }
 
 }

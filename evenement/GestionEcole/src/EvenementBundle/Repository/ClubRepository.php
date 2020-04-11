@@ -19,8 +19,8 @@ return $qry->getResult();
         return $qry->getResult();
     }
 //select nomClub,COUNT(evenement.idClub) nbr from club INNER JOIN evenement on club.idClub=evenement.idClub where evenement.idClub ='" + idd + "'
-    public function nbrEvenementClub(){
-            $x=123;
+    public function nbrEvenementClub($o){
+            //$x=123;
         /*$qry=$this->getEntityManager()
             ->createQuery("SELECT m FROM EvenementBundle:Club m JOIN  EvenementBundle:Evenement e WHERE  m.idClub = : e.idClub ");
         return $qry->getResult();*/
@@ -28,9 +28,12 @@ return $qry->getResult();
         $qb->select('u.nomclub','COUNT(p.idclub) x')
 
             ->from(' EvenementBundle:Club', 'u')
-            ->innerJoin('EvenementBundle:Evenement', 'p', 'WITH', 'u.idclub = p.idclub');
+            ->innerJoin('EvenementBundle:Evenement', 'p', 'where', 'p.idclub = :ii')
+            ->setParameter('ii',$o);
+var_dump($o);
 
         return $qb->getQuery()->getResult();
 
     }
+
 }

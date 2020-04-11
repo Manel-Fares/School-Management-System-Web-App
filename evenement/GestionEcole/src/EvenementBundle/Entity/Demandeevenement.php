@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="demandeevenement", indexes={@ORM\Index(name="qsdqsdqd", columns={"idClub"})})
  * @ORM\Entity
+ * @ORM\Entity(repositoryClass="EvenementBundle\Repository\DemandeevenementRepository")
  */
 class Demandeevenement
 {
@@ -50,11 +51,46 @@ class Demandeevenement
     private $etat;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="idClub", type="integer", nullable=false)
+
+     * @ORM\ManyToOne(targetEntity="EvenementBundle\Entity\Club")
+     * @ORM\JoinColumn(name="idClub", referencedColumnName="idClub")
      */
     private $idclub;
+
+    /**
+     * @return mixed
+     */
+    public function getIdclub()
+    {
+        return $this->idclub;
+    }
+
+    /**
+     * @param mixed $idclub
+     */
+    public function setIdclub($idclub)
+    {
+        $this->idclub = $idclub;
+    }
+
+private $clubnom;
+
+    /**
+     * @return mixed
+     */
+    public function getClubnom()
+    {
+        return $this->clubnom;
+    }
+
+    /**
+     * @param mixed $clubnom
+     */
+    public function setClubnom($clubnom)
+    {
+        $this->clubnom = $clubnom;
+    }
+
 
     /**
      * @var float
@@ -150,21 +186,8 @@ class Demandeevenement
         $this->etat = $etat;
     }
 
-    /**
-     * @return int
-     */
-    public function getIdclub()
-    {
-        return $this->idclub;
-    }
 
-    /**
-     * @param int $idclub
-     */
-    public function setIdclub($idclub)
-    {
-        $this->idclub = $idclub;
-    }
+
 
     /**
      * @return float

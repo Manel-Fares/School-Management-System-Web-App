@@ -5,10 +5,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" href="{{ asset('img/favicon.png') }}" type="image/png">
-    <title>{% block title %}Learn IT Education{% endblock %}</title>
+    <title>{% block title %}{% endblock %}</title>
     <!-- Bootstrap CSS -->
     {% block stylesheet %}
         <link rel="stylesheet" href="{{ asset('css/bootstrap.css' )}}">
+        <link rel="stylesheet" href="{{ asset('css/styleSlide.css' )}}">
         <link rel="stylesheet" href="{{ asset('vendors/linericon/style.css') }}">
         <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
         <link rel="stylesheet" href="{{ asset('vendors/owl-carousel/owl.carousel.min.css') }}">
@@ -208,6 +209,7 @@
     <script src="{{ asset('vendors/counter-up/jquery.counterup.js' )}}"></script>
     <script src="{{ asset('js/mail-script.js' )}}"></script>
     <script src="{{ asset('js/theme.js' )}}"></script>
+
 {% endblock %}
 </body>
 </html>

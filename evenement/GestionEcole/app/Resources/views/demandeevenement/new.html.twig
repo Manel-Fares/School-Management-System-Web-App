@@ -1,38 +1,42 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <section class="banner_area">
-        <div class="banner_inner d-flex align-items-center">
-            <div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background=""></div>
-            <div class="container">
-                <div class="banner_content text-center">
-                    <h2>Elements</h2>
-                    <div class="page_link">
-                        <a href="index.html">Home</a>
-                        <a href="elements.html">Elements</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<div class="container">
     <h1>Club creation</h1>
 
     {{ form_start(form) }}
     <div class="col-lg-8 col-md-8">
 
         <div class="form-group">
+            <div class="mt-10">
+           <!-- <form method="post">
+
+                <select id="cars" name="carlist" form="carform">
+                    <option value="volvo">Volvo</option>
+                    <option value="saab">Saab</option>
+                    <option value="opel">Opel</option>
+                    <option value="audi">Audi</option>
+                </select>
+            </form>-->
+            </div>
+            <div class="mt-10">
+
+                {{ form_label(form.clubnom) }}
+                {{ form_widget(form.clubnom) }}
+                {{ form_errors(form.clubnom) }}
+            </div>
 
             <div class="mt-10">
 
                 {{ form_label(form.datedebut) }}
-                {{ form_widget(form.datedebut,{'attr':{'class':'single-input'}}) }}
+                {{ form_widget(form.datedebut) }}
                 {{ form_errors(form.datedebut) }}
             </div>
 
             <div class="mt-10">
 
                 {{ form_label(form.datefin) }}
-                {{ form_widget(form.datefin,{'attr':{'class':'single-input'}}) }}
+                {{ form_widget(form.datefin) }}
                 {{ form_errors(form.datefin) }}
             </div>
             <div class="mt-10">
@@ -40,11 +44,6 @@
                 {{ form_label(form.budget) }}
                 {{ form_widget(form.budget,{'attr':{'class':'single-input'}}) }}
                 {{ form_errors(form.budget) }}
-            </div> <div class="mt-10">
-
-                {{ form_label(form.idclub) }}
-                {{ form_widget(form.idclub,{'attr':{'class':'single-input'}}) }}
-                {{ form_errors(form.idclub) }}
             </div> <div class="mt-10">
 
                 {{ form_label(form.etat) }}
@@ -76,4 +75,5 @@
             <a href="{{ path('club_index') }}">Back to the list</a>
         </li>
     </ul>
+    </div>
 {% endblock %}

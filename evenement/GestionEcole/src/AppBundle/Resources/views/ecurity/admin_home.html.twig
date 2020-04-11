@@ -1,0 +1,13 @@
+
+{% extends 'backoffice.html.twig' %}
+{% block body %}
+
+{% if is_granted('ROLE_ETUDIANT') %}
+    <p>aaaaaaaaaaaaaaaaaaaaa</p><br>
+    {{ app.user  }}
+{% endif %}
+<h1>hello admin </h1>
+
+
+
+{% endblock %}

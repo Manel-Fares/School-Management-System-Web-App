@@ -2,7 +2,10 @@
 
 namespace EvenementBundle\Controller;
 
+use Doctrine\ORM\EntityRepository;
+use EvenementBundle\Entity\Club;
 use EvenementBundle\Entity\Demandeevenement;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
@@ -23,11 +26,16 @@ class DemandeevenementController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
+        $Cl=new  Club();
+
+
+        $ct=$Cl->getConstants();
+        $bd = $em->getRepository('EvenementBundle:Demandeevenement')->top3();
 
         $demandeevenements = $em->getRepository('EvenementBundle:Demandeevenement')->findAll();
 
         return $this->render('demandeevenement/index.html.twig', array(
-            'demandeevenements' => $demandeevenements,
+            'demandeevenements' => $demandeevenements,'bd'=>$bd,'ct'=>$ct
         ));
     }
 
@@ -40,16 +48,41 @@ class DemandeevenementController extends Controller
     public function newAction(Request $request)
     {
         $demandeevenement = new Demandeevenement();
+        $em = $this->getDoctrine()->getManager();
+
         $form = $this->createForm('EvenementBundle\Form\DemandeevenementType', $demandeevenement);
+        $form->add('clubnom',EntityType::class,[
+            'class' => Club::class,
+            'choice_label' => 'nomclub',
+            'query_builder' => function (EntityRepository $er) {
+                //$user = $this->container->get('security.token_storage')->getToken()->getUser();
+
+                $user = $this->container->get('security.token_storage')->getToken()->getUser();
+                return $er->createQueryBuilder('e')
+
+                    ->where('e.idresponsable = :idresponsable')
+                    ->setParameter('idresponsable',$user->getId());
+            }
+        ]);
         $form->handleRequest($request);
+        $club=$em->getRepository('EvenementBundle:Club')->findOneBy(array('idresponsable'=>$form['clubnom']->getData()));
+        var_dump($form['clubnom']->getData());
+
+
+
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            var_dump($club);
+            //var_dump($form['clubnom']->getData());
+          $demandeevenement->setIdclub($form['clubnom']->getData());
             $em->persist($demandeevenement);
             $em->flush();
 
-            return $this->redirectToRoute('demandeevenement_show', array('iddemandeevenement' => $demandeevenement->getIddemandeevenement()));
-        }
+
+            return $this->render('demandeevenement/new.html.twig', array(
+                'demandeevenement' => $demandeevenement,
+                'form' => $form->createView(),
+            ));        }
 
         return $this->render('demandeevenement/new.html.twig', array(
             'demandeevenement' => $demandeevenement,

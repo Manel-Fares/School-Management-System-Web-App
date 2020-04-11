@@ -5,6 +5,7 @@
 {% block body %}
 
 <div class="container" style="margin-top: +5%;">
+
 <div id="tmpmodal"></div>
     <div class="row">
     {% for evenement in evenements %}
@@ -12,7 +13,7 @@
         <div class="col-md-3">
 
 
-            <img src="{{ asset('images/'~evenement.image)}} "style="height: 50px;width: 60px;" data-toggle="modal" data-target="#exampleModalCenter"  onclick="print({{ evenement.idevenement }})">
+            <img src="{{ asset('images/'~evenement.image)}} "style="height: 250px;width: 260px;margin: 10%" data-toggle="modal" data-target="#exampleModalCenter"  onclick="print({{ evenement.idevenement }})">
 
             <!-- Modal -->
 
@@ -43,7 +44,6 @@
 <script>
 function print(x) {
     let url = "{{ (path('evenement_detail', {'idevenement': 'ReplaceMeWithCorrectValue'})) }}";
-
     url = url.replace("ReplaceMeWithCorrectValue", x);
 
     $.post(url, function (xx) {

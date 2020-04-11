@@ -37,9 +37,9 @@ class Evenement
     private $datefin;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="idClub", type="integer", nullable=false)
+
+     * @ORM\ManyToOne(targetEntity="EvenementBundle\Entity\Club")
+     * @ORM\JoinColumn(name="idClub", referencedColumnName="idClub")
      */
     private $idclub;
 
@@ -98,13 +98,7 @@ class Evenement
         $this->datefin = $datefin;
     }
 
-    /**
-     * @return int
-     */
-    public function getIdclub()
-    {
-        return $this->idclub;
-    }
+
     /**
      * @return mixed
      */
@@ -127,13 +121,7 @@ class Evenement
      * )
      */
     private $file;
-    /**
-     * @param int $idclub
-     */
-    public function setIdclub($idclub)
-    {
-        $this->idclub = $idclub;
-    }
+
 
     /**
      * @return string
@@ -150,6 +138,26 @@ class Evenement
     {
         $this->image = $image;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getIdclub()
+    {
+        return $this->idclub;
+    }
+
+    /**
+     * @param mixed $idclub
+     */
+    public function setIdclub($idclub)
+    {
+        $this->idclub = $idclub;
+    }
+
+
+
+
 
 
     public function getWebPath()

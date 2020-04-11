@@ -13,7 +13,7 @@ class ClubType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('nomclub')->add('idresponsable')->add('domaine');
+        $builder->add('nomclub')->add('domaine')->add('image');
     }/**
      * {@inheritdoc}
      */

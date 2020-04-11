@@ -3,6 +3,7 @@
 namespace EvenementBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use ReflectionClass;
 use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Club
@@ -11,14 +12,14 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity
  * @ORM\Entity(repositoryClass="EvenementBundle\Repository\ClubRepository")
  */
-class Club
+  class Club
 {
     /**
      * @var integer
      *
      * @ORM\Column(name="idClub", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $idclub;
 
@@ -29,11 +30,10 @@ class Club
      */
     private $nomclub;
 
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="idResponsable", type="integer", nullable=false)
-     */
+      /**
+       * @ORM\ManyToOne(targetEntity="EvenementBundle\Entity\Users")
+       * @ORM\JoinColumn(name="idResponsable", referencedColumnName="id")
+       */
     private $idresponsable;
 
     /**
@@ -100,21 +100,22 @@ class Club
         $this->nomclub = $nomclub;
     }
 
-    /**
-     * @return int
-     */
-    public function getIdresponsable()
-    {
-        return $this->idresponsable;
-    }
+      /**
+       * @return mixed
+       */
+      public function getIdresponsable()
+      {
+          return $this->idresponsable;
+      }
 
-    /**
-     * @param int $idresponsable
-     */
-    public function setIdresponsable($idresponsable)
-    {
-        $this->idresponsable = $idresponsable;
-    }
+      /**
+       * @param mixed $idresponsable
+       */
+      public function setIdresponsable($idresponsable)
+      {
+          $this->idresponsable = $idresponsable;
+      }
+
 
     /**
      * @return string
@@ -167,5 +168,24 @@ class Club
         $this->file=null;
     }
 
-}
+      public function __toString(){
+          try {
+              // Note that the property needs to exist
+              // on the class, or therefore the exception
+              // will be thrown
+              return (string) $this->getIdclub();
+          } catch (Exception $exception) {
+              // Optionally you can var_dump the error message to see why the exception is being thrown !
+              var_dump($exception->getMessage());
+              return '';
+          }
+      }
+      const BDGT =1000000;
+      public function getConstants()
+      {
+          $reflectionClass = new ReflectionClass($this);
+          return $reflectionClass->getConstants();
+      }
+
+  }
 
