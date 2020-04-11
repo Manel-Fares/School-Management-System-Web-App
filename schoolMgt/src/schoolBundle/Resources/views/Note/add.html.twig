@@ -1,21 +1,30 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <title>Ajouter une Note</title>
-</head>
-<body>
+{% extends 'interfaceEnseignant.html.twig' %}
+{% block content %}
 <center>
-<table>
-    <td>
-</br><h2 style=" color:  #C82829">Add Grade</h2></br>
+    <table>
 
-{{ form_start(form) }}
-{{ form_widget(form) }}
-{{ form_end(form) }}
-    </td>
+        <td>
+            </br><h2>Ajouter Note</h2></br>
 
-</table>
+            {{ form_start(form) }}
+
+            {{ form_row(form.etudiant) }}
+
+            {{ form_row(form.matiere) }}
+
+            {{ form_row(form.datenote) }}
+
+            {{ form_row(form.notecc) }}
+
+            {{ form_row(form.noteds) }}
+
+            {{ form_row(form.noteexam) }}
+
+            {{ form_row(form.Envoyer) }}
+
+            {{ form_end(form) }}
+        </td>
+
+    </table>
 </center>
-</body>
-</html>
+{% endblock %}

@@ -25,7 +25,7 @@ class Note
     /**
      * @var integer
      * @ORM\Column(name="idMatiere", type="integer", nullable=false)
-     *
+     * @ORM\Id
      * @ORM\ManyToOne(targetEntity="schoolBundle\Entity\Matier")
      * @ORM\JoinColumn(name="idMatiere",referencedColumnName="id")
      * @ORM\GeneratedValue(strategy="NONE")

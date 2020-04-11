@@ -3,22 +3,35 @@ resultat_index:
     defaults: { _controller: "schoolBundle:Resultat:index" }
     methods:  GET
 
-resultat_show:
-    path:     /{etudiant}/show
-    defaults: { _controller: "schoolBundle:Resultat:show" }
+resultat_affiche:
+    path:     /affiche
+    defaults: { _controller: "schoolBundle:Resultat:resutlatEtudiant" }
     methods:  GET
 
-resultat_new:
-    path:     /new
-    defaults: { _controller: "schoolBundle:Resultat:new" }
-    methods:  [GET, POST]
+resultat_statistique:
+    path:     resultat/statistique
+    defaults: { _controller: "schoolBundle:Resultat:statistiqueReussite" }
+    methods:  GET
 
-resultat_edit:
-    path:     /{etudiant}/edit
-    defaults: { _controller: "schoolBundle:Resultat:edit" }
-    methods:  [GET, POST]
+resultat__management:
+    path:     resultat/manage
+    defaults: { _controller: "schoolBundle:Resultat:gererResultats" }
+    methods:  GET
+
+resultat_calculer:
+    path:     /calculer
+    defaults: { _controller: "schoolBundle:Resultat:calculer" }
+
+resultat_print:
+    path:     /print
+    defaults: { _controller: "schoolBundle:Resultat:pfd" }
+
+resultat_detail:
+    path:     /{idetudiant}/detail
+    defaults: { _controller: "schoolBundle:Resultat:detailResultat" }
+    methods:  GET
 
 resultat_delete:
-    path:     /{etudiant}/delete
+    path:     /{idetudiant}/delete
     defaults: { _controller: "schoolBundle:Resultat:delete" }
-    methods:  DELETE
+    methods:  GET

@@ -1,128 +1,1 @@
-<?php
-
-namespace schoolBundle\Controller;
-
-use schoolBundle\Entity\Note;
-use schoolBundle\Form\NoteType;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
-
-/**
- * Note controller.
- *
- */
-class NoteController extends Controller
-{
-    /**
-     * Lists all note entities.
-     *
-     */
-    public function indexAction()
-    {
-        $notes= $this->getDoctrine()->getRepository(Note::class)->findAll();
-        return $this->render("@school/Note/read.html.twig",array("notes"=>$notes));
-    }
-
-    /**
-     *
-     *
-     */
-    public function addAction(Request $request)
-    {
-        $note = new Note();
-        $form = $this->createForm(NoteType::class, $note);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $moyenne=$note->getNotecc()*0.2+$note->getNoteds()*0.3+$note->getNoteexam()*0.5;
-            $note->setMoyenne($moyenne);
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($note);
-            $em->flush();
-
-            return $this->redirectToRoute('note_show', array('etudiant' => $note->getEtudiant()));
-        }
-
-        return $this->render("@school/Note/add.html.twig", array(
-            'note' => $note,
-            'form' => $form->createView(),
-        ));
-    }
-
-    /**
-     * Finds and displays a note entity.
-     *
-     */
-    public function showAction(Note $note)
-    {
-        $deleteForm = $this->createDeleteForm($note);
-
-        return $this->render('note/show.html.twig', array(
-            'note' => $note,
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
-
-    /**
-     * Recuperer la liste des etudiant
-     */
-
-
-
-    /**
-     * Displays a form to edit an existing note entity.
-     *
-     */
-    public function editAction(Request $request, Note $note)
-    {
-        $deleteForm = $this->createDeleteForm($note);
-        $editForm = $this->createForm('schoolBundle\Form\NoteType', $note);
-        $editForm->handleRequest($request);
-
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('note_edit', array('etudiant' => $note->getEtudiant()));
-        }
-
-        return $this->render('note/edit.html.twig', array(
-            'note' => $note,
-            'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
-
-    /**
-     * Deletes a note entity.
-     *
-     */
-    public function deleteAction(Request $request, Note $note)
-    {
-        $form = $this->createDeleteForm($note);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($note);
-            $em->flush();
-        }
-
-        return $this->redirectToRoute('note_index');
-    }
-
-    /**
-     * Creates a form to delete a note entity.
-     *
-     * @param Note $note The note entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm(Note $note)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('note_delete', array('etudiant' => $note->getEtudiant())))
-            ->setMethod('DELETE')
-            ->getForm()
-        ;
-    }
-}
+<?phpnamespace schoolBundle\Controller;use schoolBundle\Entity\Matier;use schoolBundle\Entity\Note;use schoolBundle\Entity\Users;use schoolBundle\Form\NoteType;use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;use Symfony\Bundle\FrameworkBundle\Controller\Controller;use Symfony\Component\Form\Extension\Core\Type\NumberType;use Symfony\Component\Form\Extension\Core\Type\SubmitType;use Symfony\Component\HttpFoundation\Request;/** * Note controller. * */class NoteController extends Controller{    /**     * Lists all note entities.     *     */    public function indexAction()    {        $notes= $this->getDoctrine()->getRepository(Note::class)->findAll();        return $this->render("@school/Note/read.html.twig",array("notes"=>$notes));        $em = $this->getDoctrine()->getManager();        $data = $em->getRepository(Note::class)->findAll();        $query = $em->createQuery(        );    }    public function noteEtudiantAction()    {        $entityManager = $this->getDoctrine()->getManager();        $query = $entityManager->createQuery(            'SELECT n.notecc,             n.noteds,             n.moyenne,             n.noteexam,             m.nom,             m.coef,             u.nomuser,             u.prenomuser             FROM schoolBundle:Note n             LEFT JOIN schoolBundle:Matier m             WITH n.matiere = m.id             LEFT JOIN schoolBundle:Users u             WITH u.id = n.enseignant                          WHERE n.etudiant = :etudiant'        )->setParameter('etudiant',1 );        $note = $query->getResult();        return $this->render('@school/Note/affichageNoteEtudiant.html.twig',array('note'=>$note));    }    public function addAction(Request $request)    {        $note = new Note();        $form = $this->createForm(NoteType::class, $note);        $form->handleRequest($request);        if ($form->isSubmitted() && $form->isValid()) {            $moyenne=$note->getNotecc()*0.2+$note->getNoteds()*0.3+$note->getNoteexam()*0.5;            $note->setMoyenne($moyenne);            $note->setEnseignant($this->getUser()->getID());            $em = $this->getDoctrine()->getManager();            $em->persist($note);            $em->flush();            return $this->redirectToRoute('note_affiche_enseignant');        }        return $this->render("@school/Note/add.html.twig", array(            'note' => $note,            'form' => $form->createView(),        ));    }    public function noteEnseignantAction(Request $request)    {        $entityManager = $this->getDoctrine()->getManager();        $query = $entityManager->createQuery(            'SELECT              n.etudiant,             n.enseignant,             n.matiere,             n.notecc,             n.noteds,             n.moyenne,             n.noteexam,             u.cinuser,             m.nom,             m.coef,             u.nomuser,             u.prenomuser             FROM schoolBundle:Note n             LEFT JOIN schoolBundle:Matier m             WITH n.matiere = m.id             LEFT JOIN schoolBundle:Users u             WITH u.id = n.enseignant                          WHERE n.enseignant = :enseignant'        )->setParameter('enseignant', 2 );        $note = $query->getResult();        return $this->render('@school/Note/affichageNoteEnseignant.html.twig',array('note'=>$note));    }    /**     * Finds and displays a note entity.     *     */    public function showAction(Note $note)    {        $deleteForm = $this->createDeleteForm($note);        return $this->render('note/show.html.twig', array(            'note' => $note,            'delete_form' => $deleteForm->createView(),        ));    }    /**     * Displays a form to edit an existing note entity.     *     */    public function editAction(Request $request,$idetudiant,$idmatiere)    { $repository = $this->getDoctrine()->getRepository(Note::class);        $note = $repository->findOneBy([            'etudiant' => $idetudiant,            'matiere' => $idmatiere        ]);        $form = $this->createFormBuilder($note)            ->add('notecc',NumberType::class,[                'attr' => [                    'min' => 0,                    'max' => 20                ]            ])            ->add('noteds',NumberType::class,[                'attr' => [                    'min' => 0,                    'max' => 20                ]            ])            ->add('noteexam',NumberType::class)            ->add('Envoyer',SubmitType::class,[                'attr' => ['formnovalidate ' => 'formnovalidate']            ])->getForm();        $form->handleRequest($request);        if ($form->isSubmitted() && $form->isValid()) {            $cc = $form['notecc']->getData();            $ds = $form['noteds']->getData();            $exam = $form['noteexam']->getData();            $em = $this->getDoctrine()->getManager();            $note = $em->getRepository(Note::class)->findOneBy([                'etudiant' => $idetudiant,                'matiere' => $idmatiere            ]);            $note->setNoteds($ds);            $note->setNotecc($cc);            $note->setNoteexam($exam);            $moyenne=$note->getNotecc()*0.2+$note->getNoteds()*0.3+$note->getNoteexam()*0.5;            $note->setMoyenne($moyenne);            $em->flush();            return $this->redirectToRoute('note_affiche_enseignant');        }        return $this->render("@school/Note/update.html.twig", array(            'note' => $note,            'form' => $form->createView(),        ));    }    /**     * Deletes a note entity.     *     */    public function deleteAction($idetudiant,$idmatiere)    {        $repository = $this->getDoctrine()->getRepository(Note::class);        $note = $repository->findOneBy([            'etudiant' => $idetudiant,            'matiere' => $idmatiere        ]);        $entityManager = $this->getDoctrine()->getManager();        $entityManager->remove($note);        $entityManager->flush();        return $this->redirectToRoute('note_affiche_enseignant');    }}
