@@ -20,7 +20,7 @@ class AppKernel extends Kernel
             new EvenementBundle\EvenementBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
-        ];
+            new SBC\NotificationsBundle\NotificationsBundle(),        ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
             $bundles[] = new Symfony\Bundle\DebugBundle\DebugBundle();

@@ -88,6 +88,9 @@
       <path value="$PROJECT_DIR$/vendor/php-http/guzzle6-adapter" />
       <path value="$PROJECT_DIR$/vendor/knplabs/knp-paginator-bundle" />
       <path value="$PROJECT_DIR$/vendor/knplabs/knp-components" />
+      <path value="$PROJECT_DIR$/vendor/paragonie/sodium_compat" />
+      <path value="$PROJECT_DIR$/vendor/pusher/pusher-php-server" />
+      <path value="$PROJECT_DIR$/vendor/mrad/notifications-bundle" />
     </include_path>
   </component>
   <component name="ProjectId" id="1ZdLpqw2MQYlrnvqRmBCHrAYize" />
@@ -138,9 +141,11 @@
       <command value="php bin/console generate:Controller" />
       <command value="doctrine:mapping:import --force EvenementBundle annotation" />
       <command value="s doctrine:schema:update --force --dump-sql" />
-      <command value="s doctrine:schema:update --force" />
       <command value="s debug:router" />
       <command value="s cache:clear" />
+      <command value="s doctrine:generate:entities " />
+      <command value="s doctrine:generate:entity" />
+      <command value="s doctrine:schema:update --force" />
     </option>
   </component>
   <component name="ServiceViewManager">
@@ -195,7 +200,8 @@
       <workItem from="1586132852812" duration="33107000" />
       <workItem from="1586385441873" duration="5997000" />
       <workItem from="1586556477151" duration="726000" />
-      <workItem from="1586558082812" duration="872000" />
+      <workItem from="1586558082812" duration="8469000" />
+      <workItem from="1586639383963" duration="1780000" />
     </task>
     <servers />
   </component>
@@ -215,10 +221,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="375" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1366.728@0.0.1366.728" timestamp="1585530311036" />
-    <state x="413" y="120" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1585717938066">
+    <state x="413" y="120" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1586565242586">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="413" y="120" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.728@0.0.1366.728" timestamp="1585717938066" />
+    <state x="413" y="120" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.728@0.0.1366.728" timestamp="1586565242586" />
     <state x="725" y="260" key="#com.jetbrains.php.framework.ui.FailedToParseDialog" timestamp="1585169141801">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -231,26 +237,26 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="646" y="107" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1586308201340" />
-    <state width="1323" height="169" key="GridCell.Tab.0.bottom" timestamp="1586340680382">
+    <state width="504" height="171" key="GridCell.Tab.0.bottom" timestamp="1586563494754">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="169" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1586340680382" />
-    <state width="1323" height="169" key="GridCell.Tab.0.center" timestamp="1586340680382">
+    <state width="504" height="171" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1586563494754" />
+    <state width="504" height="171" key="GridCell.Tab.0.center" timestamp="1586563494739">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="169" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1586340680382" />
-    <state width="1323" height="169" key="GridCell.Tab.0.left" timestamp="1586340680382">
+    <state width="504" height="171" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1586563494739" />
+    <state width="504" height="171" key="GridCell.Tab.0.left" timestamp="1586563494739">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="169" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1586340680382" />
-    <state width="1323" height="169" key="GridCell.Tab.0.right" timestamp="1586340680382">
+    <state width="504" height="171" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1586563494739" />
+    <state width="504" height="171" key="GridCell.Tab.0.right" timestamp="1586563494754">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="169" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1586340680382" />
-    <state x="634" y="179" key="NewPhpClassDialog" timestamp="1585708398736">
+    <state width="504" height="171" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1586563494754" />
+    <state x="634" y="179" key="NewPhpClassDialog" timestamp="1586565090271">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="634" y="179" key="NewPhpClassDialog/0.0.1366.728@0.0.1366.728" timestamp="1585708398736" />
+    <state x="634" y="179" key="NewPhpClassDialog/0.0.1366.728@0.0.1366.728" timestamp="1586565090271" />
     <state x="859" y="288" key="NewPhpFileDialog" timestamp="1585427820796">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -267,18 +273,18 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="634" y="268" key="SymfonyPathDialog/0.0.1366.728@0.0.1366.728" timestamp="1585170753271" />
-    <state x="379" y="189" key="com.intellij.ide.util.TipDialog" timestamp="1586558092206">
+    <state x="379" y="189" key="com.intellij.ide.util.TipDialog" timestamp="1586639471405">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="379" y="189" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1586558092206" />
+    <state x="379" y="189" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1586639471405" />
     <state x="822" y="44" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1585363662610">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="822" y="44" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1366.728@0.0.1366.728" timestamp="1585363662610" />
-    <state x="339" y="162" width="672" height="677" key="run.anything.popup" timestamp="1586309802307">
+    <state x="339" y="162" width="672" height="677" key="run.anything.popup" timestamp="1586565290801">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="339" y="162" width="672" height="677" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1586309802307" />
+    <state x="339" y="162" width="672" height="677" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1586565290801" />
     <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1585867972612">
       <screen x="0" y="0" width="1366" height="728" />
     </state>

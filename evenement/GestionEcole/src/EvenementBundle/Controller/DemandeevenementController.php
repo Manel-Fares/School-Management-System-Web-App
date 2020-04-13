@@ -5,6 +5,7 @@ namespace EvenementBundle\Controller;
 use Doctrine\ORM\EntityRepository;
 use EvenementBundle\Entity\Club;
 use EvenementBundle\Entity\Demandeevenement;
+use EvenementBundle\Entity\Notification;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -27,6 +28,7 @@ class DemandeevenementController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $Cl=new  Club();
+        $notifications=$this->getDoctrine()->getManager()->getRepository('EvenementBundle:Notification')->findAll();
 
 
         $ct=$Cl->getConstants();
@@ -35,7 +37,7 @@ class DemandeevenementController extends Controller
         $demandeevenements = $em->getRepository('EvenementBundle:Demandeevenement')->findAll();
 
         return $this->render('demandeevenement/index.html.twig', array(
-            'demandeevenements' => $demandeevenements,'bd'=>$bd,'ct'=>$ct
+            'demandeevenements' => $demandeevenements,'bd'=>$bd,'ct'=>$ct,'notifications'=>$notifications
         ));
     }
 
@@ -77,7 +79,6 @@ class DemandeevenementController extends Controller
           $demandeevenement->setIdclub($form['clubnom']->getData());
             $em->persist($demandeevenement);
             $em->flush();
-
 
             return $this->render('demandeevenement/new.html.twig', array(
                 'demandeevenement' => $demandeevenement,

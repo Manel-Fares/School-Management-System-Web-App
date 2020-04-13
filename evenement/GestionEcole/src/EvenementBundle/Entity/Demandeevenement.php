@@ -3,6 +3,9 @@
 namespace EvenementBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use SBC\NotificationsBundle\Builder\NotificationBuilder;
+
+use SBC\NotificationsBundle\Model\NotifiableInterface;
 
 /**
  * Demandeevenement
@@ -11,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Entity(repositoryClass="EvenementBundle\Repository\DemandeevenementRepository")
  */
-class Demandeevenement
+class Demandeevenement implements NotifiableInterface
 {
     /**
      * @var integer
@@ -221,6 +224,50 @@ private $clubnom;
         $this->image = $image;
     }
 
+    public function notificationsOnCreate(NotificationBuilder $builder)
+    {
+        $notification=new Notification();
+        $notification
+            ->setTitle('New Demande Evenement')
+            ->setDescription($this->getDescription())
+            ->setRoute('demandeevenement_show')
+            ->setParameters(array('iddemandeevenement'=>$this->getIddemandeevenement()));
+        $notification2=new Notification();
+        $notification2
+            ->setTitle('New Demande Evenement')
+            ->setDescription($this->getDescription())
+            ->setRoute('demandeevenement_show')
+            ->setParameters(array('iddemandeevenement'=>$this->getIddemandeevenement()));
+
+
+        $builder
+            ->addNotification($notification)
+             ->addNotification($notification2);
+
+
+        return $builder;
+    }
+
+    public function notificationsOnUpdate(NotificationBuilder $builder)
+    {
+        $notification = new Notification();
+        $notification
+            ->setTitle('Comment updated')
+            ->setDescription('"'.$this->content.'" has been updated')
+            ->setRoute('comment_show')
+            ->setParameters(array('id' => $this->id))
+        ;
+        $builder->addNotification($notification);
+
+        return $builder;
+    }
+
+    public function notificationsOnDelete(NotificationBuilder $builder)
+    {
+        // in case you don't want any notification for a special event
+        // you can simply return an empty $builder
+        return $builder;
+    }
 
 }
 
