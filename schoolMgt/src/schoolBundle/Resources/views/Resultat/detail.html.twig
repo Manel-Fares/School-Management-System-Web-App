@@ -1,0 +1,31 @@
+{% extends 'interfacePersonnel.html.twig' %}
+{% block content %}
+    <br>
+    <h2 align="center"> Résultat detaillé</h2>
+    <br>
+    <table align="center" width=20%>
+        <tr>
+            <th>Nom Etudiant</th>
+            <td>{{ note[0].nomuser }} {{ note[0].prenomuser }}</td>
+
+        </tr>
+        <tr>
+            <th>Classe</th>
+            <td>{{ note[0].classeetd }}</td>
+
+        </tr>
+        {%  for n in note %}
+            <tr>
+                <th>{{ n.nom }}</th>
+                <td> {{ n.moyenne }}    </td>
+
+            </tr>
+
+        {% endfor %}
+
+
+    </table>
+    <br>
+     <h4 align="center">   Resultat = {{ resultat[0].resultat }}  </h4>
+
+{% endblock %}

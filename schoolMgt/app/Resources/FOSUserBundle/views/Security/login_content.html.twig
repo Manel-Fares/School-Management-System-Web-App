@@ -1,0 +1,50 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+<link rel="stylesheet" href="{{ asset('login/style1.css') }}">
+
+<div class="login-wrap">
+
+    <div class="login-html">
+        <form action="{{ path("fos_user_security_check") }}" method="post">
+            {% if error %}
+                <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+            {% if csrf_token %}
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+            {% endif %}
+            <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign in</label>
+
+            <div class="login-form">
+                <div class="sign-in-htm">
+                    <div class="group">
+                        <label for="username">{{ 'security.login.username'|trans }}</label>
+                        <input type="text" class="input" id="username" name="_username" value="{{ last_username }}" required="required" autocomplete="username" />
+
+
+                    </div>
+                    <div class="group">
+                        <label for="password">{{ 'security.login.password'|trans }}</label>
+                        <input type="password" id="password" name="_password"  class="input" data-type="password" required="required" autocomplete="current-password" />
+
+                    </div>
+                    <div class="group">
+                        <input type="checkbox" id="remember_me" name="_remember_me" class="check" value="on" />
+                        <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
+                        {#
+                        <input id="check" type="checkbox" class="check" checked>
+                        <label for="check"><span class="icon"></span> Remmember me ?</label>#}
+                    </div>
+                    <div class="group">
+                        <input type="submit" class="button" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+
+                    </div>
+                    <div class="hr"></div>
+                    <div class="foot-lnk">
+                        <a href="#forgot">Mot de passe oublie?</a>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>

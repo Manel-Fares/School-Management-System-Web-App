@@ -1,0 +1,100 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>User</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ user.id }}</td>
+            </tr>
+            <tr>
+                <th>Cinuser</th>
+                <td>{{ user.cinuser }}</td>
+            </tr>
+            <tr>
+                <th>Nomuser</th>
+                <td>{{ user.nomuser }}</td>
+            </tr>
+            <tr>
+                <th>Prenomuser</th>
+                <td>{{ user.prenomuser }}</td>
+            </tr>
+            <tr>
+                <th>Datenaissanceuser</th>
+                <td>{% if user.datenaissanceuser %}{{ user.datenaissanceuser|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Sexeuser</th>
+                <td>{{ user.sexeuser }}</td>
+            </tr>
+            <tr>
+                <th>Emailuser</th>
+                <td>{{ user.emailuser }}</td>
+            </tr>
+            <tr>
+                <th>Adresseuser</th>
+                <td>{{ user.adresseuser }}</td>
+            </tr>
+            <tr>
+                <th>Numteluser</th>
+                <td>{{ user.numteluser }}</td>
+            </tr>
+            <tr>
+                <th>Roleuser</th>
+                <td>{{ user.roleuser }}</td>
+            </tr>
+            <tr>
+                <th>Dateembaucheuser</th>
+                <td>{% if user.dateembaucheuser %}{{ user.dateembaucheuser|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Motdepasseuser</th>
+                <td>{{ user.motdepasseuser }}</td>
+            </tr>
+            <tr>
+                <th>Classeetd</th>
+                <td>{{ user.classeetd }}</td>
+            </tr>
+            <tr>
+                <th>Inscriptionetd</th>
+                <td>{% if user.inscriptionetd %}{{ user.inscriptionetd|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Nomresponsableetd</th>
+                <td>{{ user.nomresponsableetd }}</td>
+            </tr>
+            <tr>
+                <th>Specialiteetd</th>
+                <td>{{ user.specialiteetd }}</td>
+            </tr>
+            <tr>
+                <th>Statutuser</th>
+                <td>{{ user.statutuser }}</td>
+            </tr>
+            <tr>
+                <th>Salaireuser</th>
+                <td>{{ user.salaireuser }}</td>
+            </tr>
+            <tr>
+                <th>Domaineuser</th>
+                <td>{{ user.domaineuser }}</td>
+            </tr>
+            <tr>
+                <th>Idparent</th>
+                <td>{{ user.idparent }}</td>
+            </tr>
+            <tr>
+                <th>Picuser</th>
+                <td>{{ user.picuser }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('users_index') }}">Back to the list</a>
+        </li>
+    </ul>
+{% endblock %}

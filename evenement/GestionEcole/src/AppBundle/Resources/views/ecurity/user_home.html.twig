@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {% if is_granted('ROLE_USER')==true %}
+    <p>aaaaaaaaaaaaaaaaaaaaa</p><br>
+        {{ app.user  }}
+    {% endif %}
+
+<h1>hello ser </h1>
+{% endblock %}

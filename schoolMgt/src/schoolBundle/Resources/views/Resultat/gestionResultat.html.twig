@@ -1,0 +1,44 @@
+{% extends 'interfacePersonnel.html.twig' %}
+{% block content %}
+    <br>
+    <h2 align="center"  > Liste des Resultats Scolaire</h2>
+    <br>
+    <table class="table table-striped">
+        <thead style="background-color: #37737f" >
+        <tr>
+            <th>CIN Etudiant</th>
+            <th>Nom</th>
+            <th>Prenom</th>
+            <th>Resultat</th>
+            <th>Détails</th>
+            <th>Supprimer</th>
+
+
+        </tr>
+        </thead>
+        {%  for r in resultat %}
+            <tr>
+                <td>{{ r.cinuser}}</td>
+                <td>{{ r.nomuser }}</td>
+                <td>{{ r.prenomuser}}</td>
+                <td>{{ r.resultat}}</td>
+
+                <td>
+                    <form action="{{ path("resultat_detail",{'idetudiant':r.etudiant}) }}";>
+                        <button> Details </button>
+                    </form>
+                </td>
+                <td>
+                    <form action="{{ path("resultat_delete",{'idetudiant':r.etudiant}) }}";>
+                        <button> Delete </button>
+                    </form>
+                </td>
+
+
+            </tr>
+        {% endfor %}
+
+
+    </table>
+
+{% endblock %}

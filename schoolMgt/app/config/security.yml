@@ -3,6 +3,9 @@ security:
         FOS\UserBundle\Model\UserInterface: bcrypt
 
     role_hierarchy:
+        ROLE_ETUDIANT:    ROLE_ETUDIANT
+        ROLE_PERSONNEL:   ROLE_PERSONNEL
+        ROLE_NSEIGNIANT:   ROLE_ENSEIGNIANT
         ROLE_ADMIN:       ROLE_USER
         ROLE_SUPER_ADMIN: ROLE_ADMIN
 
@@ -17,6 +20,9 @@ security:
             form_login:
                 provider: fos_userbundle
                 csrf_token_generator: security.csrf.token_manager
+                always_use_default_target_path: false
+                default_target_path: /redirect
+
 
             logout:       true
             anonymous:    true

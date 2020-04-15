@@ -8,6 +8,10 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('schoolBundle:Default:index.html.twig');
+        $snappy = $this->get("knp_snappy.pdf");
+        $filename = "resultat";
+        $weburl = "";
+        return new response();
+
     }
 }
