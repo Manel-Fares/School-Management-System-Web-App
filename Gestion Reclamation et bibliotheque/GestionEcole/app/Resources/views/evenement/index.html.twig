@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Evenements list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Idevenement</th>
+                <th>Datedebut</th>
+                <th>Datefin</th>
+                <th>Idclub</th>
+                <th>Image</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for evenement in evenements %}
+            <tr>
+                <td><a href="{{ path('evenement_show', { 'idevenement': evenement.idevenement }) }}">{{ evenement.idevenement }}</a></td>
+                <td>{% if evenement.datedebut %}{{ evenement.datedebut|date('Y-m-d') }}{% endif %}</td>
+                <td>{% if evenement.datefin %}{{ evenement.datefin|date('Y-m-d') }}{% endif %}</td>
+                <td>{{ evenement.idclub }}</td>
+                <td><img src="{{ asset( 'C:\wamp64\www\image\download.jpg'  )}}" ></td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('evenement_show', { 'idevenement': evenement.idevenement }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('evenement_edit', { 'idevenement': evenement.idevenement }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('evenement_new') }}">Create a new evenement</a>
+        </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,29 @@
+wishliste_index:
+    path:     /
+    defaults: { _controller: "BooksBundle:Wishliste:index" }
+    methods:  GET
+
+wishliste_show:
+    path:     /{idlist}/show
+    defaults: { _controller: "BooksBundle:Wishliste:show" }
+    methods:  GET
+
+wishliste_new:
+    path:     /new
+    defaults: { _controller: "BooksBundle:Wishliste:new" }
+    methods:  [GET, POST]
+
+wishliste_add:
+    path:     /{idbook}/add
+    defaults: { _controller: "BooksBundle:Wishliste:add" }
+    methods:  [GET, POST]
+
+wishliste_edit:
+    path:     /{idlist}/edit
+    defaults: { _controller: "BooksBundle:Wishliste:edit" }
+    methods:  [GET, POST]
+
+wishliste_delete:
+    path:     /{idlist}/delete
+    defaults: { _controller: "BooksBundle:Wishliste:delete" }
+    methods:  DELETE

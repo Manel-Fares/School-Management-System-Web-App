@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Reponsereclamation</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Idrep</th>
+                <td>{{ reponsereclamation.idrep }}</td>
+            </tr>
+            <tr>
+                <th>Reponse</th>
+                <td>{{ reponsereclamation.reponse }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('reponsereclamation_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('reponsereclamation_edit', { 'idrep': reponsereclamation.idrep }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}
