@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Reservationbook</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Idreservation</th>
+                <td>{{ reservationbook.idreservation }}</td>
+            </tr>
+            <tr>
+                <th>Dated</th>
+                <td>{% if reservationbook.dated %}{{ reservationbook.dated|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Datef</th>
+                <td>{% if reservationbook.datef %}{{ reservationbook.datef|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('reservationbook_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('reservationbook_edit', { 'idreservation': reservationbook.idreservation }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}
