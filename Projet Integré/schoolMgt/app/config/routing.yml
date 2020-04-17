@@ -1,3 +1,11 @@
+books:
+    resource: "@BooksBundle/Resources/config/routing.yml"
+    prefix:   /
+
+reclamation:
+    resource: "@ReclamationBundle/Resources/config/routing.yml"
+    prefix:   /
+
 evenement:
     resource: "@EvenementBundle/Controller/"
     type:     annotation
@@ -41,3 +49,9 @@ evenement_evenement:
 evenement_club:
     resource: "@EvenementBundle/Controller/ClubController.php"
     type:     annotation
+
+fos_comment_api:
+    type: rest
+    resource: "@FOSCommentBundle/Resources/config/routing.yml"
+    prefix: /api
+    defaults: { _format: html }

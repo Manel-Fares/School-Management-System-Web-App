@@ -1,0 +1,188 @@
+{% extends 'interfaceEtudiant.html.twig' %}
+{% block body %}
+
+    <!--================Home Banner Area =================-->
+    <section class="home_banner_area blog_banner">
+        <div class="banner_inner d-flex align-items-center">
+            <div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background=""></div>
+            <div class="container">
+                <div class="blog_b_text text-center">
+                    <h2>Dude You’re Getting <br /> a Telescope</h2>
+                    <p>There is a moment in the life of any aspiring astronomer that it is time to buy that first</p>
+                    <a class="main_btn" href="#">View More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--================End Home Banner Area =================-->
+    <div class="blog-wrap">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9 blog-left">
+                    <ul class="bolg-post-list">
+
+                        {% for book in books  %}
+                        <li>
+                            <article class="blog-post">
+                                <div class="featured-post">
+                                    <a href="{{ path('books_show', { 'idbook': book.idbook }) }}">
+                                        <img src="{{ asset('images/') }}{{ book.picbook }}" alt="" >
+                                    </a>
+                                </div>
+
+                                <div class="divider25"></div>
+                                <div class="content">
+                                    <h3 class="title">
+                                        <a href="#">{{ book.titrebook }}</a>
+                                    </h3>
+                                    <ul class="meta-post">
+
+                                        <li class="comment">
+
+                                            {% set con = false %}
+                                            {% set id = 0 %}
+                                            {% set break = false %}
+                                            {% for Like in Likes if not break %}
+
+                                                {% if  (book.idbook == Like.idbook.idbook) %}
+                                                    {% set break = true %}
+                                                    {% set id = Like.idLike %}
+                                                    {% set con = true %}
+
+                                                {% endif %}
+                                            {% endfor %}
+                                            {% if con %}
+                                            <a href="{{ path('likes_delete', { 'idlike': id }) }}">
+
+                                                {{ book.nbrLike }}
+                                                Likes
+                                                <i class="fas fa-heart"></i></a>
+                                                {% else %}
+                                                    <a href="{{ path('likes_add', { 'idbook': book.idbook }) }}">
+
+                                                        {{ book.nbrLike }}
+                                            Likes
+                                                    <i class="far fa-heart"></i></a>
+
+                                            {% endif %}
+                                            <a href="{{ path('books_show', { 'idbook': book.idbook }) }}">
+                                                2 Comments
+                                                <i class="far fa-comment"></i>
+                                            </a>
+
+                                        </li>
+                                        <li class="date">
+                                            <a href="#">
+                                                February 20, 2017
+                                            </a>
+                                        </li>
+
+
+                                    </ul>
+
+                                    <div class="entry-post">
+                                        <p>{{ book.descriptionbook }}</p>
+                                        <div class="more-link">
+                                            {% if book.etatbook =='Disponible' %}
+                                            <a href="{{ path('reservationbook_add', { 'idbook': book.idbook }) }}" class="read-more-btn">Reservé</a>
+                                                {% else %}
+                                                    <a  class="read-more-btn" disabled="disabled">Non Disponible</a>
+                                            {% endif %}
+                                            {% set id = 0 %}
+                                            {% set con = false %}
+                                            {% set break = false %}
+                                              {% for wish in wishliste if not break %}
+
+                                            {% if  (book.idbook == wish.idbook.idbook) %}
+                                                {% set break = true %}
+                                                {% set con = true %}
+                                                {% set id = wish.idlist %}
+                                            {% endif %}
+                                            {% endfor %}
+                                            {% if con %}
+                                            <a href="{{ path('wishliste_delete', { 'idbook': id}) }}" class="read-more-btn">remove Wishliste</a>
+                                            {% else %}
+                                                <a href="{{ path('wishliste_add', { 'idbook': book.idbook }) }}" class="read-more-btn">add Wishliste</a>
+                                                {% endif %}
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </article>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    <div class="blog-pagination">
+                        <ul class="">
+                            <li class="prev">
+                                <a href="#">
+                                    <i class="fas fa-chevron-left"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="waves-effect waves-teal">01</a>
+                            </li>
+                            <li>
+                                <a href="#" class="waves-effect waves-teal">02</a>
+                            </li>
+                            <li class="active">
+                                <a href="#" class="waves-effect waves-teal">03</a>
+                            </li>
+                            <li>
+                                <a href="#" class="waves-effect waves-teal">04</a>
+                            </li>
+                            <li class="next">
+                                <a href="#">
+                                    <i class="fas fa-chevron-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-3 sidebar">
+                    <div class="widget widget-search">
+                        <form action="#" method="get" accept-charset="utf-8">
+                            <input type="text" name="widget-search" placeholder="Search">
+                        </form>
+                    </div>
+                    <div class="widget widget-categories">
+                        <div class="widget-title">
+                            <h3>Categories</h3>
+                        </div>
+                        <ul class="cat-list">
+                            {% for book in categorie %}
+                            <li>
+                                <a href="{{ path('books_filtrage', { 'categoriebook': book.categoriebook }) }}"><i class="fas fa-chevron-right"></i> {{ book.categoriebook }}<span>(03)</span></a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="widget widget-tags">
+                        <div class="widget-title">
+                            <h3>Popular Tags</h3>
+                        </div>
+                        <ul class="tag-list">
+                            <li>
+                                <a href="#" class="waves-effect waves-teal">Phone</a>
+                            </li>
+                            <li>
+                                <a href="#" class="waves-effect waves-teal">Cameras</a>
+                            </li>
+                            <li>
+                                <a href="#" class="waves-effect waves-teal">Computers</a>
+                            </li>
+                            <li>
+                                <a href="#" class="waves-effect waves-teal">Laptops</a>
+                            </li>
+                            <li>
+                                <a href="#" class="waves-effect waves-teal">Headphones</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

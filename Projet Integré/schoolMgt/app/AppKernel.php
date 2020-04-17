@@ -28,6 +28,13 @@ class AppKernel extends Kernel
             new SBC\NotificationsBundle\NotificationsBundle(),
             new EvenementBundle\EvenementBundle(),
             new blackknight467\StarRatingBundle\StarRatingBundle(),
+            new ReclamationBundle\ReclamationBundle(),
+            new BooksBundle\BooksBundle(),
+            new Nomaya\SocialBundle\NomayaSocialBundle(),
+            new FOS\CKEditorBundle\FOSCKEditorBundle(),
+            new FOS\CommentBundle\FOSCommentBundle(),
+            new FOS\RestBundle\FOSRestBundle(),
+            new JMS\SerializerBundle\JMSSerializerBundle($this),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
@@ -69,5 +76,7 @@ class AppKernel extends Kernel
         });
         $loader->load($this->getRootDir().'/config/config_'.$this->getEnvironment().'.yml');
     }
+
+
 
 }

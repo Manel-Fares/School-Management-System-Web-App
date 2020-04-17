@@ -1,0 +1,57 @@
+{% extends  'interfacePersonnel.html.twig' %}
+
+{% block body %}
+    <h1>Book creation</h1>
+
+  {#  {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <input type="submit" value="Create" />
+    {{ form_end(form) }}
+
+    <ul>
+        <li>
+            <a href="{{ path('books_index') }}">Back to the list</a>
+        </li>
+    </ul>
+    <h1>Book edit</h1>#}
+    {{ form_start(form,{'attr': {'novalidate': 'novalidate'}}) }}
+    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+        <div class="card">
+            <h5 class="card-header">New Book</h5>
+            <div class="card-body">
+                <form action="#" id="basicform" data-parsley-validate="">
+                    <div class="form-group">
+                        {{ form_label(form.titrebook,'Name :') }}
+                        {{ form_widget(form.titrebook,{'attr': {'class':'form-control'}}) }}
+
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.descriptionbook,'Description :') }}
+                        {{ form_widget(form.descriptionbook,{'attr': {'class':'form-control'}}) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.etatbook,'Status :') }}
+                        {{ form_widget(form.etatbook,{'attr': {'class':'form-control'}}) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.categoriebook,'Categorie :') }}
+                        {{ form_widget(form.categoriebook,{'attr': {'class':'form-control'}}) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_widget(form)}}
+
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 pl-0">
+                            <p class="text-right">
+
+                                {{ form_end(form) }}
+                            </p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

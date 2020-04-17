@@ -1,58 +1,78 @@
 {% extends '::base.html.twig' %}
-{% block mail %}
-    <p><span>+216 {{ app.user.numteluser }}</span> <span>{{ app.user.email }}</span></p>
-{% endblock %}
-{% block login %}
-    <li class="nav-item dropdown no-arrow">
-        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span style="color: snow">{{ app.user.nomuser }} {{ app.user.prenomuser }}</span>
-            <img class="img-profile rounded-circle" src="{{ asset('user/1.jpg') }}">
-        </a>
-        <!-- Dropdown - User Information -->
-        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-            <a class="dropdown-item" href="#" }}>
-                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                Profile
-            </a>
-            <a class="dropdown-item" href="#">
-                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                Settings
-            </a>
-            <a class="dropdown-item" href="#" >
-                <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>  Statistique
-            </a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="{{ path('fos_user_security_logout') }}" >
-                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>Logout
-            </a>
+ {% block header %}
+
+     <div class="main_menu">
+         <nav class="navbar navbar-expand-lg navbar-light">
+             <div class="container">
+                 <!-- Brand and toggle get grouped for better mobile display -->
+                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                     <span class="icon-bar"></span>
+                     <span class="icon-bar"></span>
+                     <span class="icon-bar"></span>
+                 </button>
+                 <!-- Collect the nav links, forms, and other content for toggling -->
+                 <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                     <ul class="nav navbar-nav menu_nav ml-auto">
+                         <li class="nav-item"><a class="nav-link" href="{{ path('evenement_Proche') }}">Home</a></li>
+                         <li class="nav-item"><a class="nav-link" href="about-us.html">About</a></li>
+                         <li class="nav-item submenu dropdown">
+                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Event</a>
+                             <ul class="dropdown-menu">
+                                 <li class="nav-item"><a class="nav-link" href="{{ path('evenement_image') }}"> Events</a>
+                                 <li class="nav-item"><a class="nav-link" href="{{ path('EvenementClub') }}"> your Events</a>
+                                 <li class="nav-item"><a class="nav-link" href="{{ path('club_show_image') }}">Clubs</a></li>
+                             </ul>
+                         </li>
 
 
 
-        </div>
-    </li>
-{% endblock %}
-{% block menu %}
-    <ul id="navigation">
-        <li><a  href="{{ path('school_homepage') }}">home</a></li>
-        <li><a href="Courses.html">Courses</a></li>
-        <li><a href="#">Resultat <i class="ti-angle-down"></i></a>
-            <ul class="submenu">
-                <li><a href="{{ path('note_affiche_etudiant') }}">Notes</a></li>
-                <li><a href="{{ path('resultat_affiche') }}">Resultat</a></li>
-            </ul>
-        </li>
-        <li><a href="#">pages <i class="ti-angle-down"></i></a>
-            <ul class="submenu">
-                <li><a href="Event.html">Event</a></li>
-                <li><a href="event_details.html">Event Details</a></li>
-                <li><a href="Admissions.html">Admissions</a></li>
-                <li><a href="elements.html">elements</a></li>
-            </ul>
-        </li>
-        <li><a href="contact.html">Contact</a></li>
-    </ul>
-{% endblock %}
-{% block content %}
+                         <li class="nav-item submenu dropdown ">
+                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Result</a>
+                             <ul class="dropdown-menu">
+                                 <li class="nav-item"><a class="nav-link" href="{{ path('note_affiche_etudiant')}}">Grades</a></li>
+
+                                 <li class="nav-item"><a class="nav-link" href="{{ path('resultat_affiche') }}">Grades</a></li>
+                             </ul>
+                         </li>
+                         <li class="nav-item submenu dropdown ">
+                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reclamation</a>
+                             <ul class="dropdown-menu">
+                                 <li class="nav-item"><a class="nav-link" href="{{ path('reclamation_new')}}">Add</a></li>
+
+                                 <li class="nav-item"><a class="nav-link" href="{{ path('reclamation_index') }}">Display</a></li>
+                             </ul>
+                         </li>
+                         <li class="nav-item submenu dropdown ">
+                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Books</a>
+                             <ul class="dropdown-menu">
+                                 <li class="nav-item"><a class="nav-link" href="{{ path('books_index')}}">Display</a></li>
+
+
+                             </ul>
+                         </li>
+                         <li class="nav-item submenu dropdown">
+                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Demande Event</a>
+                             <ul class="dropdown-menu">
+                                 <li class="nav-item"><a class="nav-link" href="{{ path('demandeevenement_new') }}">Request Events</a></li>
+                                 <li class="nav-item"><a class="nav-link" href="single-blog.html">Blog Details</a></li>
+                             </ul>
+                         </li>
+                         <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                     </ul>
+                     <a  href="{{ path('fos_user_security_logout') }}" class="btn btn-info btn-lg" style="margin-left: +5%;size: -5px">
+                         <span class="glyphicon glyphicon-log-out"></span> Log out
+                     </a>
+                 </div>
+             </div>
+         </nav>
+     </div>
+
+
+ {% endblock %}
+
+
+{% block body %}
+
 {% endblock %}
 {% block footer %}
 {% endblock %}
