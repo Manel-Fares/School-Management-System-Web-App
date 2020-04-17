@@ -1,0 +1,43 @@
+evenement:
+    resource: "@EvenementBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+user:
+    resource: "@UserBundle/Resources/config/routing.yml"
+    prefix:   /user
+
+evaluation:
+    resource: "@evaluationsBundle/Resources/config/routing.yml"
+    prefix:   /
+
+school:
+    resource: "@schoolBundle/Resources/config/routing.yml"
+    prefix:   /school
+
+app:
+    resource: '@AppBundle/Controller/'
+    type: annotation
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+evenement_participation:
+    resource: "@EvenementBundle/Controller/ParticipationController.php"
+    type:     annotation
+
+evenement_rate:
+    resource: "@EvenementBundle/Controller/RateController.php"
+    type:     annotation
+
+evenement_demandeevenement:
+    resource: "@EvenementBundle/Controller/DemandeevenementController.php"
+    type:     annotation
+
+evenement_evenement:
+    resource: "@EvenementBundle/Controller/EvenementController.php"
+    type:     annotation
+
+evenement_club:
+    resource: "@EvenementBundle/Controller/ClubController.php"
+    type:     annotation

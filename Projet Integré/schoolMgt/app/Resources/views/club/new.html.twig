@@ -1,0 +1,53 @@
+{% extends  'interfacePersonnel.html.twig' %}
+
+{% block body %}
+    <center>
+<div class="container" >
+    <h1 >Club creation</h1>
+
+    {{ form_start(form) }}
+<div class="col-lg-8 col-md-8">
+
+<div class="form-group">
+
+            <div class="mt-10">
+                <div style="margin-left: -90%">
+                    {{ form_label(form.idresponsable,'idresponsable club') }}</div>
+                {{ form_widget(form.idresponsable,{'attr':{'class':'single-input'}}) }}
+                {{ form_errors(form.idresponsable) }}
+            </div>
+                <div style="margin-left: -90%">
+        {{ form_label(form.nomclub,'nom club') }}</div>
+        {{ form_widget(form.nomclub,{'attr':{'class':'single-input'}}) }}
+        {{ form_errors(form.nomclub) }}
+        </div>
+        <div class="mt-10">
+           {{ form_label(form.file) }}
+        {{ form_widget(form.file,{'attr':{'class':'single-input'}}) }}
+        {{ form_errors(form.file) }}
+        </div>
+
+        <div class="mt-10">
+
+            <div style="margin-left: -90%">  {{ form_label(form.domaine) }}</div>
+        {{ form_widget(form.domaine,{'attr':{'class':'single-input'}}) }}
+        {{ form_errors(form.domaine) }}
+        </div>
+
+
+    </div>
+
+        <input type="submit" value="Create" class="genric-btn success circle arrow"
+        />
+</div>
+   
+    {{ form_end(form) }}
+
+    <ul>
+        <li>
+            <a href="{{ path('club_index') }}">Back to the list</a>
+        </li>
+    </ul>
+</div>
+    </center>
+{% endblock %}

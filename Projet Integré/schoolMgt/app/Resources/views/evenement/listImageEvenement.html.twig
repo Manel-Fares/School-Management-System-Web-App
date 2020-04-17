@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+{% block title %}List Evenements{% endblock %}
+                {% block titleBarre %}List Evenements{% endblock %}
+
+{% block body %}
+
+<div class="container" style="margin-top: +5%;">
+
+<div id="tmpmodal"></div>
+    <div class="row">
+    {% for evenement in evenements %}
+
+        <div class="col-md-3">
+<div class="border border-white">
+
+            <img src="{{ asset('images/'~evenement.image)}} "style="height: 250px;width: 260px;margin-bottom: +10%" data-toggle="modal" data-target="#exampleModalCenter"  onclick="print({{ evenement.idevenement }})">
+        <div class="card-footer" style="margin-top: -10%">
+            <h5 class="text-black" id="exampleModalCenterTitle">Date Debut: {{ evenement.datedebut|date("m/d/Y") }}</h5><br>
+            <h5 class="text-black" id="exampleModalCenterTitle">Date Fin: {{ evenement.datefin|date("m/d/Y") }}</h5>
+            <h5 class="text-black" id="exampleModalCenterTitle">nombre participants: {{ evenement.x }}</h5>
+            <a class="btn btn-light" href="{{ path('participation_new', { 'idevenement': evenement.idevenement }) }}">Participer</a>
+
+    </div>        <!-- Modal -->
+</div>
+            <div class="modal fade" id="myModalchoose" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+
+                            <h5 class="modal-title" id="exampleModalCenterTitle">Date Debut: {{ evenement.datedebut|date("m/d/Y") }}</h5><br>
+                            <h5 class="modal-title" id="exampleModalCenterTitle">Date Fin: {{ evenement.datefin|date("m/d/Y") }}</h5>
+                            <img src="{{ asset('images/'~evenement.image)}} "style="height: 5px;width: 5px;margin-bottom: +10%" data-toggle="modal" data-target="#exampleModalCenter">
+
+                            <p>descriptio</p>
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    {% endfor %}
+    </div>
+</div>
+    <div class="text-center">{{ knp_pagination_render(evenements) }}</div>
+<script>
+function print(x) {
+    let url = "{{ (path('evenement_detail', {'idevenement': 'ReplaceMeWithCorrectValue'})) }}";
+    url = url.replace("ReplaceMeWithCorrectValue", x);
+
+    $.post(url, function (xx) {
+        $('#tmpmodal').html(xx);
+        $('#myModalchoose').modal('show');
+    });
+}
+
+
+</script>
+{% endblock %}
