@@ -1,3 +1,11 @@
+evenement_participation:
+    resource: "@EvenementBundle/Controller/ParticipationController.php"
+    type:     annotation
+
+evenement_rate:
+    resource: "@EvenementBundle/Controller/RateController.php"
+    type:     annotation
+
 evenement_demandeevenement:
     resource: "@EvenementBundle/Controller/DemandeevenementController.php"
     type:     annotation

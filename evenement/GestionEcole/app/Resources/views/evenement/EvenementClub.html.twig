@@ -8,9 +8,7 @@
 
             <h5 class="card-header">Evenements list</h5>
 
-            {% for evenement in evenements %}
-            {{ evenement.idevenement }}
-            {% endfor %}
+
             <div class="card-body">
 
                 <table class="table">
@@ -21,6 +19,7 @@
                         <th >Datefin</th>
                         <th >Idclub</th>
                         <th >Image</th>
+                        <th >nombre Participants</th>
                         <th >Actions</th>
                     </tr>
                     </thead>
@@ -33,11 +32,11 @@
                         <td>{% if evenement.datedebut %}{{ evenement.datedebut|date('Y-m-d') }}{% endif %}</td>
                         <td>{% if evenement.datefin %}{{ evenement.datefin|date('Y-m-d') }}{% endif %}</td>
                             <td><img src="{{ asset('images/' ~ evenement.image) }}" height="100px" width="250px"></td>
-
+<td>{{  evenement.x}}</td>
                         <td>
                             <ul>
                                 <li>
-                                    <button data-toggle="modal" data-target="#exampleModalCenter"  onclick="print({{ evenement.idevenement }})">Sssss</button>
+                                    <button data-toggle="modal" data-target="#exampleModalCenter"  onclick="print({{ evenement.idevenement }})">Detail</button>
                                 </li>
                                 <li>
                                     <a href="{{ path('evenement_edit', { 'idevenement': evenement.idevenement }) }}">edit</a>

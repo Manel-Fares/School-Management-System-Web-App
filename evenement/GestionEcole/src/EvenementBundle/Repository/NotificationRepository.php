@@ -10,4 +10,15 @@ namespace EvenementBundle\Repository;
  */
 class NotificationRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function last()
+    {
+        $qb = $this->_em->createQueryBuilder();
+        $qb->select('u')
+            ->from(' EvenementBundle:Notification', 'u')
+            ->orderBy('u.id', 'DESC')
+            ->setMaxResults(3);
+
+
+        return $qb->getQuery()->getResult();
+    }
 }

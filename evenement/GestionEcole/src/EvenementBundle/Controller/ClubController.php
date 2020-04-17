@@ -4,6 +4,7 @@ namespace EvenementBundle\Controller;
 
 use EvenementBundle\Entity\Club;
 use EvenementBundle\Entity\Evenement;
+use EvenementBundle\Entity\Rate;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -37,6 +38,7 @@ class ClubController extends Controller
             'clubs' => $clubs,
         ));
     }
+
     /**
      * Finds and displays a club Image .
      *
@@ -46,17 +48,43 @@ class ClubController extends Controller
     public function ListImageAction(Request $request)
     { $em = $this->getDoctrine()->getManager();
 
-        $clubs = $em->getRepository('EvenementBundle:Club')->afficerSpecifique();
+        $clubs = $em->getRepository('EvenementBundle:Club')->ClubUser();
+//var_dump($clubs);
+        $aa = array();
+        for ($i=0;$i<count($clubs);$i++) {
+
+            $Rates = $em->getRepository('EvenementBundle:Club')->ClubRate($clubs[$i]['idclub']);
+          //  var_dump($Rates);
+           foreach ($Rates as $r){
+               $aa[$i]=$r;
+              // array_push($aa,$r);
+           }}
+            //var_dump($Rates);
+             //var_dump($aa);
         $entities  = $this->get('knp_paginator')->paginate(
             $clubs,
             $request->query->get('page', 1)/*le numéro de la page à afficher*/,
-            1/*nbre d'éléments par page*/
+            4/*nbre d'éléments par page*/
         );
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $club=$em->getRepository('EvenementBundle:Club')->findOneBy(array('idresponsable'=>$user));
+     /*   $rate = new Rate();
+        $form = $this->createForm('EvenementBundle\Form\RateType', $rate);
+        $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            $rate->setIduser($user);
+            $rate->setIdclub($club);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($rate);
+            $em->flush();
 
+            return $this->redirectToRoute('evenement_image');
+        }*/
 
         return $this->render('club/listImageClub.html.twig', array(
-            'clubs' => $entities,
+            'clubs' => $entities,'aa'=>$aa,/*'rate' => $rate,
+            'form' => $form->createView(),*/
         ));
     }
 
@@ -70,14 +98,16 @@ class ClubController extends Controller
     {
         $club = new Club();
 
-        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+      //  $user = $this->container->get('security.token_storage')->getToken()->getUser();
         $form = $this->createForm('EvenementBundle\Form\ClubType', $club);
         $form->handleRequest($request);
-        var_dump($user);
+       // var_dump($user);
 
-        $club->setIdresponsable($user);
+       // $club->setIdresponsable($user);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $club->UploadProfilePicture();
+
             $em->persist($club);
             $em->flush();
 
@@ -102,12 +132,12 @@ class ClubController extends Controller
         $em = $this->getDoctrine()->getManager();
         $Cl=new  Club();
 
-
+        var_dump($club->getIdclub());
         $ct=$Cl->getConstants();
         $bd = $em->getRepository('EvenementBundle:Demandeevenement')->budgetEvenementClub($club->getIdclub());
 
         $clubs = $em->getRepository('EvenementBundle:Club')->nbrEvenementClub($club->getIdclub());
-        var_dump($clubs);
+      var_dump($clubs);
         $evenements= $em->getRepository('EvenementBundle:Evenement')->nbrEvenementTotale();
 
         return $this->render('club/show.html.twig', array(
@@ -133,18 +163,25 @@ class ClubController extends Controller
 
             return $this->redirectToRoute('club_edit', array('idclub' => $club->getIdclub()));
         }
-
+        $user = $this->getUser();
+         if ($user->hasRole('ROLE_ADMIN')) {
         return $this->render('club/edit.html.twig', array(
             'club' => $club,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        ));
+        ));}
+             else  {
+                 return $this->render('club/edit2.html.twig', array(
+                     'club' => $club,
+                     'edit_form' => $editForm->createView(),
+                     'delete_form' => $deleteForm->createView(),
+                 ));}
     }
 
     /**
      * Deletes a club entity.
      *
-     * @Route("/{idclub}", name="club_delete")
+     * @Route("/{idclub}/delete", name="club_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Club $club)
@@ -191,4 +228,80 @@ class ClubController extends Controller
             'clubs' => $clubs,'evenements'=>$evenements
         ));
     }
+
+
+
+    /****************************************************************************/
+/*
+    /**
+     * Lists all image detail  club entities.
+     *
+     * @Route("/club/{idclub}", name="club_detail")
+     * @Method("GET")
+     */
+  /*  public function ListImageDetailAction(Request $request,$idclub)
+    { $em = $this->getDoctrine()->getManager();
+
+        $aa = $em->getRepository('EvenementBundle:Club')->find($idclub+0);
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+       // $club=$em->getRepository('EvenementBundle:Club')->findOneBy(array('idresponsable'=>$user));
+       var_dump($aa);
+        $rate = new Rate();
+        $form = $this->createForm('EvenementBundle\Form\RateType', $rate);
+        $form->handleRequest($request);
+       // var_dump($rate);
+        var_dump($form['rating']->getData());
+        if ($form->isSubmitted() && $form->isValid()) {
+            var_dump($user);
+            $rate->setIduser($user);
+            $rate->setIdc($aa);
+            var_dump($rate);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($rate);
+            $em->flush();
+
+            //return $this->redirectToRoute('evenement_image');
+        }
+        else
+
+        /* $form->handleRequest($request);
+
+         if ($form->isSubmitted() && $form->isValid()) {
+             $rate->setIduser($user);
+             $rate->setIdclub($club);
+             $em = $this->getDoctrine()->getManager();
+             $em->persist($rate);
+             $em->flush();
+
+             return $this->redirectToRoute('evenement_image');
+         }*/
+
+      /*  return $this->render('club/rate.html.twig', array(
+            'aa' =>$aa,'rate' => $rate,
+            'form' => $form->createView(),
+        ));
+    }*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

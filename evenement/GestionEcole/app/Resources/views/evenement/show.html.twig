@@ -2,47 +2,48 @@
 <div class="modal fade bd-example-modal-lg" id="myModalchoose" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
 <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
+        <center> <div class="border-bottom pb-3 mb-3"> <h1>Evenement</h1>
+            </div>               </center>
 
         <div class="modal-header">
 
 
 
-                <div class="row" style="margin-top: +10%">
 
 
-                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pr-xl-0 pr-lg-0 pr-md-0  m-b-30">
 
-                        <div class="product-slider">
-
-
-                                <img src="{{ asset('images/' ~ evenement.image) }}" height="250px" width="250px">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pr-xl-0 pr-lg-0 pr-md-0  m-b-30" >
 
 
-                        </div>
+
+
+                                <img class="d-block" src="{{ asset('images/' ~ evenement.image) }}" height="300px" width="300px" style="margin-right: +50%" >
+
+
+
 
                     </div>
 
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pl-xl-0 pl-lg-0 pl-md-0 border-left m-b-30" >
 
                         <div class="product-details">
-                            <h1>Evenement</h1>
-                            <h1>Id Evenement : {{ evenement.idevenement }}</h1>
-                            <h1>Date Debut : {% if evenement.datedebut %}{{ evenement.datedebut|date('Y-m-d') }}{% endif %}</h1>
-                            <h1>Date Fin : {% if evenement.datefin %}{{ evenement.datefin|date('Y-m-d') }}{% endif %}</h1>
-                            <h1>Id Club{{ evenement.idclub }}</h1>
-                            <ul>
-                               <li>
+
+                            <h3>Id Evenement : {{ evenement.idevenement }}</h3>
+                            <h3>Id Club{{ evenement.idclub }}</h3>
+                            <h3 style="color: #00ab6c">Date Debut : {% if evenement.datedebut %}{{ evenement.datedebut|date('Y-m-d') }}{% endif %}</h3>
+                            <h3 style="color: #721c24">Date Fin : {% if evenement.datefin %}{{ evenement.datefin|date('Y-m-d') }}{% endif %}</h3>
+
+
                                    <!-- <a href="{{ path('evenement_index') }}">Back to the list</a>
                                 </li>-->
                                 <!--  <li>
                                     <a href="{{ path('evenement_edit', { 'idevenement': evenement.idevenement }) }}">Edit</a>
                                 </li>-->
-                                <li>
+
                                     {{ form_start(delete_form) }}
-                                    <input type="submit" value="Delete">
+                                    <input type="submit" value="Delete" class="btn btn-outline-danger">
                                     {{ form_end(delete_form) }}
-                                </li>
-                            </ul>
+
 
                         </div>
 
@@ -54,7 +55,7 @@
 
 
 
-                </div>
+
 
 
         </div>

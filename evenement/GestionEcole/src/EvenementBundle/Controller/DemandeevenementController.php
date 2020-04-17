@@ -5,6 +5,7 @@ namespace EvenementBundle\Controller;
 use Doctrine\ORM\EntityRepository;
 use EvenementBundle\Entity\Club;
 use EvenementBundle\Entity\Demandeevenement;
+use EvenementBundle\Entity\Evenement;
 use EvenementBundle\Entity\Notification;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -27,17 +28,27 @@ class DemandeevenementController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $Cl=new  Club();
-        $notifications=$this->getDoctrine()->getManager()->getRepository('EvenementBundle:Notification')->findAll();
+       // $Cl=new  Club();idclb
+        $notifications=$this->getDoctrine()->getManager()->getRepository('EvenementBundle:Notification')->last();
+     //   $club=$em->getRepository('EvenementBundle:Club')->find(1);
 
+        //$ct=$Cl->getConstants();
+        $idd = $em->getRepository('EvenementBundle:Demandeevenement')->idclb();
+      //  var_dump($idd);
+        for($i=0;$i<count($idd);$i++){
+            $bd = $em->getRepository('EvenementBundle:Demandeevenement')->top3($idd[$i]['idd']);
+            //var_dump($bd);
+            foreach ($bd as $r){
+                $aa[$i]=$r;
+                // array_push($aa,$r);
+            }
+        }
 
-        $ct=$Cl->getConstants();
-        $bd = $em->getRepository('EvenementBundle:Demandeevenement')->top3();
-
+      //  var_dump($aa);
         $demandeevenements = $em->getRepository('EvenementBundle:Demandeevenement')->findAll();
 
         return $this->render('demandeevenement/index.html.twig', array(
-            'demandeevenements' => $demandeevenements,'bd'=>$bd,'ct'=>$ct,'notifications'=>$notifications
+            'demandeevenements' => $demandeevenements,'bd'=>$aa,'notifications'=>$notifications
         ));
     }
 
@@ -77,6 +88,8 @@ class DemandeevenementController extends Controller
             var_dump($club);
             //var_dump($form['clubnom']->getData());
           $demandeevenement->setIdclub($form['clubnom']->getData());
+          $demandeevenement->setEtat('non valider');
+            $demandeevenement->UploadProfilePicture();
             $em->persist($demandeevenement);
             $em->flush();
 
@@ -135,7 +148,7 @@ class DemandeevenementController extends Controller
     /**
      * Deletes a demandeevenement entity.
      *
-     * @Route("/{iddemandeevenement}", name="demandeevenement_delete")
+     * @Route("/{iddemandeevenement}/delete", name="demandeevenement_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Demandeevenement $demandeevenement)
@@ -154,7 +167,7 @@ class DemandeevenementController extends Controller
 
     /**
      * Creates a form to delete a demandeevenement entity.
-     *
+     *d
      * @param Demandeevenement $demandeevenement The demandeevenement entity
      *
      * @return \Symfony\Component\Form\Form The form
@@ -166,5 +179,36 @@ class DemandeevenementController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+    /**
+     * Displays a form to edit an existing demandeevenement entity.
+     *
+     * @Route("/{iddemandeevenement}/valider", name="demandeevenement_valider")
+     * @Method({"GET", "POST"})
+     */
+    public function edit2Action(Request $request, Demandeevenement $demandeevenement)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $demandeevenement->setEtat("valider");
+        $em->persist($demandeevenement);
+        $em->flush();
+       // $this->getDoctrine()->getManager()->flush();
+        $evs=new Evenement();
+
+        $club=$em->getRepository('EvenementBundle:Club')->find($demandeevenement->getIdclub());
+        var_dump($club);
+
+        $evs->setIdclub($club);
+        $evs->setDatedebut($demandeevenement->getDatedebut());
+        $evs->setDatefin($demandeevenement->getDatefin());
+        $evs->setImage($demandeevenement->getImage());
+       // var_dump($evs);
+       $em->persist($evs);
+
+        $em->flush();
+        return $this->redirectToRoute('demandeevenement_index');
+
+
+
     }
 }

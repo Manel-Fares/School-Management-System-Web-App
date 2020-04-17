@@ -4,7 +4,7 @@ namespace EvenementBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use SBC\NotificationsBundle\Builder\NotificationBuilder;
-
+use Symfony\Component\Validator\Constraints as Assert;
 use SBC\NotificationsBundle\Model\NotifiableInterface;
 
 /**
@@ -76,7 +76,7 @@ class Demandeevenement implements NotifiableInterface
         $this->idclub = $idclub;
     }
 
-private $clubnom;
+    private $clubnom;
 
     /**
      * @return mixed
@@ -232,6 +232,7 @@ private $clubnom;
             ->setDescription($this->getDescription())
             ->setRoute('demandeevenement_show')
             ->setParameters(array('iddemandeevenement'=>$this->getIddemandeevenement()));
+
         $notification2=new Notification();
         $notification2
             ->setTitle('New Demande Evenement')
@@ -242,7 +243,7 @@ private $clubnom;
 
         $builder
             ->addNotification($notification)
-             ->addNotification($notification2);
+            ->addNotification($notification2);
 
 
         return $builder;
@@ -252,10 +253,11 @@ private $clubnom;
     {
         $notification = new Notification();
         $notification
-            ->setTitle('Comment updated')
-            ->setDescription('"'.$this->content.'" has been updated')
+            ->setTitle('Demandeevenement updated')
+            ->setDescription('"'.$this->description.'" has been updated')
+
             ->setRoute('comment_show')
-            ->setParameters(array('id' => $this->id))
+            ->setParameters(array('id' => $this->iddemandeevenement))
         ;
         $builder->addNotification($notification);
 
@@ -267,6 +269,47 @@ private $clubnom;
         // in case you don't want any notification for a special event
         // you can simply return an empty $builder
         return $builder;
+    }
+    /**
+     * @return mixed
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+    /**
+     * @param mixed $file
+     */
+    public function setFile($file)
+    {
+        $this->file = $file;
+    }
+
+
+    /**
+     * @Assert\File(maxSize="500k")
+     *
+     * )
+     */
+    private $file;
+
+    public function getWebPath()
+    {
+        return null===$this->image ? null : $this->getUploadDir().'/'.$this->image;
+    }
+    protected function getUploadRootDir()
+    {
+        return __DIR__.'/../../../web/'.$this->getUploadDir();
+    }
+    protected function getUploadDir()
+    {
+        return 'images';
+    }
+    public function UploadProfilePicture()
+    {
+        $this->file->move($this->getUploadRootDir(),$this->file->getClientOriginalName());
+        $this->image=$this->file->getClientOriginalName();
+        $this->file=null;
     }
 
 }

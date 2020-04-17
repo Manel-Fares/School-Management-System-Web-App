@@ -9,10 +9,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Club
  *
  * @ORM\Table(name="club", indexes={@ORM\Index(name="qsdqsd", columns={"idResponsable"})})
- * @ORM\Entity
  * @ORM\Entity(repositoryClass="EvenementBundle\Repository\ClubRepository")
  */
-  class Club
+class Club
 {
     /**
      * @var integer
@@ -30,10 +29,12 @@ use Symfony\Component\Validator\Constraints as Assert;
      */
     private $nomclub;
 
-      /**
-       * @ORM\ManyToOne(targetEntity="EvenementBundle\Entity\Users")
-       * @ORM\JoinColumn(name="idResponsable", referencedColumnName="id")
-       */
+    /**
+     * @var \Users
+     *
+     * @ORM\ManyToOne(targetEntity="EvenementBundle\Entity\Users")
+     * @ORM\JoinColumn(name="idResponsable", referencedColumnName="id")
+     */
     private $idresponsable;
 
     /**
@@ -100,21 +101,21 @@ use Symfony\Component\Validator\Constraints as Assert;
         $this->nomclub = $nomclub;
     }
 
-      /**
-       * @return mixed
-       */
-      public function getIdresponsable()
-      {
-          return $this->idresponsable;
-      }
+    /**
+     * @return mixed
+     */
+    public function getIdresponsable()
+    {
+        return $this->idresponsable;
+    }
 
-      /**
-       * @param mixed $idresponsable
-       */
-      public function setIdresponsable($idresponsable)
-      {
-          $this->idresponsable = $idresponsable;
-      }
+    /**
+     * @param mixed $idresponsable
+     */
+    public function setIdresponsable($idresponsable)
+    {
+        $this->idresponsable = $idresponsable;
+    }
 
 
     /**
@@ -168,24 +169,24 @@ use Symfony\Component\Validator\Constraints as Assert;
         $this->file=null;
     }
 
-      public function __toString(){
-          try {
-              // Note that the property needs to exist
-              // on the class, or therefore the exception
-              // will be thrown
-              return (string) $this->getIdclub();
-          } catch (Exception $exception) {
-              // Optionally you can var_dump the error message to see why the exception is being thrown !
-              var_dump($exception->getMessage());
-              return '';
-          }
-      }
-      const BDGT =1000000;
-      public function getConstants()
-      {
-          $reflectionClass = new ReflectionClass($this);
-          return $reflectionClass->getConstants();
-      }
+    public function __toString(){
+        try {
+            // Note that the property needs to exist
+            // on the class, or therefore the exception
+            // will be thrown
+            return (string) $this->getIdclub();
+        } catch (Exception $exception) {
+            // Optionally you can var_dump the error message to see why the exception is being thrown !
+            var_dump($exception->getMessage());
+            return '';
+        }
+    }
+    const BDGT =1000000;
+    public function getConstants()
+    {
+        $reflectionClass = new ReflectionClass($this);
+        return $reflectionClass->getConstants();
+    }
 
-  }
+}
 

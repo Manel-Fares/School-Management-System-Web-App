@@ -2,6 +2,7 @@
 
 namespace EvenementBundle\Form;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -13,7 +14,8 @@ class ClubType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('nomclub')->add('domaine')->add('image');
+        $builder->add('nomclub')->add('domaine')->add('file')
+            ->add('idresponsable',EntityType::class,['class'=>'EvenementBundle\Entity\Users','choice_label'=>'id']);
     }/**
      * {@inheritdoc}
      */

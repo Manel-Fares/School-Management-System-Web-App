@@ -1,7 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Demandeevenement edit</h1>
+<div class="container">
+    <div class="card bg-light mb-3" style="width: 50%;height: 50%">
+        <div class="card-header">Evenement edit</div>
+        <div class="card-body">
+            <h5 class="card-title"></h5>
 
     {{ form_start(edit_form) }}
         {{ form_widget(edit_form) }}
@@ -18,4 +22,5 @@
             {{ form_end(delete_form) }}
         </li>
     </ul>
+        </div></div></div>
 {% endblock %}

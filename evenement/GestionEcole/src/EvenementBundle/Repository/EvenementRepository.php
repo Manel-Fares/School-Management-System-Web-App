@@ -8,7 +8,7 @@ class EvenementRepository extends  \Doctrine\ORM\EntityRepository
 {
     public function afficerSpecifique(){
         $qry=$this->getEntityManager()
-            ->createQuery("SELECT * FROM EvenementBundle:Evenement m ");
+            ->createQuery("SELECT m.idevenement FROM EvenementBundle:Evenement m ");
         return $qry->getResult();
     }
 
