@@ -1,0 +1,24 @@
+reservationbook_index:
+    path:     /
+    defaults: { _controller: "BooksBundle:Reservationbook:index" }
+    methods:  GET
+
+reservationbook_show:
+    path:     /{idreservation}/show
+    defaults: { _controller: "BooksBundle:Reservationbook:show" }
+    methods:  GET
+
+reservationbook_new:
+    path:     /new
+    defaults: { _controller: "BooksBundle:Reservationbook:new" }
+    methods:  [GET, POST]
+
+reservationbook_edit:
+    path:     /{idreservation}/edit
+    defaults: { _controller: "BooksBundle:Reservationbook:edit" }
+    methods:  [GET, POST]
+
+reservationbook_delete:
+    path:     /{idreservation}/delete
+    defaults: { _controller: "BooksBundle:Reservationbook:delete" }
+    methods:  DELETE

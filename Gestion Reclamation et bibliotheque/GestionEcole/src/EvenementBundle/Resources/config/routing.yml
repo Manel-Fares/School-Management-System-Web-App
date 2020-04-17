@@ -1,0 +1,6 @@
+user:
+    path:     /user
+    defaults: { _controller: EvenementBundle:Evenement:user }
+admin:
+    path:     /admin
+    defaults: { _controller: EvenementBundle:Evenement:admin }

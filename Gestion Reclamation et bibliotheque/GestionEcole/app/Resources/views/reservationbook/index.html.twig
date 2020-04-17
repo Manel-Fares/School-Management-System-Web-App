@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            <h1>My Books</h1>
+            <table class="table table-hover table-striped">
+                <thead>
+                <tr class="thead-dark">
+                    <th>S. #</th>
+                    <th>Title & Discription</th>
+                    <th>Starting On</th>
+                    <th>Ending On</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for key,reservationbook in reservationbooks %}
+                <tr>
+                    <td>
+                        {{ key+1 }}
+                    </td>
+                    <td style="max-width:300px">
+                        <h6>{{ reservationbook.idbook.titrebook }}</h6>
+                        <em class="text-muted">
+                            {{ reservationbook.idbook.descriptionbook }}
+                        </em>
+                    </td>
+                    <td>
+                        {% if reservationbook.dated %}{{ reservationbook.dated|date('Y-m-d') }}{% endif %}
+                    </td>
+                    <td>
+                        {% if reservationbook.datef %}{{ reservationbook.datef|date('Y-m-d') }}{% endif %}
+                    </td>
+                    <td>
+                        <a href="{{ path('reservationbook_delete', { 'idreservation': reservationbook.idreservation }) }}" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                    </td>
+                </tr>
+
+
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

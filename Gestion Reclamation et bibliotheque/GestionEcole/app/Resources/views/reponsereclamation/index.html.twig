@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Reponsereclamations list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Idrep</th>
+                <th>Reponse</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reponsereclamation in reponsereclamations %}
+            <tr>
+                <td><a href="{{ path('reponsereclamation_show', { 'idrep': reponsereclamation.idrep }) }}">{{ reponsereclamation.idrep }}</a></td>
+                <td>{{ reponsereclamation.reponse }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('reponsereclamation_show', { 'idrep': reponsereclamation.idrep }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('reponsereclamation_edit', { 'idrep': reponsereclamation.idrep }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('reponsereclamation_new') }}">Create a new reponsereclamation</a>
+        </li>
+    </ul>
+{% endblock %}
