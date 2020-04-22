@@ -1,0 +1,41 @@
+class_absence:
+    resource: "@ClassBundle/Resources/config/routing/absence.yml"
+    prefix:   /absence
+class:
+    resource: "@ClassBundle/Resources/config/routing/classe.yml"
+    prefix:   /class
+emploi:
+    resource: "@ClassBundle/Resources/config/routing/emplois.yml"
+    prefix:   /emploi
+calendar:
+    resource: "@ClassBundle/Resources/config/routing/calendarannuel.yml"
+    prefix:   /calendar
+
+
+class_homepage:
+    path:     /
+    defaults: { _controller: ClassBundle:Default:index }
+affectEtudClass:
+    path:     /etds
+    defaults: { _controller: ClassBundle:Default:affetudiclass }
+affct:
+    path:     /affct/{id}
+    defaults: { _controller: ClassBundle:Default:affect }
+affctense:
+    path:     /affctense/{id}/{idmat}
+    defaults: { _controller: ClassBundle:Default:affectEnsei }
+affctens:
+    path:     /ens
+    defaults: { _controller: ClassBundle:Default:affenseigclass }
+
+abcenseetud:
+    path:     /absetud
+    defaults: { _controller: ClassBundle:Default:getAbsence }
+
+empleetud:
+    path:     /empletud
+    defaults: { _controller: ClassBundle:Default:getEmplois }
+
+search:
+    path:     /search
+    defaults: { _controller: ClassBundle:Default:liveSearch }

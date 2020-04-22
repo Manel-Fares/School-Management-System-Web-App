@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Demandeevenements list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Iddemandeevenement</th>
+                <th>Description</th>
+                <th>Datedebut</th>
+                <th>Datefin</th>
+                <th>Etat</th>
+                <th>Idclub</th>
+                <th>Budget</th>
+                <th>Image</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for demandeevenement in demandeevenements %}
+            <tr>
+                <td><a href="{{ path('demandeevenement_show', { 'iddemandeevenement': demandeevenement.iddemandeevenement }) }}">{{ demandeevenement.iddemandeevenement }}</a></td>
+                <td>{{ demandeevenement.description }}</td>
+                <td>{% if demandeevenement.datedebut %}{{ demandeevenement.datedebut|date('Y-m-d') }}{% endif %}</td>
+                <td>{% if demandeevenement.datefin %}{{ demandeevenement.datefin|date('Y-m-d') }}{% endif %}</td>
+                <td>{{ demandeevenement.etat }}</td>
+                <td>{{ demandeevenement.idclub }}</td>
+                <td>{{ demandeevenement.budget }}</td>
+                <td>{{ demandeevenement.image }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('demandeevenement_show', { 'iddemandeevenement': demandeevenement.iddemandeevenement }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('demandeevenement_edit', { 'iddemandeevenement': demandeevenement.iddemandeevenement }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('demandeevenement_new') }}">Create a new demandeevenement</a>
+        </li>
+    </ul>
+{% endblock %}
