@@ -1,0 +1,69 @@
+{% trans_default_domain 'FOSUserBundle' %}
+<link rel="stylesheet" href="{{ asset('registration/fonts/linearicons/style.css')}}">
+
+<link rel="stylesheet" href="{{ asset('registration/css/style.css')}}">
+
+
+<div class="wrapper">
+    <div class="inner">
+        <img src="{{ asset('registration/images/image-1.png')}}" alt="" class="image-1">
+        {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
+
+        <h3>Nouveau Compte?</h3>
+        <div class="form-holder">
+            <span class="lnr lnr-user"></span>
+            {{ form_widget(form.username,{'attr': {'class': 'form-control', 'placeholder': 'Username ...'}}) }}
+        </div>
+        <div class="form-holder">
+            <span class="lnr lnr-user"></span>
+            {{ form_widget(form.nomuser,{'attr': {'class': 'form-control', 'placeholder': 'Nom ...'}}) }}
+        </div>
+        <div class="form-holder">
+            <span class="lnr lnr-user"></span>
+            {{ form_widget(form.prenomuser,{'attr': {'class': 'form-control', 'placeholder': 'Prenom...'}}) }}
+        </div>
+        <div class="form-holder">
+
+            {{ form_row(form.datenaissanceuser) }}
+        </div>
+        <div class="form-holder">
+            <span class="lnr lnr-lock"></span>
+            {{ form_widget(form.plainPassword.first,{'attr': {'class': 'form-control', 'placeholder': 'Mot de passe ...'}}) }}
+        </div>
+        <div class="form-holder">
+            <span class="lnr lnr-lock"></span>
+            {{ form_widget(form.plainPassword.second,{'attr': {'class': 'form-control', 'placeholder': 'Confirmation MDP...'}}) }}
+        </div>
+
+        <div class="form-holder">
+            <span class="lnr lnr-user"></span>
+            {{ form_widget(form.cinuser,{'attr': {'class': 'form-control', 'placeholder': 'Numéro CIN ...'}}) }}
+        </div>
+        <div class="form-holder">
+            <span class="lnr lnr-phone-handset"></span>
+            {{ form_widget(form.numteluser,{'attr': {'class': 'form-control', 'placeholder': 'Numéro d Télephone ...'}}) }}
+        </div>
+
+        <div class="form-holder">
+            <span class="lnr lnr-envelope"></span>
+            {{ form_widget(form.email,{'attr': {'class': 'form-control', 'placeholder': 'Email ...'}}) }}
+        </div>
+
+        <div class="form-holder">
+
+            {{ form_row(form.roles) }}        </div>
+
+        <div>
+            <button type="submit" value="{{ 'registration.submit'|trans }}" >
+                <span>Register</span>
+            </button>
+        </div>
+        {{ form_end(form) }}
+
+
+        <img src="{{ asset('registration/images/image-2.png')}}" alt="" class="image-2">
+    </div>
+
+</div>
+<script src="{{ asset('registration/js/jquery-3.3.1.min.js')}}"></script>
+<script src="{{ asset('registration/js/main.js')}}"></script>

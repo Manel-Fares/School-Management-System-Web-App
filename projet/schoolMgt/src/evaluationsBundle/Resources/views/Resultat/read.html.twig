@@ -1,0 +1,19 @@
+
+<h1>List:</h1>
+<table border="1">
+    <tr>
+        <th>etudiant</th>
+        <th>resultat</th>
+
+
+
+    </tr>
+    {% for c in resultat %}
+        <tr>
+            <td>{{ c.etudiant }}</td>
+            <td>{{ c.resultat }}</td>
+
+
+        </tr>
+    {% endfor %}
+</table>

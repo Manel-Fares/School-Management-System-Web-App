@@ -1,0 +1,22 @@
+{% extends 'interfaceAdministrateur.html.twig' %}
+{% block body %}
+    <div class="row">
+        <div class="col-xl-7 col-lg-7 col-md-8 col-sm-14 col-14">
+            <div class="card">
+                <h5 class="card-header">Result Statistics</h5>
+                <div class="card-body">
+                    <div >
+                        <div id="div_chart" ></div>
+                        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                        <script type="text/javascript">
+                            {{ gc_draw(piechart, 'div_chart') }}
+                        </script>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

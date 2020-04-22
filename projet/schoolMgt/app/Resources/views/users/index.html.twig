@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Users list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Cinuser</th>
+                <th>Nomuser</th>
+                <th>Prenomuser</th>
+                <th>Datenaissanceuser</th>
+                <th>Sexeuser</th>
+                <th>Emailuser</th>
+                <th>Adresseuser</th>
+                <th>Numteluser</th>
+                <th>Roleuser</th>
+                <th>Dateembaucheuser</th>
+                <th>Motdepasseuser</th>
+                <th>Classeetd</th>
+                <th>Inscriptionetd</th>
+                <th>Nomresponsableetd</th>
+                <th>Specialiteetd</th>
+                <th>Statutuser</th>
+                <th>Salaireuser</th>
+                <th>Domaineuser</th>
+                <th>Idparent</th>
+                <th>Picuser</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td><a href="{{ path('users_show', { 'id': user.id }) }}">{{ user.id }}</a></td>
+                <td>{{ user.cinuser }}</td>
+                <td>{{ user.nomuser }}</td>
+                <td>{{ user.prenomuser }}</td>
+                <td>{% if user.datenaissanceuser %}{{ user.datenaissanceuser|date('Y-m-d') }}{% endif %}</td>
+                <td>{{ user.sexeuser }}</td>
+                <td>{{ user.emailuser }}</td>
+                <td>{{ user.adresseuser }}</td>
+                <td>{{ user.numteluser }}</td>
+                <td>{{ user.roleuser }}</td>
+                <td>{% if user.dateembaucheuser %}{{ user.dateembaucheuser|date('Y-m-d') }}{% endif %}</td>
+                <td>{{ user.motdepasseuser }}</td>
+                <td>{{ user.classeetd }}</td>
+                <td>{% if user.inscriptionetd %}{{ user.inscriptionetd|date('Y-m-d') }}{% endif %}</td>
+                <td>{{ user.nomresponsableetd }}</td>
+                <td>{{ user.specialiteetd }}</td>
+                <td>{{ user.statutuser }}</td>
+                <td>{{ user.salaireuser }}</td>
+                <td>{{ user.domaineuser }}</td>
+                <td>{{ user.idparent }}</td>
+                <td>{{ user.picuser }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('users_show', { 'id': user.id }) }}">show</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    
+{% endblock %}

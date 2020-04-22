@@ -1,0 +1,39 @@
+note_index:
+    path:     /
+    defaults: { _controller: "evaluationsBundle:Note:index" }
+    methods:  GET
+
+note_show:
+    path:     /{etudiant}/show
+    defaults: { _controller: "evaluationsBundle:Note:show" }
+    methods:  GET
+
+note_affiche_etudiant:
+    path:     /notesetudiant
+    defaults: { _controller: "evaluationsBundle:Note:noteEtudiant" }
+    methods:  GET
+
+note_affiche_enseignant:
+    path:     /notesenseignant
+    defaults: { _controller: "evaluationsBundle:Note:noteEnseignant" }
+    methods:  GET
+
+note_read:
+    path:     /read
+    defaults: { _controller: "evaluationsnBundle:Note:index" }
+    methods:  GET
+
+note_new:
+    path:     /add
+    defaults: { _controller: "evaluationsBundle:Note:add" }
+    methods:  [GET, POST]
+
+note_edit:
+    path:     /{idetudiant}/{idmatiere}
+    defaults: { _controller: "evaluationsBundle:Note:edit" }
+    methods:  [GET, POST]
+
+note_delete:
+    path:     /{idetudiant}/{idmatiere}/delete
+    defaults: { _controller: "evaluationsBundle:Note:delete" }
+

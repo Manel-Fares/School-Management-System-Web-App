@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <div  class="container">
+    <center>
+
+    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">View/Download Emplois</button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+
+                   <center> <h4 class="modal-title">Class Emplois</h4></center>
+                </div>
+                <div class="modal-body">
+                    <iframe src="{{ asset('Pdfs/'~pathh) }}" width="100%" height="500px">
+                    </iframe>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</center>
+    </div>
+
+{% endblock %}
+
+
+{% block footer %}
+{% endblock %}

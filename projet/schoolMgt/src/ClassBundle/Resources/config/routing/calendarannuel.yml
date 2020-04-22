@@ -1,0 +1,24 @@
+calend_index:
+    path:     /
+    defaults: { _controller: "ClassBundle:Calendarannuel:index" }
+    methods:  GET
+
+calend_show:
+    path:     /{id}/show
+    defaults: { _controller: "ClassBundle:Calendarannuel:show" }
+    methods:  GET
+
+calend_new:
+    path:     /new
+    defaults: { _controller: "ClassBundle:Calendarannuel:new" }
+    methods:  [GET, POST]
+
+calend_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "ClassBundle:Calendarannuel:edit" }
+    methods:  [GET, POST]
+
+calend_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "ClassBundle:Calendarannuel:delete" }
+    methods:  DELETE

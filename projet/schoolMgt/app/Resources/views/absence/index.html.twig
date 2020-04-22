@@ -1,0 +1,43 @@
+{% extends 'interfaceAdministrateur.html.twig' %}
+{% block body %}
+<div class="container">
+    <h1>Absences list</h1>
+
+    <table class="table">
+        <thead >
+            <tr>
+                <th>Id</th>
+                <th>Date</th>
+                <th>Timedeb</th>
+                <th>Timefin</th>
+                <th>Matiere</th>
+                <th>User</th>
+
+            </tr>
+        </thead>
+        <tbody>
+        {% for absence in absences %}
+            <tr>
+                <td><a href="{{ path('absence_show', { 'id': absence.id }) }}">{{ absence.id }}</a></td>
+                <td>{% if absence.date %}{{ absence.date|date('Y-m-d') }}{% endif %}</td>
+                <td>{% if absence.timedeb %}{{ absence.timedeb|date('H:i:s') }}{% endif %}</td>
+                <td>{% if absence.timefin %}{{ absence.timefin|date('H:i:s') }}{% endif %}</td>
+                <td>{{ absence.idMatiere.nom }}</td>
+                <td>{{ absence.idUser.nomuser }}</td>
+                <td>
+                    <a href="{{ path('absence_edit', { 'id': absence.id }) }}"><i class="fa fa-edit"></i></a>
+                </td>
+                <td><a href="{{ path('absence_deleteC', { 'id': absence.id }) }}"><i class="fa fa-trash"></i></a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('absence_new') }}">Create a new absence</a>
+        </li>
+    </ul>
+</div>
+{% endblock %}

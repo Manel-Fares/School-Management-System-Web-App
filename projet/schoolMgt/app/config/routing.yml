@@ -1,0 +1,79 @@
+class:
+    resource: "@ClassBundle/Resources/config/routing.yml"
+    prefix:   /
+
+forum:
+    resource: "@ForumBundle/Resources/config/routing.yml"
+    prefix:   /
+
+books:
+    resource: "@BooksBundle/Resources/config/routing.yml"
+    prefix:   /
+
+reclamation:
+    resource: "@ReclamationBundle/Resources/config/routing.yml"
+    prefix:   /
+
+evenement:
+    resource: "@EvenementBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+user:
+    resource: "@UserBundle/Resources/config/routing.yml"
+    prefix:   /user
+
+evaluation:
+    resource: "@evaluationsBundle/Resources/config/routing.yml"
+    prefix:   /
+
+school:
+    resource: "@schoolBundle/Resources/config/routing.yml"
+    prefix:   /school
+
+app:
+    resource: '@AppBundle/Controller/'
+    type: annotation
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+evenement_participation:
+    resource: "@EvenementBundle/Controller/ParticipationController.php"
+    type:     annotation
+
+evenement_rate:
+    resource: "@EvenementBundle/Controller/RateController.php"
+    type:     annotation
+
+evenement_demandeevenement:
+    resource: "@EvenementBundle/Controller/DemandeevenementController.php"
+    type:     annotation
+
+evenement_evenement:
+    resource: "@EvenementBundle/Controller/EvenementController.php"
+    type:     annotation
+
+evenement_club:
+    resource: "@EvenementBundle/Controller/ClubController.php"
+    type:     annotation
+
+fos_comment_api:
+    type: rest
+    resource: "@FOSCommentBundle/Resources/config/routing.yml"
+    prefix: /api
+    defaults: { _format: html }
+
+forum_answers:
+    resource: "@ForumBundle/Controller/AnswerController.php"
+    type:     annotation
+forum_question:
+    resource: "@ForumBundle/Controller/QuestionController.php"
+    type:     annotation
+
+ancarebeca_fullcalendar:
+    resource: "@FullCalendarBundle/Resources/config/routing.yml"
+
+# Symfony 2 + 3: app/config/routing.yml
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"

@@ -1,0 +1,51 @@
+{% extends  'interfacePersonnel.html.twig' %}
+{% block body  %}
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="card">
+            <h5 class="card-header">Reclamation</h5>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered first" id="myTable">
+                        <thead>
+
+                        <tr>
+                            <th>Type Reclamation</th>
+                            <th>Description</th>
+                            <th>Status</th>
+                            <th>Etudiant</th>
+                            <th>Email Etudiant</th>
+
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        {% for reclamation in reclamations  %}
+                            <tr>
+
+                                <td>{{ reclamation.sujetreclamation }}</td>
+                                <td>  {{ reclamation.descriptionreclamation }} </td>
+                                <td>   <a href="{{ path('reclamation_backedit', { 'idreclamation': reclamation.idreclamation }) }}">{{ reclamation.statutreclamation }}</a></td>
+                                <td> {{ reclamation.idetd.username }}</td>
+                                <td> {{ reclamation.idetd.email }}</td>
+
+
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <th>Titre Book</th>
+                            <th>Description</th>
+                            <th>Status</th>
+                            <th>Etudiant</th>
+                            <th>Email Etudiant</th>
+
+                        </tr>
+
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
