@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container">
+
+
+
+    <iv class="card bg-light mb-3" style="width: 50%;">
+        <div class="card-header">Evenement</div>
+        <div class="card-body">
+            <h5 class="card-title"></h5>
+            {{ form_start(form) }}
+           <!-- <form method="post">
+
+                <select id="cars" name="carlist" form="carform">
+                    <option value="volvo">Volvo</option>
+                    <option value="saab">Saab</option>
+                    <option value="opel">Opel</option>
+                    <option value="audi">Audi</option>
+                </select>
+            </form>-->
+            </div>
+
+
+                {{ form_label(form.clubnom) }}
+                {{ form_widget(form.clubnom) }}
+                {{ form_errors(form.clubnom) }}
+
+
+
+
+                {{ form_label(form.datedebut) }}
+                {{ form_widget(form.datedebut) }}
+                {{ form_errors(form.datedebut) }}
+
+
+                {{ form_label(form.datefin) }}
+                {{ form_widget(form.datefin) }}
+                {{ form_errors(form.datefin) }}
+
+
+                {{ form_label(form.budget) }}
+                {{ form_widget(form.budget,{'attr':{'class':'single-input'}}) }}
+                {{ form_errors(form.budget) }}
+
+
+
+            {{ form_label(form.file) }}
+            {{ form_widget(form.file,{'attr':{'class':'single-input'}}) }}
+            {{ form_errors(form.file) }}
+
+            {{ form_label(form.description,'description') }}
+            {{ form_widget(form.description,{'attr':{'class':'single-input'}}) }}
+            {{ form_errors(form.description) }}
+
+        </div>
+
+        <input type="submit" value="Create" class="genric-btn success circle arrow"
+        />
+    </div>
+
+    {{ form_end(form) }}
+    </div>   </div>   </div>
+
+    </div>
+{% endblock %}

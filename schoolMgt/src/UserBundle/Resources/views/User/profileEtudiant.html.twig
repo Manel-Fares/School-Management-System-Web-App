@@ -1,0 +1,57 @@
+{% extends 'interfaceEtudiant.html.twig' %}
+{% block stylesheet %}
+    {{ parent()}}
+
+    <link rel="stylesheet" href="{{ asset('front/css/userprofileetudiant.css')}}">
+{% endblock %}
+{% block body %}
+    <section class="profile_area">
+        <div class="container">
+            <div class="profile_inner p_120">
+                <div class="row">
+                    <div class="col-lg-5">
+                        <img class="img-fluid" src="{{ asset(app.user.picuser) }}" alt="">
+                    </div>
+
+                    <div class="col-lg-7">
+                        <div class="personal_text">
+                            <h3>  {{ app.user.prenomuser }}  {{ app.user.nomuser }} </h3>
+                            <table class="table">
+
+
+
+                                <tr>
+                                    <th style="text-align: left"> Birthdate : </th>
+                                    <td>  {{ app.user.datenaissanceuser |date("m/d/Y") }}<   </td>
+                                </tr>
+
+                                <tr>
+                                    <th style="text-align: left"> INC Number : </th>
+                                    <td>  {{ app.user.cinuser }}   </td>
+                                </tr>
+                                <tr>
+                                    <th style="text-align: left"> Gender : </th>
+                                    <td>  {{ app.user.sexeuser }}   </td>
+                                </tr>
+
+
+                            </table>
+                            <p> Contact Informations </p>
+                            <ul class="list basic_info">
+                                <li><a ><i class="lnr lnr-phone-handset"></i> {{ app.user.numteluser }}</a></li>
+                                <li><a ><i class="lnr lnr-envelope"></i> {{ app.user.email }}</a></li>
+                                <form action="{{ path('profile_edit') }}";>
+                                    <button class="btn btn-secondary"> Edit </button>
+                                </form>
+
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+

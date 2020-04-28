@@ -1,0 +1,39 @@
+{% extends 'interfaceAdministrateur.html.twig' %}
+{% block body %}
+    <h1>Emplois list</h1>
+
+    <table  class="table">
+        <thead >
+            <tr>
+                <th >Idemplois</th>
+                <th>Date</th>
+                <th>Heure</th>
+                <th>Source</th>
+
+            </tr>
+        </thead>
+        <tbody>
+        {% for emplois in emplois %}
+            <tr>
+                <td><a href="{{ path('emplo_show', { 'idemplois': emplois.idemplois }) }}">{{ emplois.idemplois }}</a></td>
+                <td>{% if emplois.date %}{{ emplois.date|date('Y-m-d') }}{% endif %}</td>
+                <td>{% if emplois.heure %}{{ emplois.heure|date('H:i:s') }}{% endif %}</td>
+                <td>{{ emplois.source }}</td>
+                <td>
+                    <a href="{{ path('emplo_edit', { 'idemplois': emplois.idemplois }) }}"><i class="fa fa-edit"></i></a>
+                </td>
+                <td><a href="{{ path('emplo_deleteC', { 'idemplois': emplois.idemplois }) }}"><i class="fa fa-trash"></i></a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+<br>
+<br>
+<br>
+    <ul>
+        <li>
+            <a href="{{ path('emplo_new') }}">Create a new emplois</a>
+        </li>
+    </ul>
+{% endblock %}

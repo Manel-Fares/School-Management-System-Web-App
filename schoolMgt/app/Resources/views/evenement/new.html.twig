@@ -1,0 +1,47 @@
+{% extends  'interfacePersonnel.html.twig' %}
+{% block title %}Evenement creation{% endblock %}
+{% block body %}
+<div class="container">
+    <div class="card">
+    <h1>Evenement creation</h1>
+
+    {{ form_start(form) }}
+    <div class="col-lg-8 col-md-8">
+
+        <div class="form-group">
+
+            <div class="mt-10">
+
+                {{ form_label(form.datedebut) }}
+                {{ form_widget(form.datedebut,{'attr':{'class':'class="form-control py-4 px-4"'}}) }}
+                {{ form_errors(form.datedebut) }}
+
+
+                {{ form_label(form.datefin) }}
+                {{ form_widget(form.datefin,{'attr':{'class':'class="form-control py-4 px-4"'}}) }}
+                {{ form_errors(form.datefin) }}
+            </div>
+
+
+            <div class="mt-10">
+
+                {{ form_label(form.file) }}
+                {{ form_widget(form.file,{'attr':{'class':'form-control'}}) }}
+                {{ form_errors(form.file) }}
+            </div>
+    </div>
+
+
+</div>
+    <input type="submit" value="Create" class="genric-btn success circle arrow"
+    />
+{{ form_end(form) }}
+
+    <ul>
+        <li>
+            <a href="{{ path('evenement_index') }}">Back to the list</a>
+        </li>
+    </ul>
+    </div>
+</div>
+{% endblock %}

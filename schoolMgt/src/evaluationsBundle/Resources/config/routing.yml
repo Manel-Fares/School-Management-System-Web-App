@@ -1,0 +1,23 @@
+evaluations_homepage:
+    path:     /home
+    defaults: { _controller: evaluationsBundle:Default:index }
+
+school_resultat:
+    resource: "@evaluationsBundle/Resources/config/routing/resultat.yml"
+    prefix:   /resultat
+
+school_note:
+    resource: "@evaluationsBundle/Resources/config/routing/note.yml"
+    prefix:   /note
+
+evaluations_homepage:
+    path:     /home
+    defaults: { _controller: evaluationsBundle:Default:index }
+
+add:
+    path:     /addUser
+    defaults: { _controller: schoolBundle:security:add }
+
+redirect:
+    path:     /redirect
+    defaults: { _controller: schoolBundle:security:redirect }

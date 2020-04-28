@@ -1,0 +1,9 @@
+<h1>Ajouter Resultat</h1>
+{{ form_start((form)) }}
+
+Nom:* {{ form_widget(form.etudiant) }} <br>
+Adresse:*{{  form_widget(form.noteDS) }} <br>
+Domaine:*{{  form_widget(form.noteExam) }} <br>
+<input type="submit" value="Ajouter"/>
+
+{{ form_end(form) }}

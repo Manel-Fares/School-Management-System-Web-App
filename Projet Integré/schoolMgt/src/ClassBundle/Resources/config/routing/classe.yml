@@ -1,0 +1,27 @@
+classe_index:
+    path:     /
+    defaults: { _controller: "ClassBundle:Classe:index" }
+    methods:  GET
+
+classe_show:
+    path:     /{id}/show
+    defaults: { _controller: "ClassBundle:Classe:show" }
+    methods:  GET
+
+classe_new:
+    path:     /new
+    defaults: { _controller: "ClassBundle:Classe:new" }
+    methods:  [GET, POST]
+
+classe_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "ClassBundle:Classe:edit" }
+    methods:  [GET, POST]
+
+classe_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "ClassBundle:Classe:delete" }
+    methods:  DELETE
+classe_deleteC:
+    path: /delete/{id}
+    defaults: { _controller: "ClassBundle:Classe:deleteC" }

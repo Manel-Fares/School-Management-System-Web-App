@@ -1,0 +1,7 @@
+{% extends 'interfaceAdministrateur.html.twig' %}
+{% block body %}
+    <div class="container">
+        <a href="{{ path('pdf') }}">Export Pdf</a>
+    {% include '@FullCalendar/Calendar/calendar.html.twig' %}
+    </div>
+{% endblock %}

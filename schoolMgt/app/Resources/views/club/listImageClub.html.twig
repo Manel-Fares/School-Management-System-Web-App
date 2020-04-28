@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+{% block title %}List CLub{% endblock %}
+{% block body %}
+
+
+    <div class="container" style="margin-top: +5%;">
+
+        <div id="tmpmodal"></div>
+        <div class="row">
+            {% for a in aa %}
+
+                <div class="col-md-3">
+                    <div class="border border-white" >
+
+                    <img src="{{ asset('images/'~a.image)}} "style="height: 250px;width: 260px;margin-bottom: +10%" data-toggle="modal" data-target="#exampleModalCenter"  onclick="print({{ a.idclub }})">
+                        <div class="card-footer">                            <h5>Club : {{a.nomclub}}</h5>
+                            <h5 style="margin: +5%;"></h5>
+                            <h5>Responsable : {{a.username}}</h5>
+                            <a href="{{ path('club_rate', { 'idclub': a.idclub })  }}" >
+                            {{a.rating|rating(5, "fa-2x") }}</a>
+                        </div>        <!-- Modal -->
+                    </div>
+                    <div class="modal fade" id="myModalchoose" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+
+
+                                            <h5>Club : {{a.nomclub}}</h5>
+                                            <h5 style="margin: +5%;"></h5>
+                                            <h5>Responsable : {{a.username}}</h5>
+                                    <img src="{{ asset('images/'~a.image)}} "style="height: 5px;width: 5px;margin-bottom: +10%" data-toggle="modal" data-target="#exampleModalCenter">
+
+
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            {% endfor %}
+        </div>
+    </div>
+
+    <script>
+        function print(x) {
+            let url = "{{ (path('club_detail', {'idclub': 'ReplaceMeWithCorrectValue'})) }}";
+            url = url.replace("ReplaceMeWithCorrectValue", x);
+
+            $.post(url, function (xx) {
+                $('#tmpmodal').html(xx);
+                $('#myModalchoose').modal('show');
+            });
+        }
+
+
+    </script>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'interfaceAdministrateur.html.twig' %}
+{% block body %}
+    <h1>Emplois</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Idemplois</th>
+                <td>{{ emplois.idemplois }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{% if emplois.date %}{{ emplois.date|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Heure</th>
+                <td>{% if emplois.heure %}{{ emplois.heure|date('H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Source</th>
+                <td>{{ emplois.source }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('emplo_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('emplo_edit', { 'idemplois': emplois.idemplois }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

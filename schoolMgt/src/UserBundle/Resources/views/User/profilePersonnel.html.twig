@@ -1,0 +1,65 @@
+{% extends 'interfacePersonnel.html.twig' %}
+{% block body %}
+    <div class="container-fluid dashboard-content">
+        <div class="row">
+
+            <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="user-avatar text-center d-block">
+                            <img src="{{ asset(app.user.picuser) }}" alt="User Avatar" class="rounded-circle user-avatar-xxl">
+                        </div>
+                        <form action="{{ path('profile_edit') }}";>
+                            <button class="btn btn-secondary"> Edit </button>
+                        </form>
+                        <div class="text-center">
+                            <h2 class="font-24 mb-0"> {{ app.user.roles['0']|slice(5, 15)}}  </h2>
+                        </div>
+                    </div>
+                    <div class="card-body border-top">
+                        <h3 class="font-16">General Informations</h3>
+                        <table class="table">
+
+                            <tr>
+                                <th style="text-align: left"> First Name : </th>
+                                <td>  {{ app.user.prenomuser }}   </td>
+                            </tr>
+
+                            <tr>
+                                <th style="text-align: left"> Last Name : </th>
+                                <td>  {{ app.user.nomuser }}   </td>
+                            </tr>
+
+                            <tr>
+                                <th style="text-align: left"> INC Number : </th>
+                                <td>  {{ app.user.cinuser }}   </td>
+                            </tr>
+                            <tr>
+                                <th style="text-align: left"> Gender : </th>
+                                <td>  {{ app.user.sexeuser }}   </td>
+                            </tr>
+
+
+                        </table>
+
+
+                    </div>
+                    <div class="card-body border-top">
+                        <h3 class="font-16">Contact Informations</h3>
+                        <div class="">
+                            <ul class="list-unstyled mb-0">
+                                <li class="mb-2"><i class="fas fa-fw fa-envelope mr-2"></i>{{ app.user.email }}</li>
+                                <li class="mb-0"><i class="fas fa-fw fa-phone mr-2"></i>+216 {{ app.user.numteluser }}</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}
+
