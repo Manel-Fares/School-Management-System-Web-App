@@ -154,7 +154,7 @@ class Books
             return $this;
     }
     public function getWebPath(){
-        return null===$this->picbook ? null : $this->getUploadDir.'/'.$this->picbook;
+        return null===$this->picbook ? null : $this->getUploadDir().'/'.$this->picbook;
     }
      protected function getUploadRootDir(){
         return __DIR__.'/../../../web/'.$this->getUploadDir();

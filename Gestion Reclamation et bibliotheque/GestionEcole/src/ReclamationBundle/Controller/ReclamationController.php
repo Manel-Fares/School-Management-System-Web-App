@@ -2,9 +2,13 @@
 
 namespace ReclamationBundle\Controller;
 
+use EvenementBundle\Entity\Users;
 use ReclamationBundle\Entity\Reclamation;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 /**
  * Reclamation controller.
@@ -25,6 +29,28 @@ class ReclamationController extends Controller
         return $this->render('reclamation/index.html.twig', array(
             'reclamations' => $reclamations,
         ));
+    }
+    public function allAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+       /* $query = $em->createQuery(
+            'SELECT r
+             FROM ReclamationBundle:Reclamation r        
+             WHERE r.idetd = :id
+             '
+
+        )->setParameters(array(
+                'id'=>$user->getId()
+                )
+        );
+
+        $reclamations = $query->getResult();*/
+       $reclamations = $em->getRepository('ReclamationBundle:Reclamation')->findAll();
+
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($reclamations);
+        return new JsonResponse($formatted);
     }
     public function backindexAction()
     {
@@ -82,7 +108,23 @@ class ReclamationController extends Controller
             'form' => $form->createView(),
         ));
     }
+    public function newmobileAction(Request $request){
+        $reclamation = new Reclamation();
+        $em = $this->getDoctrine()->getManager();
+        $reclamation->setStatutreclamation("Pending");
+        $reclamation->setDatecreation(new \DateTime('now'));
+        $reclamation->setSujetreclamation($request->get("sujetreclamation"));
+        $reclamation->setDescriptionreclamation($request->get("descriptionreclamation"));
+        $user = $em->getRepository(Users::class)->findOneBy(array("id"=>$request->get("idetd")));
+        $reclamation->setIdetd($user);
+        $em->persist($reclamation);
+        $em->flush();
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($reclamation);
+        return new JsonResponse($formatted);
 
+
+    }
     /**
      * Finds and displays a reclamation entity.
      *

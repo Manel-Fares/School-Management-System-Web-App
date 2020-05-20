@@ -32,3 +32,11 @@ reclamation_sendmail:
     path:     /{idreclamation}/sendmail
     defaults: { _controller: "ReclamationBundle:Reclamation:sendEmail" }
     methods:  [GET, POST]
+reclamation_all:
+    path:     /all
+    defaults: { _controller: "ReclamationBundle:Reclamation:all" }
+    methods:  [GET, POST]
+reclamation_newmobile:
+    path:     /newmobile/{sujetreclamation}/{descriptionreclamation}/{idetd}
+    defaults: { _controller: "ReclamationBundle:Reclamation:newmobile" }
+    methods:  [GET, POST]

@@ -7,7 +7,9 @@ use BooksBundle\Entity\Books;
 use EvenementBundle\Entity\Users;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 /**
  * Wishliste controller.
  *
@@ -58,7 +60,7 @@ class WishlisteController extends Controller
         ));
     }
     public function addAction(Request $request,$idbook){
-        $book = new Books();
+
         $wishlist = new Wishliste();
 
         $em = $this->getDoctrine()->getManager();
@@ -71,7 +73,49 @@ class WishlisteController extends Controller
         $wishlist->setIdetd($user);
         $em->persist($wishlist);
         $em->flush();
-        return $this->redirectToRoute("wishliste_index");
+        return $this->redirectToRoute("books_index");
+
+
+    }
+    public function addJsonAction(Request $request){
+
+        $wishlist = new Wishliste();
+
+        $em = $this->getDoctrine()->getManager();
+
+        $book = $em->getRepository(Books::class)->findOneBy(array("idbook"=>$request->get("idbook")));
+
+        $user = $em->getRepository(Users::class)->findOneBy(array("id"=>$request->get("idetd")));
+
+
+
+
+        $wishlist->setIdbook($book);
+        $wishlist->setIdetd($user);
+        $em->persist($wishlist);
+        $em->flush();
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($wishlist);
+        return new JsonResponse($formatted);
+
+
+    }
+    public function deleteJsonAction(Request $request){
+
+
+
+        $em = $this->getDoctrine()->getManager();
+
+        $wishlist = $em->getRepository(Wishliste::class)->findOneBy(array("idlist"=>$request->get("idlist")));
+
+
+
+        $em->remove($wishlist);
+        $em->flush();
+
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($wishlist);
+        return new JsonResponse($formatted);
 
 
     }
@@ -113,7 +157,18 @@ class WishlisteController extends Controller
             'delete_form' => $deleteForm->createView(),
         ));
     }
+    public function AllWishlisteAction()
 
+    {
+        $em = $this->getDoctrine()->getManager();
+
+         $wishliste = $em->getRepository('BooksBundle:Wishliste')->findAll();
+
+
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($wishliste);
+        return new JsonResponse($formatted);
+    }
     /**
      * Deletes a wishliste entity.
      *
@@ -129,7 +184,7 @@ class WishlisteController extends Controller
             $em->flush();
 
 
-        return $this->redirectToRoute('wishliste_index');
+        return $this->redirectToRoute('books_index');
     }
 
     /**

@@ -22,15 +22,7 @@ class Thread extends BaseThread
      * @ORM\Column(type="string")
      */
     protected $id;
-    /**
-     * @var \Books
-     *
-     * @ORM\ManyToOne(targetEntity="Books")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idBook", referencedColumnName="idBook")
-     * })
-     */
-    protected $idbook;
+
 
     /**
      * @return string
