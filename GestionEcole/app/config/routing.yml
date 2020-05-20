@@ -1,0 +1,44 @@
+class:
+    resource: "@ClassBundle/Resources/config/routing.yml"
+    prefix:   /
+
+forum:
+    resource: "@ForumBundle/Resources/config/routing.yml"
+    prefix:   /
+forum_answers:
+    resource: "@ForumBundle/Controller/AnswerController.php"
+    type:     annotation
+forum_question:
+    resource: "@ForumBundle/Controller/QuestionController.php"
+    type:     annotation
+evenement_demandeevenement:
+    resource: "@EvenementBundle/Controller/DemandeevenementController.php"
+    type:     annotation
+
+evenement_evenement:
+    resource: "@EvenementBundle/Controller/EvenementController.php"
+    type:     annotation
+
+evenement:
+    resource: "@EvenementBundle/Resources/config/routing.yml"
+    prefix:   /
+
+evenement_club:
+    resource: "@EvenementBundle/Controller/ClubController.php"
+    type:     annotation
+
+
+ancarebeca_fullcalendar:
+    resource: "@FullCalendarBundle/Resources/config/routing.yml"
+
+# Symfony 2 + 3: app/config/routing.yml
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
+
+app:
+    resource: '@AppBundle/Controller/'
+    type: annotation
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+

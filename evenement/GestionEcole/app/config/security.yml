@@ -21,7 +21,9 @@ security:
                 always_use_default_target_path: false
                 default_target_path: /home
 
-            logout:       true
+            logout:
+                target: /login
+
             anonymous:    true
 
     access_control:

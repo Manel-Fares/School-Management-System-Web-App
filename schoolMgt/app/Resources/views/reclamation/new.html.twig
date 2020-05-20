@@ -1,0 +1,54 @@
+{% extends 'interfaceEtudiant.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="section-top-border">
+    <h1>Reclamation creation</h1>
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <input type="submit" value="Create" /><br>
+    {{ form_end(form) }}
+
+        </div>
+    </div>
+
+
+{#
+    <!-- Start Align Area -->
+    <div class="whole-wrap">
+        <div class="container">
+            <div class="section-top-border">
+                <div class="row">
+                    <div class="col-lg-8 col-md-8">
+                        <h3 class="mb-30 title_color">Envoyer une Reclamation</h3>
+                        <form action="#" method="post">
+
+
+                            <div class="input-group-icon mt-10">
+                                <div class="icon"><i class="fa fa-globe" aria-hidden="true"></i></div>
+                                <div class="form-select" id="default-select2" >
+                                    <select name="titre">
+                                        <option value="Note">Note</option>
+                                        <option value="Enseignant">Enseignant</option>
+                                        <option value="Autres">Autres</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="mt-10">
+                                <textarea type="ckeditor" class="single-textarea"name="description" placeholder="Message" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Message'" required></textarea>
+                            </div>
+                            <input type="submit" value="Create" />
+
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Align Area -->
+
+#}
+{% endblock %}

@@ -1,56 +1,44 @@
 {% extends 'backoffice.html.twig' %}
 
 {% block body %}
-    <h1>Demandeevenement</h1>
+<div class="container">
+    <center><div class="card bg-light mb-3" style="width: 50%;height: 50%">
+            <div class="card-header"><h1>Request Detail</h1></div>
+        <div class="card-body">
+            <h5 class="card-title"></h5>
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Iddemandeevenement</th>
-                <td>{{ demandeevenement.iddemandeevenement }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ demandeevenement.description }}</td>
-            </tr>
-            <tr>
-                <th>Datedebut</th>
-                <td>{% if demandeevenement.datedebut %}{{ demandeevenement.datedebut|date('Y-m-d') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Datefin</th>
-                <td>{% if demandeevenement.datefin %}{{ demandeevenement.datefin|date('Y-m-d') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Etat</th>
-                <td>{{ demandeevenement.etat }}</td>
-            </tr>
-            <tr>
-                <th>Idclub</th>
-                <td>{{ demandeevenement.idclub }}</td>
-            </tr>
-            <tr>
-                <th>Budget</th>
-                <td>{{ demandeevenement.budget }}</td>
-            </tr>
-            <tr>
-                <th>Image</th>
-                <td>{{ demandeevenement.image }}</td>
-            </tr>
-        </tbody>
-    </table>
+            <img src="{{ asset('images/'~demandeevenement.image)}} " style="width: 350px;height: 170px">
+                <h3>Iddemandeevenement:{{ demandeevenement.iddemandeevenement }}</h3>
 
-    <ul>
-        <li>
-            <a href="{{ path('demandeevenement_index') }}">Back to the list</a>
-        </li>
-        <li>
+
+
+                <h3>Datedebut :{% if demandeevenement.datedebut %}{{ demandeevenement.datedebut|date('Y-m-d') }}{% endif %}</h3>
+                <h3>Datefin :{% if demandeevenement.datefin %}{{ demandeevenement.datefin|date('Y-m-d') }}{% endif %}</h3>
+                <h3>Etat :{{ demandeevenement.etat }}</h3>
+             <h3>Idclub :{{ demandeevenement.idclub }}</h3>
+
+
+                <h3>Budget :{{ demandeevenement.budget }}</h3>
+            <h3>Description :<p>{{ demandeevenement.description }}</p></h3>
+
+
+
+
+
+
+
+            <a href="{{ path('demandeevenement_index') }}">Back to the list</a> |
+
+
             <a href="{{ path('demandeevenement_edit', { 'iddemandeevenement': demandeevenement.iddemandeevenement }) }}">Edit</a>
-        </li>
-        <li>
+
+
             {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
+                <input type="submit" value="Delete" class="btn btn-outline-danger">
             {{ form_end(delete_form) }}
-        </li>
-    </ul>
+
+
+        </div>
+    </div></center>
+</div>
 {% endblock %}

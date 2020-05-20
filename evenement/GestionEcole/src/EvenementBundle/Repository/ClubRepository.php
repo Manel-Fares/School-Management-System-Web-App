@@ -4,6 +4,8 @@
 namespace EvenementBundle\Repository;
 
 
+use blackknight467\StarRatingBundle\Form\RatingType;
+
 class ClubRepository extends  \Doctrine\ORM\EntityRepository
 {
 
@@ -26,14 +28,36 @@ return $qry->getResult();
         return $qry->getResult();*/
         $qb = $this->_em->createQueryBuilder();
         $qb->select('u.nomclub','COUNT(p.idclub) x')
-
-            ->from(' EvenementBundle:Club', 'u')
-            ->innerJoin('EvenementBundle:Evenement', 'p', 'where', 'p.idclub = :ii')
+            ->from(' EvenementBundle:Evenement', 'p')
+            ->innerJoin('EvenementBundle:Club', 'u', 'where', 'u.idclub = :ii')
+           ->where('p.idclub = :ii')
             ->setParameter('ii',$o);
-var_dump($o);
+var_dump($qb->getQuery()->getResult());
 
         return $qb->getQuery()->getResult();
 
     }
+    public function ClubUser(){
+        $qb = $this->_em->createQueryBuilder();
+        $qb->select('c.idclub','c.nomclub')
+            ->distinct('c.idclub')
+            ->from(' EvenementBundle:Club', 'c')
+            ->innerJoin('EvenementBundle:Users', 'p', 'where', 'p.id =c.idresponsable');
 
+
+        return $qb->getQuery()->getResult();
+
+    }
+    public function ClubRate($x){
+
+            $qb = $this->_em->createQueryBuilder();
+            $qb->select('p.idclub','Avg(r.rating)  rating','p.nomclub','p.image','m.username')
+                ->from(' EvenementBundle:Rate', 'r')
+                ->innerJoin('EvenementBundle:Club', 'p', 'where', 'p.idclub =:ii')
+                ->innerJoin('EvenementBundle:Users', 'm', 'where', 'm.id =p.idresponsable')
+
+        ->where('r.idc = :ii')
+                ->setParameter('ii',$x);
+        return $qb->getQuery()->getResult();
+    }
 }

@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Likes list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Idlike</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for like in likes %}
+            <tr>
+                <td><a href="{{ path('likes_show', { 'idlike': like.idlike }) }}">{{ like.idlike }}</a></td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('likes_show', { 'idlike': like.idlike }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('likes_edit', { 'idlike': like.idlike }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('likes_new') }}">Create a new like</a>
+        </li>
+    </ul>
+{% endblock %}

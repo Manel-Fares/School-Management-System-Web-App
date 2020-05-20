@@ -1,0 +1,27 @@
+emplo_index:
+    path:     /
+    defaults: { _controller: "ClassBundle:Emplois:index" }
+    methods:  GET
+
+emplo_show:
+    path:     /{idemplois}/show
+    defaults: { _controller: "ClassBundle:Emplois:show" }
+    methods:  GET
+
+emplo_new:
+    path:     /new
+    defaults: { _controller: "ClassBundle:Emplois:new" }
+    methods:  [GET, POST]
+
+emplo_edit:
+    path:     /{idemplois}/edit
+    defaults: { _controller: "ClassBundle:Emplois:edit" }
+    methods:  [GET, POST]
+
+emplo_delete:
+    path:     /{idemplois}/delete
+    defaults: { _controller: "ClassBundle:Emplois:delete" }
+    methods:  DELETE
+emplo_deleteC:
+    path: /delete/{idemplois}
+    defaults: { _controller: "ClassBundle:Emplois:deleteC" }

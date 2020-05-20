@@ -1,0 +1,44 @@
+{% extends 'interfaceEtudiant.html.twig' %}
+
+{% block body %}
+    <h1>Reclamation</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Idreclamation</th>
+                <td>{{ reclamation.idreclamation }}</td>
+            </tr>
+            <tr>
+                <th>Sujetreclamation</th>
+                <td>{{ reclamation.sujetreclamation }}</td>
+            </tr>
+            <tr>
+                <th>Descriptionreclamation</th>
+                <td>{{ reclamation.descriptionreclamation }}</td>
+            </tr>
+            <tr>
+                <th>Statutreclamation</th>
+                <td>{{ reclamation.statutreclamation }}</td>
+            </tr>
+            <tr>
+                <th>Datecreation</th>
+                <td>{% if reclamation.datecreation %}{{ reclamation.datecreation|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('reclamation_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('reclamation_edit', { 'idreclamation': reclamation.idreclamation }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

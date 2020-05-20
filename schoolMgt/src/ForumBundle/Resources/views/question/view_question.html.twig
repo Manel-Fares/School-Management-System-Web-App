@@ -1,0 +1,172 @@
+{% extends 'base.html.twig' %}
+{% block mystyle %}
+    <style>
+        .btn{
+            background-color:green;
+            color:white;
+            font-weight: bold;
+
+        }
+        .avatararo {
+            vertical-align: middle;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+        a{
+            cursor:pointer !important;
+        }
+    </style>
+{% endblock %}
+{% block body %}
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="ui-block responsive-flex">
+
+                    <div class="ui-block-title">
+
+                        <div class="h6 title" style="text-align: center;font-size:45px;font-weight: bold;">Sujet : {{ question.title }}<br/>
+                        </div>
+
+                        <form class="w-search">
+                            <div class="form-group with-button" style="float:right;">
+                                {% if question.user == app.user %}
+                                            <a href="{{ path('edit_question', { id: question.idQuestion }) }}"><i class="fa fa-lg fa-pencil fa-2x"  style="color: red"  aria-hidden="true"></i></a>
+
+                                            <a href="{{ path('delete_question', { id: question.idQuestion }) }}"><i class="fa fa-lg fa-times fa-2x"  style="color: red"  aria-hidden="true"></i></a>
+
+                                {% elseif (app.user) and ("ROLE_PERSONNEL" in app.user.roles) %}
+<div style="margin-left: -60px;margin-top: -40px;">
+                                        <a  href="{{ path('delete_question', { id: question.idQuestion }) }}" > <i class="fa fa-2x fa-trash" style="color: red" aria-hidden="true"></i>
+
+                                        </a>
+</div>
+                                {% else %}
+                                    <div></div>
+                                {% endif %}
+                            </div>
+
+                        </form>
+
+                    </div>
+                    <div class="col-12" style=" text-align: left;margin: 15px;">
+                        <div><h1 style="margin-bottom: -10px;">Question : <span style="font-weight:normal;font-size:26px;">{{ question.body }}</span></h1>
+                            <small style="margin-left:25px;margin-top:-25px;padding: -10px;font-weight: bold;">{{ " Asked : " ~ question.createdAt|date('d M Y') ~ " at " ~ question.createdAt|date("H:i") }}
+                            </small>
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-12">
+
+
+                <span style="float: right;color: red;margin-left: -100px;">{{ question.answers|length ~ " answer(s) " }}</span><br/>
+<br>
+                {% for answer in question.answers %}
+                    <div class="ui-block" style="border-bottom: 2px solid black;width: 1100px;margin-left: 30px;  " id="">
+
+                                <div class="row"  style="width: 100%;">
+                                    {% if answer.user == app.user %}
+
+                                                <div class="col-md-1" style="padding-left: 20px;padding-top: 5px;">
+                                                    <a href="{{ path('edit_answer', { id: answer.idReponse }) }}"><i class="fa fa-pencil fa-lg " style="color: green;"></i></a>
+<br>
+                                                    <a href="{{ path('delete_answer', { id: answer.idReponse }) }}"><i class="fa fa-times fa-lg " aria-hidden="true" style="color: green;"></i></a>
+
+                                                </div>
+                                            {% elseif (app.user) and ("ROLE_PERSONNEL" in app.user.roles) %}
+
+                                                <div class="col-md-1" style="padding-left: 20px;padding-top: 5px;" >
+                                                    <a href="{{ path('delete_answer', { id: answer.idReponse }) }}"><i class="fa fa-lg fa-times" aria-hidden="true" style="color: green;"></i></a>
+
+                                                </div>
+                                            {% else %}
+<div class="col-md-1"></div>
+                                            {% endif %}
+                                    <div class="col-md-9" style="margin-left: -20px;padding-top: 5px;">
+<img src="{{ asset('img/userimg/'~answer.user.picuser) }}" alt="Avatar" class="avatararo" style="border-radius: 50% !important;">
+                            <span style="margin-left: 10px;">
+                                            {{ answer.body|transchoice('fr') }}</span><br>
+                                            <small style="margin-left:-10px;margin-top:-45px;padding: -10px;font-weight: bold;font-size: 6px;">
+                                                {{ " answered " ~ answer.createdAt|date("d M Y") ~ " at " ~ answer.createdAt|date("H:i") }}
+
+                                            </small>
+
+
+                                    </div>
+
+
+                                    <div class="col-md-1" style="margin-left: 20px;padding-top: 5px;padding-left: 0px;">
+                                        <div id="votes">
+                                            <a id="vote-up" style=" background-color: #cd2122;    font-size: 12px; padding: 7px; border-color: #cd2122;" href="{{ path ( 'answer_vote', { id: answer.idReponse, vote: "▲" } ) }}" class="btn btn-outline-success">+</a>
+                                            <span class="success label" style="background: none;">{{ answer.voteReponse|transchoice('fr') }}</span>
+                                            <a id="vote-down" style=" background-color: #cd2122;     font-size: 12px;padding: 7px; border-color: #cd2122;" href="{{ path ( 'answer_vote', { id: answer.idReponse, vote: "▼" } ) }}" class="btn btn-outline-success">-</a>
+                                        </div>
+                                  </div>
+                                    <div class="col-md-1">
+                                        {% if(answer.valid==1) %}
+                                            <i class="fa fa-check" aria-hidden="true" style="color: green;"></i>
+                                        {% endif %}
+                                    </div>
+
+
+                            </div>
+
+
+
+
+
+                    </div>
+
+                {% endfor %}
+
+
+
+
+
+
+
+            </div>
+
+
+        </div>
+        <div class="ui-block"  style="padding: 34px;" id="">
+            {% if(question.open)==1 %}
+            {{ form(form) }}
+            {% else %}
+                <div class="alert alert-danger" role="alert">
+                    <strong>Oh Sorry ! </strong> This Question is closed you cannot answer it ... <img src="{{ asset('img/sad.png') }}" style="height: 25px;width: 25px;">
+                </div>
+            {% endif %}
+
+        </div>
+        {% if (app.user) and ("ROLE_PERSONNEL" in app.user.roles) %}
+            <div style="float: right">
+                {% if(question.open)==0 %}
+                <a href="{{ path('openquest', { id: question.idQuestion }) }}" ><button type="button" class="btn btn-danger" style="background-color: indianred">Open Question</button></a>
+                  {% else %}
+                    <a href="{{ path('closeques', { id: question.idQuestion }) }}"><button type="button" class="btn btn-danger" style="background-color: indianred">Close Question</button></a>
+        {% endif %}
+                {% endif %}</div>
+    <br>
+    <br>
+    <br>
+    </div>
+
+
+
+
+{% endblock %}

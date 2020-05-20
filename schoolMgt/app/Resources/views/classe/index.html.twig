@@ -1,0 +1,42 @@
+{% extends 'interfaceAdministrateur.html.twig' %}
+
+{% block body %}
+    <div class="container">
+    <h1>Classes list</h1>
+
+    <table class="table">
+        <thead >
+            <tr>
+
+                <th>Name</th>
+                <th>Niveau</th>
+                <th>Spec</th>
+                <th>Nbretudiant</th>
+                <th>Description</th>
+
+            </tr>
+        </thead>
+        <tbody style="border-radius:2px;">
+        {% for classe in classes %}
+            <tr>
+                <td>{{ classe.name }}</td>
+                <td>{{ classe.niveau }}</td>
+                <td>{{ classe.spec }}</td>
+                <td>{{ classe.nbrEtudiant }}</td>
+                <td>{{ classe.description }}</td>
+                <td>
+                    <a href="{{ path('classe_edit', { 'id': classe.id }) }}"><i class="fa fa-edit"></i></a>
+                </td>
+                <td><a href="{{ path('classe_deleteC', { 'id': classe.id }) }}"><i class="fa fa-trash"></i></a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <br>
+    <ul>
+        <li>
+            <a href="{{ path('classe_new') }}">Create a new classe</a>
+        </li>
+    </ul>
+    </div>
+{% endblock %}

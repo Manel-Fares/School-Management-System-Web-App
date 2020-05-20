@@ -1,0 +1,39 @@
+{% extends 'interfaceAdministrateur.html.twig' %}
+{% block body %}
+    <h1>Calendarannuel</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ calendarannuel.id }}</td>
+            </tr>
+            <tr>
+                <th>Subject</th>
+                <td>{{ calendarannuel.subject }}</td>
+            </tr>
+            <tr>
+                <th>Term</th>
+                <td>{{ calendarannuel.term }}</td>
+            </tr>
+            <tr>
+                <th>Datec</th>
+                <td>{% if calendarannuel.datec %}{{ calendarannuel.datec|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('calend_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('calend_edit', { 'id': calendarannuel.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

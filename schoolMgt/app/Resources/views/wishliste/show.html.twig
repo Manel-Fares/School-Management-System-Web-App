@@ -1,0 +1,28 @@
+{% extends 'interfaceEtudiant.html.twig' %}
+
+{% block body %}
+    <h1>Wishliste</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Idlist</th>
+                <td>{{ wishliste.idlist }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('wishliste_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('wishliste_edit', { 'idlist': wishliste.idlist }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

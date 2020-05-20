@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <div class="container">
+        <h1>Absences list</h1>
+        <center>
+        <p>Total Absence : {{ countou }}</p>
+        </center>
+            <input type="text" placeholder="   rechercher ...." id="search" style="border-radius: 30px;position:relative;left: 800px;bottom: 20px;">
+        <div id="content">
+        <table class="table" >
+            <thead >
+            <tr>
+                <th>Date</th>
+                <th>Timedeb</th>
+                <th>Timefin</th>
+                <th>Matiere</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            {% for absence in absences %}
+                <tr>
+                    <td>{% if absence.date %}{{ absence.date|date('Y-m-d') }}{% endif %}</td>
+                    <td>{% if absence.timedeb %}{{ absence.timedeb|date('H:i:s') }}{% endif %}</td>
+                    <td>{% if absence.timefin %}{{ absence.timefin|date('H:i:s') }}{% endif %}</td>
+                    <td>{{ absence.idMatiere.nom }}</td>
+
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+        <br>
+        <br>
+        <br>
+    </div>
+{% endblock %}
+{% block my_js %}
+    <script>
+
+        $(document).ready(function() {
+
+            var searchRequest = null;
+            $("#search").keyup(function() {
+                var minlength = 0;
+                var entitySelector = $("#content").html('');
+
+                var value = $(this).val();
+                console.log(value);
+                if (value.length >= minlength ) {
+                    if (searchRequest != null)
+                        searchRequest.abort();
+                    searchRequest = $.ajax({
+
+                        type: "GET",
+                        url: "{{ path('search') }}",
+                        data: {
+                            'q' : value
+                        },
+                        dataType: "text",
+                        success: function(msg){
+
+                            var result = JSON.parse(msg);
+                            console.log(result);
+                            $.each(result, function(key, arr) {
+                                $.each(arr, function(id, value) {
+
+                                            entitySelector.append('<li class="errorLi">' + value + '</li>');
+
+
+                                });
+                            });
+
+                        }
+                    });
+                }
+            });
+        });
+
+    </script>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends 'interfacePersonnel.html.twig' %}
+{% block body %}
+<link rel="stylesheet" href="{{ asset('css/bootstrap.css' )}}">
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+    <div class="container">
+        <div class="row" style="width: 90%;">
+                   <h1>Valider les réponses</h1>
+
+
+                        <table class="table" id="myTable" style="width: 100%;" >
+                            <thead class="thead-light">
+                            <tr>
+                                <th>Author</th>
+                                <th>Answer submitted</th>
+                                <th>Corresponding question</th>
+                                <th>Number of votes</th>
+                                <th>Valid answer ?</th>
+<th>Options</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for answer in pagination %}
+                                <tr>
+
+
+
+
+
+
+                                    <td>{{ answer.user.username }}</td>
+                                    <td>{{ answer.body }} , <span style="font-size: 8px;font-weight: bold;color: #1c7430;">submitted at: {{ answer.created_at|date("m/d/Y")  }} </span></td>
+                                    <td>{{ answer.idQuestion.title }}</td>
+                                    <td>{{ answer.voteReponse }} Votes</td>
+                                    <td><a href="{{ path('answer_valid', { id: answer.idReponse }) }}">{% if  answer.valid %}<i class="fa fa-2x fa-check-circle" style="color: #1c7430;" aria-hidden="true"></i>{% else %} <i class="fa fa-2x fa-times-circle-o" style="color: red;" aria-hidden="true"></i>{% endif %}</a></td>
+                               <td style="width: 200px;">{% if '*****' in answer.body  %}
+                                       {% if(answer.user.enabled == 1) %}
+                                       <a href="{{ path('banUser', { 'id': answer.user }) }}">
+                                           <button type="button" class="btn btn-danger">Ban</button></a>
+                                           {% else %}
+                                       <a href="{{ path('unbanUser', { 'id': answer.user.id }) }}">
+                                           <button type="button" class="btn btn-danger">UnBan</button></a>
+                                   {% endif %}
+                                   {% endif %}
+
+                               </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+
+
+
+        </div>
+    </div>
+<script src="{{ asset('js/jquery-3.3.1.min.js' )}}"></script>
+<script src="{{ asset('js/bootstrap.min.js' )}}"></script>
+{% endblock %}

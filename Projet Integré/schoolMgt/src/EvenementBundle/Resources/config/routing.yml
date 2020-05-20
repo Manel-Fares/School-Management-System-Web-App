@@ -1,0 +1,6 @@
+evenement_homepage:
+    path:     /
+    defaults: { _controller: EvenementBundle:Default:index }
+bbb:
+    path:     /bb
+    defaults: { _controller: EvenementBundle:Club:nbrEvenementClub }

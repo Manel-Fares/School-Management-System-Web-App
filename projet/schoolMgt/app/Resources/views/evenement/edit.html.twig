@@ -1,0 +1,27 @@
+
+{% extends 'interfacePersonnel.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="card bg-light mb-3" style="width: 50%;height: 50%">
+            <div class="card-header">Evenement edit</div>
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+
+
+
+                {{ form_start(edit_form) }}
+                {{ form_widget(edit_form) }}
+                <input type="submit" value="Edit" class="btn btn-outline-success" style="margin-bottom: +10px"/>
+                {{ form_end(edit_form) }}
+
+                 {{ form_start(delete_form) }}
+                        <input type="submit" value="Delete" class="btn btn-outline-danger"style="margin-bottom: +10px">
+                        {{ form_end(delete_form) }}
+                    <a href="{{ path('evenement_index') }}" class="genric-btn default-border circle arrow">Back to the list</a>
+
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

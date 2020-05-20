@@ -1,0 +1,24 @@
+reponsereclamation_index:
+    path:     /
+    defaults: { _controller: "ReclamationBundle:Reponsereclamation:index" }
+    methods:  [GET, POST]
+
+reponsereclamation_show:
+    path:     /{idrep}/show
+    defaults: { _controller: "ReclamationBundle:Reponsereclamation:show" }
+    methods:  GET
+
+reponsereclamation_new:
+    path:     /new
+    defaults: { _controller: "ReclamationBundle:Reponsereclamation:new" }
+    methods:  [GET, POST]
+
+reponsereclamation_edit:
+    path:     /{idrep}/edit
+    defaults: { _controller: "ReclamationBundle:Reponsereclamation:edit" }
+    methods:  [GET, POST]
+
+reponsereclamation_delete:
+    path:     /{idrep}/delete
+    defaults: { _controller: "ReclamationBundle:Reponsereclamation:delete" }
+    methods:  DELETE

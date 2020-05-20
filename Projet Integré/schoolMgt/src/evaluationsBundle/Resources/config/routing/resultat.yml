@@ -1,0 +1,62 @@
+resultat_index:
+    path:     /
+    defaults: { _controller: "evaluationsBundle:Resultat:index" }
+    methods:  GET
+
+resultat_transcript:
+    path:     /{idetudiant}/transcript
+    defaults: { _controller: "evaluationsBundle:Resultat:transcript" }
+    methods:  GET
+
+resultat_export:
+    path:     /{idetudiant}/export
+    defaults: { _controller: "evaluationsBundle:Resultat:export" }
+
+
+resultat_affiche:
+    path:     /affiche
+    defaults: { _controller: "evaluationsBundle:Resultat:resutlatEtudiant" }
+    methods:  GET
+
+resultat_deleteall:
+    path:     /deleteall
+    defaults: { _controller: "evaluationsBundle:Resultat:deleteAll" }
+    methods:  GET
+
+resultat_sms:
+    path:     /sendsms
+    defaults: { _controller: "evaluationsBundle:Resultat:sendSMS" }
+    methods:  GET
+
+resultat_statistique:
+    path:     /stat
+    defaults: { _controller: "evaluationsBundle:Resultat:statistiqueReussite" }
+    methods:  GET
+
+ut_statistique:
+    path:     /statistique
+    defaults: { _controller: "evaluationsBundle:Resultat:statistiqueUser" }
+    methods:  GET
+
+resultat__management:
+    path:     manage
+    defaults: { _controller: "evaluationsBundle:Resultat:gererResultats" }
+    methods:  GET
+
+resultat_calculer:
+    path:     /calculer
+    defaults: { _controller: "evaluationsBundle:Resultat:calculer" }
+
+resultat_print:
+    path:     /print
+    defaults: { _controller: "evaluationsBundle:Resultat:pfd" }
+
+resultat_detail:
+    path:     /{idetudiant}/detail
+    defaults: { _controller: "evaluationsBundle:Resultat:detailResultat" }
+    methods:  GET
+
+resultat_delete:
+    path:     /{idetudiant}/delete
+    defaults: { _controller: "evaluationsBundle:Resultat:delete" }
+    methods:  GET

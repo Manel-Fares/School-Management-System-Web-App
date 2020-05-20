@@ -1,0 +1,44 @@
+{% extends  'interfacePersonnel.html.twig' %}
+
+{% block body %}
+<div class="container">
+    <center><div class="card bg-light mb-3" style="width: 50%;height: 50%">
+            <div class="card-header"><h1>Request Detail</h1></div>
+        <div class="card-body">
+            <h5 class="card-title"></h5>
+
+            <img src="{{ asset('images/'~demandeevenement.image)}} " style="width: 350px;height: 170px">
+                <h3>Iddemandeevenement:{{ demandeevenement.iddemandeevenement }}</h3>
+
+
+
+                <h3>Datedebut :{% if demandeevenement.datedebut %}{{ demandeevenement.datedebut|date('Y-m-d') }}{% endif %}</h3>
+                <h3>Datefin :{% if demandeevenement.datefin %}{{ demandeevenement.datefin|date('Y-m-d') }}{% endif %}</h3>
+                <h3>Etat :{{ demandeevenement.etat }}</h3>
+             <h3>Idclub :{{ demandeevenement.idclub }}</h3>
+
+
+                <h3>Budget :{{ demandeevenement.budget }}</h3>
+            <h3>Description :<p>{{ demandeevenement.description }}</p></h3>
+
+
+
+
+
+
+
+            <a href="{{ path('demandeevenement_index') }}">Back to the list</a> |
+
+
+            <a href="{{ path('demandeevenement_edit', { 'iddemandeevenement': demandeevenement.iddemandeevenement }) }}">Edit</a>
+
+
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete" class="btn btn-outline-danger">
+            {{ form_end(delete_form) }}
+
+
+        </div>
+    </div></center>
+</div>
+{% endblock %}

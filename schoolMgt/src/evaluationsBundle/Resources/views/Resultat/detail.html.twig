@@ -1,0 +1,98 @@
+{% extends 'interfacePersonnel.html.twig' %}
+{% block body %}
+    <div class="container-fluid dashboard-content">
+        <div class="row">
+
+
+            <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12 mb-5">
+
+                <div class="tab-vertical">
+                    <ul class="nav nav-tabs" id="myTab3" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="home-vertical-tab" data-toggle="tab" href="#home-vertical" role="tab" aria-controls="home" aria-selected="true">Matieres</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="profile-vertical-tab" data-toggle="tab" href="#profile-vertical" role="tab" aria-controls="profile" aria-selected="false">Resultat</a>
+                        </li>
+
+                    </ul>
+                    <div class="tab-content" id="myTabContent3">
+                        <div class="tab-pane fade show active" id="home-vertical" role="tabpanel" aria-labelledby="home-vertical-tab">
+                            <p class="lead"> List of subjects</p>
+                            <table class="table">
+
+                                {%  for n in note %}
+                                    <tr>
+                                        <th style="color: #a52361;"> {{ n.matiere.nom }} </th>
+                                        <td>     </td>
+                                    </tr>
+                                    <tr>
+                                        <th> CC Grade </th>
+                                        <td> {{ n.notecc }}    </td>
+                                    </tr>
+                                    <tr>
+                                        <th> CD Grade</th>
+                                        <td> {{ n.noteds }}    </td>
+                                    </tr>
+                                    <tr>
+                                        <th> Exam Grade </th>
+                                        <td> {{ n.noteexam }}    </td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                        <div class="tab-pane fade" id="profile-vertical" role="tabpanel" aria-labelledby="profile-vertical-tab">
+                            <p class="lead"> Resultat Annuelles</p>
+                            <table class="table">
+
+                                {%  for n in note %}
+                                    <tr>
+                                        <th style="color: #a52361;"> {{ n.matiere.nom }} </th>
+                                        <td>     </td>
+                                    </tr>
+                                    <tr>
+                                        <th>  Score </th>
+                                        <td> {{ n.moyenne }}    </td>
+                                    </tr>
+
+                                {% endfor %}
+                                <tr>
+                                    <th style="color: #a52361;"> Annual Result</th>
+                                    <td> {{ resultat[0].resultat }}   </td>
+                                </tr>
+                            </table><br>
+                            <form action="{{ path("resultat_export",{'idetudiant':note[0].etudiant.id}) }}";>
+                                <button class="btn btn-secondary"> Export </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-lg-3 col-md-5 col-sm-12 col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="user-avatar text-center d-block">
+                            <img src="{{ asset(note[0].etudiant.picuser) }}" alt="User Avatar" class="rounded-circle user-avatar-xxl">
+                        </div>
+                        <div class="text-center">
+                            <h2 class="font-24 mb-0"> {{ note[0].etudiant.nomuser }} {{ note[0].etudiant.prenomuser }}  </h2>
+                            <p>Classe {{ note[0].etudiant.classeetd.name }}</p>
+                        </div>
+                    </div>
+                    <div class="card-body border-top">
+                        <h3 class="font-16">Contact Information</h3>
+                        <div class="">
+                            <ul class="list-unstyled mb-0">
+                                <li class="mb-2"><i class="fas fa-fw fa-envelope mr-2"></i>{{ note[0].etudiant.email }}</li>
+                                <li class="mb-0"><i class="fas fa-fw fa-phone mr-2"></i>+216 {{ note[0].etudiant.numteluser }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

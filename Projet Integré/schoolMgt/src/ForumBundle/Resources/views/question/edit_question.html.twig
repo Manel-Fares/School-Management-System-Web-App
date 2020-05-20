@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block mystyle %}
+
+    <style>
+        .btn{
+            background-color:green;
+            color:white;
+            font-weight: bold;
+
+        }
+    </style>
+{% endblock %}
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="ui-block responsive-flex">
+
+                    <div class="ui-block-title">
+                        <h1>Modifier la question</h1>
+                    </div>
+                    <div class="col-12" style="    text-align: left;margin: 15px;">
+                        {{ form(edit_question_form, {'attr': {'novalidate': 'novalidate'}}) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

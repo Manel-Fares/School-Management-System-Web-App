@@ -1,0 +1,9 @@
+
+afficher_user:
+    path:     /user/afficher
+    defaults: { _controller: UserBundle:User:afficher }
+
+profile_edit:
+    path:     /edit
+    defaults: { _controller: UserBundle:User:profileEdit }
+

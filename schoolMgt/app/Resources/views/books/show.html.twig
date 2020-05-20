@@ -1,0 +1,82 @@
+{% extends 'interfaceEtudiant.html.twig' %}
+
+{% block body %}
+
+
+
+
+    <section class="banner_area">
+        <div class="banner_inner d-flex align-items-center">
+            <div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background=""></div>
+            <div class="container">
+                <div class="banner_content text-center">
+                    <h2>Blog Details</h2>
+                    <div class="page_link">
+                        <a href="index.html">Home</a>
+                        <a href="{{ path('books_index') }}">Books</a>
+                        <a href="single-blog.html">Books Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================End Home Banner Area =================-->
+
+    <!--================Blog Area =================-->
+    <section class="blog_area single-post-area p_120">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 posts-list">
+                    <div class="single-post row">
+                        <div class="col-lg-12">
+                            <div class="feature-img">
+                                <img class="img-fluid" src="{{ asset('images/') }}{{ book.picbook }}" alt="" style="height: 200px;width: 300px">
+                            </div>
+                        </div>
+                        <div class="col-lg-3  col-md-3">
+                            <div class="blog_info text-right">
+                                <div class="post_tag">
+
+                                    <a class="active" href="#">{{ book.categoriebook }}</a>
+
+                                </div>
+                                <ul class="blog_meta list">
+                                    <li><a href="#">Mark wiens<i class="lnr lnr-user"></i></a></li>
+                                    <li><a href="#">12 Dec, 2017<i class="lnr lnr-calendar-full"></i></a></li>
+                                    <li><a href="#">1.2M Views<i class="lnr lnr-eye"></i></a></li>
+                                    <li><a href="#">06 Comments<i class="lnr lnr-bubble"></i></a></li>
+                                    {{ socialButtons() }}
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-md-9 blog_details">
+                            <h2>{{ book.titrebook }}</h2>
+                            <p class="excert">
+                                {{ book.descriptionbook }}
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="comment-form">
+                        <div id="fos_comment_thread" data-thread="{{ thread.id }}">
+
+                            {% include '@FOSComment/Thread/comments.html.twig' with {
+                                'comments': comments,
+                                'thread': thread
+                            } %}
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    </div>
+</div>
+   </div>
+{% endblock %}

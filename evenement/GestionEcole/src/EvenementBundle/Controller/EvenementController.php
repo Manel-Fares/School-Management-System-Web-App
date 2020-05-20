@@ -5,6 +5,8 @@ namespace EvenementBundle\Controller;
 use Doctrine\ORM\EntityRepository;
 use EvenementBundle\Entity\Club;
 use EvenementBundle\Entity\Evenement;
+use EvenementBundle\Entity\Participation;
+use EvenementBundle\Entity\Rate;
 use EvenementBundle\Entity\Users;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -30,7 +32,8 @@ class EvenementController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
+        $club=$em->getRepository('EvenementBundle:Club')->find(1);
+        var_dump($club);
         $evenements = $em->getRepository('EvenementBundle:Evenement')->findAll();
 
         return $this->render('evenement/index.html.twig', array(
@@ -49,9 +52,19 @@ class EvenementController extends Controller
         $em = $this->getDoctrine()->getManager();
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
         // var_dump($user);
+
         $club=$em->getRepository('EvenementBundle:Club')->findOneBy(array('idresponsable'=>$user->getId()));
+        $evenement = $em->getRepository('EvenementBundle:Evenement')->afficerSpecifiqueClub($club->getidClub());
+        for($i=0;$i<count($evenement);$i++){
+            //   var_dump($evenements[$i]['idevenement']);
+            $p = $em->getRepository('EvenementBundle:Participation')->partEvclb($evenement[$i]['idevenement']);
+            foreach ($p as $r){
+                $evenements[$i]=$r;
+                // array_push($aa,$r);
+            }}
+        var_dump($evenements);
         //var_dump($club);
-        $evenements = $em->getRepository('EvenementBundle:Evenement')->afficerSpecifiqueClub($club);
+       // $evenements = $em->getRepository('EvenementBundle:Evenement')->afficerSpecifiqueClub($club);
        var_dump($evenements);
 
         return $this->render('evenement/EvenementClub.html.twig', array(
@@ -67,12 +80,25 @@ class EvenementController extends Controller
     public function ListImageAction(Request $request)
     { $em = $this->getDoctrine()->getManager();
 
-        $evenements = $em->getRepository('EvenementBundle:Evenement')->findAll();
+        $evenement = $em->getRepository('EvenementBundle:Evenement')->afficerSpecifique();
+        // var_dump($evenements);
+        for($i=0;$i<count($evenement);$i++){
+            //   var_dump($evenements[$i]['idevenement']);
+            $p = $em->getRepository('EvenementBundle:Participation')->partEvclb($evenement[$i]['idevenement']);
+            foreach ($p as $r){
+                $evenements[$i]=$r;
+                // array_push($aa,$r);
+            }}
+     //   var_dump($evenements);
+      //  $p = $em->getRepository('EvenementBundle:Participation')->partEvclb();
         $entities  = $this->get('knp_paginator')->paginate(
             $evenements,
             $request->query->get('page', 1)/*le numéro de la page à afficher*/,
        12
         );
+
+
+
 
         return $this->render('evenement/listImageEvenement.html.twig', array(
             'evenements' => $entities,
@@ -82,16 +108,42 @@ class EvenementController extends Controller
      * Lists all image detail  evenement entities.
      *
      * @Route("/detailevenement/{idevenement}", name="evenement_detail")
-     * @Method("GET")
+     * @Method({"GET", "POST"})
      */
     public function ListImageDetailAction(Request $request,$idevenement)
     { $em = $this->getDoctrine()->getManager();
 
         $evs = $em->getRepository('EvenementBundle:Evenement')->find($idevenement+0);
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $club=$em->getRepository('EvenementBundle:Club')->findOneBy(array('idresponsable'=>$user));
+       // $p = $em->getRepository('EvenementBundle:Participation')->partEvclb($club->getidEvenement());
+        var_dump($club);
+        $participation = new Participation();
+        //var_dump($request);
+        if($request->isMethod('POST'))
+        {
+            $em = $this->getDoctrine()->getManager();
+            $participation->setIduser($user);
+            $participation->setIdevenement($evs);
+            $em->persist($participation);
+            $em->flush();
 
+            return $this->redirectToRoute('evenement_image');
+        }
+       /* $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $rate->setIduser($user);
+            $rate->setIdclub($club);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($rate);
+            $em->flush();
+
+            return $this->redirectToRoute('evenement_image');
+        }*/
 
         return $this->render('evenement/listImageEvenementxx.html.twig', array(
-            'evenement' => $evs,
+            'evenement' => $evs
         ));
     }
     /**
@@ -183,6 +235,8 @@ class EvenementController extends Controller
         $editForm = $this->createForm('EvenementBundle\Form\EvenementType', $evenement);
         $editForm->handleRequest($request);
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $evenement->UploadProfilePicture();
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('evenement_edit', array('idevenement' => $evenement->getIdevenement()));
@@ -190,32 +244,32 @@ class EvenementController extends Controller
 
 
         $user = $this->getUser();
-        if ($user->hasRole('ROLE_ADMIN')) {
+       //// if ($user->hasRole('ROLE_ADMIN')) {
         return $this->render('evenement/edit.html.twig', array(
             'evenement' => $evenement,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        ));}
-        else {
+        ));//}
+        /*else {
 
             return $this->render('evenement/edit2.html.twig', array(
                 'evenement' => $evenement,
                 'edit_form' => $editForm->createView(),
                 'delete_form' => $deleteForm->createView(),
-            ));}
+            ));}*/
     }
 
     /**
      * Deletes a evenement entity.
      *
-     * @Route("/{idevenement}", name="evenement_delete")
+     * @Route("/{idevenement}/delete", name="evenement_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Evenement $evenement)
     {
         $form = $this->createDeleteForm($evenement);
         $form->handleRequest($request);
-
+var_dump($evenement);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($evenement);

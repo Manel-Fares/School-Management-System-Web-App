@@ -1,0 +1,46 @@
+<div class="modal fade bd-example-modal-lg" id="myModalchoose" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <center><h1>Evenement</h1></center>
+            <div class="modal-header">
+
+                <div class="row" style="margin-top: +10%">
+
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pr-xl-0 pr-lg-0 pr-md-0  m-b-30">
+
+                        <div class="product-slider">
+
+
+                            <img src="{{ asset('images/'~aa.image)}} "style="height: 250px;width: 260px;" data-toggle="modal" data-target="#exampleModalCenter">
+
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pl-xl-0 pl-lg-0 pl-md-0 border-left m-b-30" style="margin-top: +10%;" >
+
+                    <div class="product-details">
+                        <h5>Club : {{aa.nomclub}}</h5>
+                        <h5 style="margin: +5%;"></h5>
+                        <h1>Votre Rate</h1>
+                        {{ form_start(form) }}
+
+                        {{form_widget(form.rating)}}
+
+
+                        {{ form_end(form) }}
+
+
+
+
+                    </div>
+                </div></div>
+
+        </div>
+    </div>
+</div>
+
+<script src="{{ asset('js/rating.js') }}"></script>

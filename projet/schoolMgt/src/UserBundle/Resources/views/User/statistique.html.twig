@@ -1,0 +1,76 @@
+{% extends '::interfaceAdministrateur.html.twig' %}
+{% block body %}
+    <div class="row">
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="text-muted">Nombre Utilisateurs</h5>
+                    <div class="metric-value d-inline-block">
+                        <h1 class="mb-1">{{ nbuser }}</h1>
+                    </div>
+                </div>
+                <div id="sparkline-revenue"></div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="text-muted">Nombre Classes</h5>
+                    <div class="metric-value d-inline-block">
+                        <h1 class="mb-1">{{ nbcls }}</h1>
+                    </div>
+                </div>
+                <div id="sparkline-revenue2"></div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="text-muted">Nombre Club</h5>
+                    <div class="metric-value d-inline-block">
+                        <h1 class="mb-1">{{ nbclub}}</h1>
+                    </div>
+                </div>
+                <div id="sparkline-revenue4"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xl-7 col-lg-7 col-md-8 col-sm-14 col-14">
+            <div class="card">
+                <h5 class="card-header">Users Statistics</h5>
+                <div class="card-body">
+                    <div >
+                        <div id="div_chart" ></div>
+                        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                        <script type="text/javascript">
+                            {{ gc_draw(piechartUser, 'div_chart') }}
+                        </script>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="{{ asset('back/assets/vendor/jquery/jquery-3.3.1.min.js')}}"></script>
+    <!-- bootstap bundle js -->
+    <script src="{{ asset('back/assets/vendor/bootstrap/js/bootstrap.bundle.js')}}"></script>
+    <!-- slimscroll js -->
+    <script src="{{ asset('back/assets/vendor/slimscroll/jquery.slimscroll.js')}}"></script>
+    <!-- main js -->
+    <script src="{{ asset('back/assets/libs/js/main-js.js')}}"></script>
+    <!-- morris-chart js -->
+    <script src="{{ asset('back/assets/vendor/charts/morris-bundle/raphael.min.js')}}"></script>
+    <script src="{{ asset('back/assets/vendor/charts/morris-bundle/morris.js')}}"></script>
+    <script src="{{ asset('back/assets/vendor/charts/morris-bundle/morrisjs.html')}}"></script>
+    <!-- chart js -->
+    <script src="{{ asset('back/assets/vendor/charts/charts-bundle/Chart.bundle.js')}}"></script>
+    <script src="{{ asset('back/assets/vendor/charts/charts-bundle/chartjs.js')}}"></script>
+    <!-- dashboard js -->
+    <script src="{{ asset('back/assets/libs/js/dashboard-influencer.js')}}"></script>
+    <script>
+    </script>
+{% endblock %}

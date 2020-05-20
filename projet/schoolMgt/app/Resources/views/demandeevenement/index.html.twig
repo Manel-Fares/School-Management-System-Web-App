@@ -1,0 +1,98 @@
+{% extends  'interfacePersonnel.html.twig' %}
+{% block notification %}
+    {% for notification in notifications %}
+<li>
+            {{ notification.description }}
+</li>
+
+    {% endfor %}
+    <li>
+        <div class="list-footer"> <a href="{{ path('demandeevenement_index') }}">View all notifications</a></div>
+    </li>
+
+{% endblock %}
+{% block body %}
+<div class="container" >
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pr-xl-0 pr-lg-0 pr-md-0  m-b-30" >
+
+
+
+        <div class="product-slider" >
+            <div class="card-body">
+                <div class="d-inline-block">
+                    <h5 class="text-muted">Top3 Club  Budget </h5>
+
+                    {% for b in bd %}
+                        <h5>Club nom : {{ b.nom  }}</h5>
+                            <h5>Budget:{{ b.x  }}</h5>
+                    {% endfor %}
+
+                </div>
+                <div class="float-right icon-circle-medium  icon-box-lg  bg-brand-light mt-1">
+                    <i class="fa fa-money-bill-alt fa-fw fa-sm text-brand"></i>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div id="tmpmodal"></div>
+    <div class="container" >
+        <div id="tmpmodal"></div>
+
+        <div class="card">
+
+            <h5 class="card-header">Evenements list</h5>
+            <div class="card-body">
+
+                <table class="table">
+        <thead>
+            <tr>
+                <th>Iddemandeevenement</th>
+                <th>Description</th>
+                <th>Datedebut</th>
+                <th>Datefin</th>
+                <th>Etat</th>
+                <th>Idclub</th>
+                <th>Budget</th>
+                <th>Image</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for demandeevenement in demandeevenements %}
+            <tr>
+                <td><a href="{{ path('demandeevenement_show', { 'iddemandeevenement': demandeevenement.iddemandeevenement }) }}">{{ demandeevenement.iddemandeevenement }}</a></td>
+                <td>{{ demandeevenement.description }}</td>
+                <td>{% if demandeevenement.datedebut %}{{ demandeevenement.datedebut|date('Y-m-d') }}{% endif %}</td>
+                <td>{% if demandeevenement.datefin %}{{ demandeevenement.datefin|date('Y-m-d') }}{% endif %}</td>
+                {% if demandeevenement.etat=='valider' %}
+                <td style="color: #1c7430">{{ demandeevenement.etat }}</td>
+
+                {% else %}
+                <td style="color: #a00000">{{ demandeevenement.etat }}</td>
+                {% endif %}
+                <td>{{ demandeevenement.idclub }}</td>
+                <td>{{ demandeevenement.budget }}</td>
+                <td>{{ demandeevenement.image }}</td>
+                <td>
+                    <ul>
+                        <li>
+
+                            <a href="{{ path('demandeevenement_show', { 'iddemandeevenement': demandeevenement.iddemandeevenement }) }}" >show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('demandeevenement_valider', { 'iddemandeevenement': demandeevenement.iddemandeevenement }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+          </div></div></div>
+    <ul>
+        <li>
+            <a href="{{ path('demandeevenement_new') }}">Create a new demandeevenement</a>
+        </li>
+    </ul>
+{% endblock %}

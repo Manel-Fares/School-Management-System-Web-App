@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+
+        <div class="row" style="margin-top: +1%">
+
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pr-xl-0 pr-lg-0 pr-md-0  m-b-30" >
+
+
+                <div class="product-slider">
+                    {{ form_start(form) }}
+                    {{form_widget(form.rating)}}
+                    <input type="submit" value="Create" />
+                    {{ form_end(form) }}
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pl-xl-0 pl-lg-0 pl-md-0 border-left m-b-30" >
+
+                <div class="product-details" style="height: 455px">
+                    <div class="border-bottom pb-3 mb-3">
+                        <h1>Club Info</h1></div>
+                    <h1>Id Club : {{ club.getIdclub }}</h1>
+                    <h1>Nom Club : {{ club.getNomclub() }}</h1>
+                    <h1>Id Responsable : {{club.getIdresponsable() }}</h1>
+                    <h1>Domaine :{{ club.getDomaine() }}</h1>
+
+                    <ul>
+                        <li>
+                            <a href="{{ path('club_index') }}">Back to the list</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('club_edit', { 'idclub': club.idclub }) }}">Edit</a>
+                        </li>
+
+
+                            {{ form_start(delete_form) }}
+                            <input type="submit" value="Delete">
+                            {{ form_end(delete_form) }}
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+
+
+
+
+
+
+        </div>
+    </div>
+{% endblock %}
+

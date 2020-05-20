@@ -1,0 +1,92 @@
+{% extends 'interfaceEtudiant.html.twig'%}
+
+{% block body %}
+   {# <h1>Reclamations list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Idreclamation</th>
+                <th>Sujetreclamation</th>
+                <th>Descriptionreclamation</th>
+                <th>Statutreclamation</th>
+                <th>Datecreation</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reclamation in reclamations %}
+            <tr>
+                <td><a href="{{ path('reclamation_show', { 'idreclamation': reclamation.idreclamation }) }}">{{ reclamation.idreclamation }}</a></td>
+                <td>{{ reclamation.sujetreclamation }}</td>
+                <td>{{ reclamation.descriptionreclamation }}</td>
+                <td>{{ reclamation.statutreclamation }}</td>
+                <td>{% if reclamation.datecreation %}{{ reclamation.datecreation|date('Y-m-d') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('reclamation_show', { 'idreclamation': reclamation.idreclamation }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('reclamation_edit', { 'idreclamation': reclamation.idreclamation }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('reclamation_new') }}">Create a new reclamation</a>
+        </li>
+    </ul>
+    #}
+    <div class="container">
+        <div class="row">
+            <h1>Reclamation Envoyé</h1><br>
+            <div class="default-select" id="default-select" onclick="">
+                <select>
+                    <option value="1">English</option>
+                    <option value="1">Spanish</option>
+                    <option value="1">Arabic</option>
+                    <option value="1">Portuguise</option>
+                    <option value="1">Bengali</option>
+                </select>
+            </div>
+            <table class="table table-hover table-striped" >
+                <thead>
+                <tr class="thead-dark">
+                    <th>S. #</th>
+                    <th>Sujet & Message</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for key,reclamation in reclamations %}
+                <tr>
+                    <td>
+                        {{ key+1 }}
+                    </td>
+                    <td style="max-width:300px">
+                        <h6>{{ reclamation.sujetreclamation }}</h6>
+                        <em class="text-muted">
+                            {{ reclamation.descriptionreclamation }}                        </em>
+                    </td>
+                    <td>
+                        {{ reclamation.statutreclamation }}
+                    </td>
+                    <td>
+
+                        <a href="{{ path('reclamation_delete', { 'idreclamation': reclamation.idreclamation }) }}" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                    </td>
+                </tr>
+
+               {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

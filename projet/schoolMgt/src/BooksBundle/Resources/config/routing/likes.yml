@@ -1,0 +1,24 @@
+likes_index:
+    path:     /
+    defaults: { _controller: "BooksBundle:Likes:index" }
+    methods:  GET
+
+likes_show:
+    path:     /{idlike}/show
+    defaults: { _controller: "BooksBundle:Likes:show" }
+    methods:  GET
+
+likes_new:
+    path:     /new
+    defaults: { _controller: "BooksBundle:Likes:new" }
+    methods:  [GET, POST]
+
+likes_edit:
+    path:     /{idlike}/edit
+    defaults: { _controller: "BooksBundle:Likes:edit" }
+    methods:  [GET, POST]
+
+likes_delete:
+    path:     /{idlike}/delete
+    defaults: { _controller: "BooksBundle:Likes:delete" }
+    methods:  DELETE

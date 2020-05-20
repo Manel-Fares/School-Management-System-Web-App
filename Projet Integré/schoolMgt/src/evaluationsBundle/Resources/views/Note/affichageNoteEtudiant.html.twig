@@ -1,0 +1,66 @@
+{% extends 'interfaceEtudiant.html.twig' %}
+{% block body %}
+<br>
+    <br>
+        <div class="container">
+            <div class="main_title">
+                <h2 style="color: #002a80">List of subjects</h2>
+            </div>
+            <div class="row about_inner">
+                <div class="col-lg-6">
+                    <div class="accordion" id="accordionExample">
+                        {%  for n in note %}
+
+                        <div class="card">
+                            <div class="card-header" id="headingThree">
+                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    {{ n.matiere.nom }}
+                                    <i class="lnr lnr-chevron-down"></i>
+                                    <i class="lnr lnr-chevron-up"></i>
+                                </button>
+                            </div>
+                            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                                <div class="card-body">
+                                    <table class="table">
+
+                                            <tr>
+                                                <th>  CC Grade  </th>
+                                                <td> {{ n.notecc }}    </td>
+                                            </tr>
+                                            <tr>
+                                                <th>  CD Grade </th>
+                                                <td> {{ n.noteds }}    </td>
+                                            </tr>
+                                            <tr>
+                                                <th>  Exam Grade </th>
+                                                <td> {{ n.noteexam }}    </td>
+                                            </tr>
+                                            <tr>
+                                                <th>  Score </th>
+                                                <td> {{ n.moyenne }}    </td>
+                                            </tr>
+
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="video_area" id="video">
+                        <form action="{{ path("resultat_transcript",{'idetudiant':note[0].etudiant.id}) }}";>
+                            <button class="btn btn-primary"> Get Your Transcript ! </button>
+                        </form>
+                        <img src="{{ asset('images/2.png') }}" alt="">
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+ {% endblock %}

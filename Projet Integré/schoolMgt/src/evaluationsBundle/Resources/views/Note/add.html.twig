@@ -1,0 +1,31 @@
+{% extends 'interfaceEnseignant.html.twig' %}
+{% block body %}
+<center>
+
+    <table width=20%>
+
+        <td>
+            </br><h2>Add Grade</h2></br>
+            <div class="form-holder">
+            {{ form_start(form) }}
+
+            {{ form_row(form.etudiant) }}
+
+            {{ form_row(form.matiere) }}
+
+            {{ form_row(form.datenote) }}
+
+            {{ form_row(form.notecc) }}
+
+            {{ form_row(form.noteds) }}
+
+            {{ form_row(form.noteexam) }}
+
+            {{ form_row(form.Envoyer) }}
+
+            {{ form_end(form) }}
+        </td>
+
+    </table>
+</center>
+{% endblock %}

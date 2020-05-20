@@ -1,0 +1,34 @@
+{% extends 'interfaceEtudiant.html.twig' %}
+{% block body %}
+<br>
+<h2 align="center"  > Les Notes Des Modules</h2>
+<br>
+<table class="table table-striped" >
+    <thead style="background-color: #37737f" >
+    <tr>
+        <th>Nom Matiere</th>
+        <th>Nom Enseignant</th>
+        <th>Coefficent</th>
+        <th>Note CC</th>
+        <th>Note DS</th>
+        <th>Note Examen</th>
+        <th>Moyenne</th>
+
+    </tr>
+    </thead>
+    {%  for n in note %}
+    <tr>
+        <td>{{ n.matiere.nom }}</td>
+        <td>{{ n.etudiant.nomuser }} {{ n.etudiant.prenomuser }}</td>
+        <td>{{ n.matiere.coef }}</td>
+        <td>{{ n.notecc }}</td>
+        <td>{{ n.noteds }}</td>
+        <td>{{ n.noteexam }}</td>
+        <td>{{ n.moyenne }}</td>
+
+    </tr>
+    {% endfor %}
+
+
+</table>
+ {% endblock %}

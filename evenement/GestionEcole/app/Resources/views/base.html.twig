@@ -8,18 +8,24 @@
     <title>{% block title %}{% endblock %}</title>
     <!-- Bootstrap CSS -->
     {% block stylesheet %}
-        <link rel="stylesheet" href="{{ asset('css/bootstrap.css' )}}">
-        <link rel="stylesheet" href="{{ asset('css/styleSlide.css' )}}">
-        <link rel="stylesheet" href="{{ asset('vendors/linericon/style.css') }}">
-        <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-        <link rel="stylesheet" href="{{ asset('vendors/owl-carousel/owl.carousel.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('vendors/lightbox/simpleLightbox.css') }}">
-        <link rel="stylesheet" href="{{ asset('vendors/nice-select/css/nice-select.css') }}">
-        <link rel="stylesheet" href="{{ asset('vendors/animate-css/animate.css') }}">
-        <link rel="stylesheet" href="{{ asset('vendors/popup/magnific-popup.css') }}">
+        <link rel="stylesheet" href="{{ asset('front/css/rating.css') }}" >
+        <link rel="stylesheet" href="{{ asset('front/css/bootstrap.css' )}}">
+        <link rel="stylesheet" href="{{ asset('front/css/styleSlide.css' )}}">
+        <link rel="stylesheet" href="{{ asset('front/vendors/linericon/style.css') }}">
+
+        <link href="{{ asset('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css') }}" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+        <link rel="stylesheet" href="{{ asset('front/vendors/owl-carousel/owl.carousel.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('front/vendors/lightbox/simpleLightbox.css') }}">
+        <link rel="stylesheet" href="{{ asset('front/vendors/nice-select/css/nice-select.css') }}">
+        <link rel="stylesheet" href="{{ asset('front/vendors/animate-css/animate.css') }}">
+        <link rel="stylesheet" href="{{ asset('front/vendors/popup/magnific-popup.css') }}">
         <!-- main css -->
-        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
+        <link rel="stylesheet" href="{{ asset('front/css/style.css') }}">
+        <link rel="stylesheet" href="{{ asset('front/css/responsive.css') }}">
+
+        <link rel="stylesheet" href="{{ asset('front/scss/_about.scss') }}">
+        <link rel="stylesheet" href="{{ asset('front/scss/_header.scss') }}">
+
     {% endblock %}
 </head>
 <body>
@@ -32,7 +38,6 @@
             <nav class="navbar navbar-expand-lg navbar-light">
                 <div class="container">
                     <!-- Brand and toggle get grouped for better mobile display -->
-                    <a class="navbar-brand logo_h" href="index.html"><img src="{{ asset('img/logo.png') }}" alt=""></a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -41,13 +46,14 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                         <ul class="nav navbar-nav menu_nav ml-auto">
-                            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ path('evenement_Proche') }}">Home</a></li>
                             <li class="nav-item"><a class="nav-link" href="about-us.html">About</a></li>
                             <li class="nav-item submenu dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Courses</a>
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Event</a>
                                 <ul class="dropdown-menu">
-                                    <li class="nav-item"><a class="nav-link" href="courses.html">Courses</a>
-                                    <li class="nav-item"><a class="nav-link" href="course-details.html">Course Details</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="{{ path('evenement_image') }}"> Events</a>
+                                    <li class="nav-item"><a class="nav-link" href="{{ path('EvenementClub') }}"> your Events</a>
+                                    <li class="nav-item"><a class="nav-link" href="{{ path('club_show_image') }}">Clubs</a></li>
                                 </ul>
                             </li>
 
@@ -60,14 +66,17 @@
                                 </ul>
                             </li>
                             <li class="nav-item submenu dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Blog</a>
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Contact</a>
                                 <ul class="dropdown-menu">
-                                    <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="{{ path('demandeevenement_new') }}">Request Events</a></li>
                                     <li class="nav-item"><a class="nav-link" href="single-blog.html">Blog Details</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
                         </ul>
+                        <a  href="{{ path('fos_user_security_logout') }}" class="btn btn-info btn-lg" style="margin-left: +5%;size: -5px">
+                            <span class="glyphicon glyphicon-log-out"></span> Log out
+                        </a>
                     </div>
                 </div>
             </nav>
@@ -194,22 +203,23 @@
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 {% block javascripts %}
-    <script src="{{ asset('js/jquery-3.3.1.min.js' )}}"></script>
-    <script src="{{ asset('js/popper.js' )}}"></script>
-    <script src="{{ asset('js/bootstrap.min.js' )}}"></script>
-    <script src="{{ asset('js/stellar.js' )}}"></script>
-    <script src="{{ asset('vendors/lightbox/simpleLightbox.min.js' )}}"></script>
-    <script src="{{ asset('vendors/nice-select/js/jquery.nice-select.min.js' )}}"></script>
-    <script src="{{ asset('vendors/isotope/imagesloaded.pkgd.min.js' )}}"></script>
-    <script src="{{ asset('vendors/isotope/isotope.pkgd.min.js' )}}"></script>
-    <script src="{{ asset('vendors/owl-carousel/owl.carousel.min.js' )}}"></script>
-    <script src="{{ asset('vendors/popup/jquery.magnific-popup.min.js' )}}"></script>
-    <script src="{{ asset('js/jquery.ajaxchimp.min.js' )}}"></script>
-    <script src="{{ asset('vendors/counter-up/jquery.waypoints.min.js' )}}"></script>
-    <script src="{{ asset('vendors/counter-up/jquery.counterup.js' )}}"></script>
-    <script src="{{ asset('js/mail-script.js' )}}"></script>
-    <script src="{{ asset('js/theme.js' )}}"></script>
-
+    <script src="{{ asset('front/js/jquery-3.3.1.min.js' )}}"></script>
+    <script src="{{ asset('front/js/popper.js' )}}"></script>
+    <script src="{{ asset('front/js/bootstrap.min.js' )}}"></script>
+    <script src="{{ asset('front/js/stellar.js' )}}"></script>
+    <script src="{{ asset('front/vendors/lightbox/simpleLightbox.min.js' )}}"></script>
+    <script src="{{ asset('front/vendors/nice-select/js/jquery.nice-select.min.js' )}}"></script>
+    <script src="{{ asset('front/vendors/isotope/imagesloaded.pkgd.min.js' )}}"></script>
+    <script src="{{ asset('front/vendors/isotope/isotope.pkgd.min.js' )}}"></script>
+    <script src="{{ asset('front/vendors/owl-carousel/owl.carousel.min.js' )}}"></script>
+    <script src="{{ asset('front/vendors/popup/jquery.magnific-popup.min.js' )}}"></script>
+    <script src="{{ asset('vjs/jquery.ajaxchimp.min.js' )}}"></script>
+    <script src="{{ asset('front/vendors/counter-up/jquery.waypoints.min.js' )}}"></script>
+    <script src="{{ asset('front/vendors/counter-up/jquery.counterup.js' )}}"></script>
+    <script src="{{ asset('vjs/mail-script.js' )}}"></script>
+    <script src="{{ asset('front/js/theme.js' )}}"></script>
+    <!-- make sure that jquery is included -->
+    <script src="{{ asset('front/js/rating.js') }}"></script>
 {% endblock %}
 
 </body>
