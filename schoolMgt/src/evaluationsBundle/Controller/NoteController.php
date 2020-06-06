@@ -62,8 +62,7 @@ class NoteController extends Controller
             $moyenne=$note->getNotecc()*0.2+$note->getNoteds()*0.3+$note->getNoteexam()*0.5;
             $note->getEtudiant($moyenne);
             $note->setMoyenne($moyenne);
-            $note->setMoyenne($moyenne);
-            $note->setEnseignant($this->getUser()->getID());
+            $note->setEnseignant($this->getUser());
             $em = $this->getDoctrine()->getManager();
             $em->persist($note);
             $em->flush();

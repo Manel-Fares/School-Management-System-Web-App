@@ -3,6 +3,7 @@
 namespace evaluationsBundle\Controller;
 
 use CMEN\GoogleChartsBundle\GoogleCharts\Charts\PieChart;
+use CMEN\GoogleChartsBundle\GoogleCharts\Options\PieChart\PieSlice;
 use Jhg\NexmoBundle\JhgNexmoBundle;
 use schoolBundle\Entity\Classe;
 use EvenementBundle\Entity\Club;
@@ -146,21 +147,24 @@ class ResultatController extends Controller
             $entityManager = $this->getDoctrine()->getManager();
             $query = $entityManager->createQuery(
                 'SELECT n FROM schoolBundle:Note n                
-             WHERE n.etudiant = :etudiant'
+                 WHERE n.etudiant = :etudiant'
             )->setParameter('etudiant',$listeEtudiant[$j]);
             $listeNote = $query->getResult();
 
             $sumcCoef=0;  $sumMoy=0;
             for($i=0;$i<count($listeNote);$i++) {
+                if($listeNote[$i]){
                 $sumcCoef += $listeNote[$i]->getMatiere()->getCoef();
-                $sumMoy += $listeNote[$i]->getMoyenne()*$listeNote[$i]->getMatiere()->getCoef();
+                $sumMoy += $listeNote[$i]->getMoyenne()*$listeNote[$i]->getMatiere()->getCoef();}
             }
             $resultat = new Resultat();
             $resultat->setEtudiant($listeEtudiant[$j]);
             $date = new \DateTime('now', new \DateTimeZone('Asia/Kolkata'));
             $date->format('yy-m-d');
             $resultat->setDateresultat($date);
-            $resultat->setResultat($sumMoy/$sumcCoef);
+            if($sumcCoef){
+            $resultat->setResultat($sumMoy/$sumcCoef);}
+            else $resultat->setResultat(0);
             $em = $this->getDoctrine()->getManager();
             $em->persist($resultat);
             $em->flush();
@@ -197,7 +201,7 @@ class ResultatController extends Controller
         $note = $query->getResult();
 
         $query2 = $entityManager->createQuery(
-            'SELECT r.resultat
+            'SELECT r.resultat ,r.dateresultat 
              FROM schoolBundle:Resultat r            
              WHERE r.etudiant = :etudiant'
         )->setParameter('etudiant',$this->getUser()->getID()  );
@@ -327,11 +331,11 @@ class ResultatController extends Controller
 
 
         $pieChartUser->getData()->setArrayToDataTable(
-            [['Nombre Etudiant','Nombre Administrateur'],
-                ['Nombre Etudiant',$nbEtudiant*100/$totalUsers],
-                ['Nombre Enseignant',$nbEnseignant*100/$totalUsers],
-                ['Nombre Personnel',$nbPersonnel*100/$totalUsers],
-                ['Nombre Administrateur',$nbAdministrateur*100/$totalUsers],
+            [['User','Pourcentage'],
+                ['Students Number',$nbEtudiant*100/$totalUsers],
+                ['Teacher Number',$nbEnseignant*100/$totalUsers],
+                ['Staff Number',$nbPersonnel*100/$totalUsers],
+                ['Administrator Number',$nbAdministrateur*100/$totalUsers],
 
             ]
         );
@@ -351,31 +355,80 @@ class ResultatController extends Controller
 
         ]);
         $em= $this->getDoctrine();
-        $res = $em->getRepository(Resultat::class)->findAll();
-        $totalEtudiant=count($res);
+        $res1 = $em->getRepository(Resultat::class)->findAll();
+        $level1 = $em->getRepository(Classe::class)->findBy(['niveau' => '1']);
+        $level2 = $em->getRepository(Classe::class)->findBy(['niveau' => '2']);
+        $level3 = $em->getRepository(Classe::class)->findBy(['niveau' => '3']);
+        $level4 = $em->getRepository(Classe::class)->findBy(['niveau' => '4']);
+        $level5 = $em->getRepository(Classe::class)->findBy(['niveau' => '5']);
+
+
+
+
+        $Columnchart = new \CMEN\GoogleChartsBundle\GoogleCharts\Charts\Material\ColumnChart();
+        $Columnchart->getData()->setArrayToDataTable([
+            ['Levels', 'Classes'],
+            ['level 1', count($level1)],
+            ['level 2', count($level2)],
+            ['level 3', count($level3)],
+            ['level 4', count($level4)],
+            ['level 5', count($level5)]
+
+        ]);
+
+        $Columnchart->getOptions()->getChart()
+            ->setTitle('Classes per level');
+        $Columnchart->getOptions()
+            ->setBars('vertical')
+            ->setHeight(400)
+            ->setWidth(400)
+            ->setColors(['#0080FF', '#210B61'])
+            ->getVAxis()
+            ->setFormat('decimal');
+
+        $res3 = $em->getRepository(Resultat::class)->findAll();
+        $totalEtudiant=count($res3);
 
         $succes=0;
         $echec=0;
-        for($j=0;$j<count($res);$j++)
+        for($j=0;$j<count($res3);$j++)
         {
 
-            if ($res[$j]->getResultat() >= 10) {
+            if ($res3[$j]->getResultat() >= 10) {
                 $succes += 1;
             } else {
                 $echec += 1;
             }
         }
+        $succes=$succes*100/$totalEtudiant;
+        $echec=$echec*100/$totalEtudiant;
+
+        $pieChartr = new PieChart();
+        $pieChartr->getData()->setArrayToDataTable(
+            [
+                ['Sucess', 'Percentage'],
+                ['Succes', $succes ],
+                ['', $echec]
+            ]
+        );
+
+
+        $pieSlice1 = new PieSlice();
+        $pieSlice1->setColor('#210B61');
+        $pieSlice2 = new PieSlice();
+        $pieSlice2->setColor('transparent');
+        $pieChartr->getOptions()->setSlices([$pieSlice1, $pieSlice2]);
+        $pieChartr->getOptions()->setHeight(140);
+        $pieChartr->getOptions()->setWidth(300);
 
         return $this->render('@User/User/statistique.html.twig', array(
-
+            'Columnchart' =>$Columnchart,
             'piechartUser' => $pieChartUser,
+            'piechartr' => $pieChartr,
             'nbuser'=>$totalUsers,
             'nbcls'=>$nbClass,
             'nbclub'=>$nbclub,
-            'succes'=>$succes,
-            'echec'=>$echec,
-            'sp'=>$succes*100/$totalEtudiant,
-            'es'=>$echec*100/$totalEtudiant
+            'nb'=>count($level5),
 
         ));
     }
