@@ -3,8 +3,13 @@
 namespace BooksBundle\Controller;
 
 use BooksBundle\Entity\Books;
+use BooksBundle\Entity\Comment;
+use EvenementBundle\Entity\Users;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 /**
  * Book controller.
@@ -39,6 +44,23 @@ class BooksController extends Controller
         return $this->render('books/chart.html.twig', array(
             'books' => $books,
         ));
+    }
+    public function AllAction()
+
+    {
+        $em = $this->getDoctrine()->getManager();
+      //  $user = $this->container->get('security.token_storage')->getToken()->getUser();
+
+
+       // $Likes= $em->getRepository('BooksBundle:Likes')->findBy(array("idetd"=>$user->getId()));
+      //  $wishliste = $em->getRepository('BooksBundle:Wishliste')->findBy(array("idetd"=>$user->getId()));
+
+        $books = $em->getRepository('BooksBundle:Books')->findAll();
+      //  $bookscategorie = $em->getRepository('BooksBundle:Books')->findAll();
+
+       $serializer = new Serializer([new ObjectNormalizer()]);
+       $formatted = $serializer->normalize($books);
+       return new JsonResponse($formatted);
     }
     public function indexAction()
 
@@ -149,7 +171,7 @@ class BooksController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('books_index');
+        return $this->redirectToRoute('books_backindex');
     }
 
     /**
@@ -193,5 +215,76 @@ class BooksController extends Controller
             'thread' => $thread,
             'book' => $books,
         ));
+    }
+    public function commentBookJsonAction(Request $request)
+    {
+        $comments = new Comment();
+        $em = $this->getDoctrine()->getManager();
+        $id =$request->get("idbook");
+
+        $thread = $this->container->get('fos_comment.manager.thread')->findThreadById($id);
+        if (null === $thread) {
+            $thread = $this->container->get('fos_comment.manager.thread')->createThread();
+            $thread->setId($id);
+            $thread->setPermalink($request->getUri());
+
+            // Add the thread
+            $this->container->get('fos_comment.manager.thread')->saveThread($thread);
+        }
+        $user = $em->getRepository(Users::class)->findOneBy(array("id"=>$request->get("idetd")));
+       // $parent = $this->getValidCommentParent($thread, $request->query->get('parentId'));
+
+       //$comments = $this->container->get('fos_comment.manager.comment')->findCommentTreeByThread($thread);
+        $comments->setThread($thread);
+$comments->setBody($request->get("body"));
+$comments->setAuthor($user);
+        $comments->setCreatedAt(new \DateTime('now'));
+       // $comments->setParent($parent);
+
+
+        $em->persist($comments);
+        $em->flush();
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($comments);
+        return new JsonResponse($formatted);
+    }
+    public function commentJsonAction(Request $request)
+    {
+
+        $id =$request->get("idbook");
+
+        $thread = $this->container->get('fos_comment.manager.thread')->findThreadById($id);
+        if (null === $thread) {
+            $thread = $this->container->get('fos_comment.manager.thread')->createThread();
+            $thread->setId($id);
+            $thread->setPermalink($request->getUri());
+
+            // Add the thread
+            $this->container->get('fos_comment.manager.thread')->saveThread($thread);
+        }
+
+
+        $comments = $this->container->get('fos_comment.manager.comment')->findCommentTreeByThread($thread);
+
+
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($comments);
+        return new JsonResponse($formatted);
+    }
+    public function delcmtnAction($idcomm,$idbook){
+        $em = $this->getDoctrine()->getManager();
+        $comment = $this->container->get('fos_comment.manager.comment')->findCommentById($idcomm);
+        $em->remove($comment);
+        $em->flush();
+        return $this->redirectToRoute('books_show',['idbook'=>$idbook]);
+    }
+    public function deleteCommentJsonAction(Request $request){
+        $em = $this->getDoctrine()->getManager();
+        $comment = $this->container->get('fos_comment.manager.comment')->findCommentById(array("id"=>$request->get("idComment")));
+        $em->remove($comment);
+        $em->flush();
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($comment);
+        return new JsonResponse($formatted);
     }
 }
