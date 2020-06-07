@@ -1,0 +1,42 @@
+reclamation_index:
+    path:     /
+    defaults: { _controller: "ReclamationBundle:Reclamation:index" }
+    methods:  [GET, POST]
+reclamation_backindex:
+    path:     /backindex
+    defaults: { _controller: "ReclamationBundle:Reclamation:backindex" }
+    methods:  [GET, POST]
+reclamation_show:
+    path:     /{idreclamation}/show
+    defaults: { _controller: "ReclamationBundle:Reclamation:show" }
+    methods:  GET
+
+reclamation_new:
+    path:     /new
+    defaults: { _controller: "ReclamationBundle:Reclamation:new" }
+    methods:  [GET, POST]
+
+reclamation_edit:
+    path:     /{idreclamation}/edit
+    defaults: { _controller: "ReclamationBundle:Reclamation:edit" }
+    methods:  [GET, POST]
+reclamation_backedit:
+    path:     /{idreclamation}/backedit
+    defaults: { _controller: "ReclamationBundle:Reclamation:editStatus" }
+    methods:  [GET, POST]
+reclamation_delete:
+    path:     /{idreclamation}/delete
+    defaults: { _controller: "ReclamationBundle:Reclamation:delete" }
+    methods:  [GET, POST]
+reclamation_sendmail:
+    path:     /{idreclamation}/sendmail
+    defaults: { _controller: "ReclamationBundle:Reclamation:sendEmail" }
+    methods:  [GET, POST]
+reclamation_all:
+    path:     /all
+    defaults: { _controller: "ReclamationBundle:Reclamation:all" }
+    methods:  [GET, POST]
+reclamation_newmobile:
+    path:     /newmobile/{sujetreclamation}/{descriptionreclamation}/{idetd}
+    defaults: { _controller: "ReclamationBundle:Reclamation:newmobile" }
+    methods:  [GET, POST]

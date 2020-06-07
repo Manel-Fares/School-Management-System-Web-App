@@ -1,0 +1,46 @@
+{% extends 'interfaceEnseignant.html.twig' %}
+{% block body %}
+<div class="container" align="center">
+
+<br><br>
+<div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-10">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="mb-0">Add Grade</h2>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive" align="center">
+
+    <table class="table-borderless" width=80%>
+
+        {{ form_start(form, {'attr': {'novalidate':'novalidate'}}) }}
+
+        <tr>
+                 <td>{{ form_row(form.etudiant) }}</td>
+            <td width="10%"></td>
+                 <td>{{ form_row(form.notecc) }}</td>
+        </tr>
+        <tr>
+                <td>{{ form_row(form.matiere) }}</td>
+            <td width="10%"></td>
+                <td>{{ form_row(form.noteds) }}</td>
+        </tr>
+        <tr>
+                <td>{{ form_row(form.datenote) }}</td>
+                <td width="10%"></td>
+                <td>{{ form_row(form.noteexam) }}</td>
+        </tr>
+        <tr>
+                <td align="right">{{ form_row(form.Envoyer) }}</td>
+            <td width="10%"></td>
+                <td> {{ form_widget(form) }}</td>
+        </tr>
+        {{ form_end(form) }}
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

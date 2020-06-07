@@ -1,0 +1,134 @@
+books_index:
+    path:     /books
+    defaults: { _controller: "BooksBundle:Books:index" }
+    methods:  GET
+books_backindex:
+    path:     /backbooks
+    defaults: { _controller: "BooksBundle:Books:backindex" }
+    methods:  GET
+books_charts:
+    path:     /charts
+    defaults: { _controller: "BooksBundle:Books:charts" }
+    methods:  GET
+books_show:
+    path:     /{idbook}/show
+    defaults: { _controller: "BooksBundle:Books:commentBook" }
+    methods:  GET
+books_filtrage:
+    path:     /{categoriebook}/showbooks
+    defaults: { _controller: "BooksBundle:Books:filtrage" }
+    methods:  GET
+books_new:
+    path:     /new
+    defaults: { _controller: "BooksBundle:Books:new" }
+    methods:  [GET, POST]
+
+books_edit:
+    path:     /{idbook}/edit
+    defaults: { _controller: "BooksBundle:Books:edit" }
+    methods:  [GET, POST]
+
+books_delete:
+    path:     /{idbook}/delete
+    defaults: { _controller: "BooksBundle:Books:delete" }
+    methods:  DELETE
+wishliste_add:
+    path:     /{idbook}/add
+    defaults: { _controller: "BooksBundle:Wishliste:add" }
+wishliste_index:
+    path:     /listeBooks
+    defaults: { _controller: "BooksBundle:Wishliste:index" }
+    methods:  GET
+wishliste_new:
+    path:     /new
+    defaults: { _controller: "BooksBundle:Wishliste:new" }
+    methods:  [GET, POST]
+wishliste_show:
+    path:     /{idlist}/show
+    defaults: { _controller: "BooksBundle:Wishliste:show" }
+    methods:  GET
+wishliste_edit:
+    path:     /{idlist}/edit
+    defaults: { _controller: "BooksBundle:Wishliste:edit" }
+    methods:  [GET, POST]
+wishliste_delete:
+    path:     /{idbook}/delete
+    defaults: { _controller: "BooksBundle:Wishliste:delete" }
+    methods:  [GET, POST]
+reservationbook_add:
+    path:     /{idbook}/addreservation
+    defaults: { _controller: "BooksBundle:Reservationbook:add" }
+reservationbook_index:
+    path:     /
+    defaults: { _controller: "BooksBundle:Reservationbook:index" }
+    methods:  GET
+reservationbook_show:
+    path:     /{idreservation}/show
+    defaults: { _controller: "BooksBundle:Reservationbook:show" }
+    methods:  GET
+
+reservationbook_new:
+    path:     /new
+    defaults: { _controller: "BooksBundle:Reservationbook:new" }
+    methods:  [GET, POST]
+
+reservationbook_edit:
+    path:     /{idreservation}/editreservation
+    defaults: { _controller: "BooksBundle:Reservationbook:edit" }
+    methods:  [GET, POST]
+
+reservationbook_delete:
+    path:     /{idreservation}/deletereservation
+    defaults: { _controller: "BooksBundle:Reservationbook:deleteReservation" }
+    methods:  [GET, POST]
+likes_delete:
+    path:     /{idlike}/deleteLike
+    defaults: { _controller: "BooksBundle:Likes:deleteLike" }
+    methods:  [GET, POST]
+likes_add:
+    path:     /{idbook}/addlike
+    defaults: { _controller: "BooksBundle:Likes:add" }
+    methods:  [GET, POST]
+all:
+    path:     /books/all
+    defaults: { _controller: "BooksBundle:Books:all" }
+allLike:
+    path:     /books/allLike
+    defaults: { _controller: "BooksBundle:Likes:AllLike" }
+allWishliste:
+    path:     /books/allWishliste
+    defaults: { _controller: "BooksBundle:Wishliste:AllWishliste" }
+addJsonWishliste:
+    path:     /addWishlisteJson/{idbook}/{idetd}
+    defaults: { _controller: "BooksBundle:Wishliste:addJson" }
+deleteJsonWishliste:
+    path:     /deleteWishlisteJson/{idlist}
+    defaults: { _controller: "BooksBundle:Wishliste:deleteJson" }
+allBooking:
+    path:     /books/allBooking
+    defaults: { _controller: "BooksBundle:Reservationbook:AllBooking" }
+addJsonBooking:
+    path:     /addJsonBooking/{idbook}/{idetd}
+    defaults: { _controller: "BooksBundle:Reservationbook:addBookingJSon" }
+deleteJsonBooking:
+    path:     /deleteJsonBooking/{idBooking}
+    defaults: { _controller: "BooksBundle:Reservationbook:deleteBookingJson" }
+new_like:
+    path:     /newlike/{idbook}/{idetd}
+    defaults: { _controller: "BooksBundle:Likes:newLike" }
+deleteJson_like:
+    path:     /deleteJsonlike/{idlike}
+    defaults: { _controller: "BooksBundle:Likes:deleteLikeJson" }
+deleteComm:
+    path:     /DelCmtn/{idcomm}/{idbook}
+    defaults: { _controller: "BooksBundle:Books:delcmtn" }
+CommentJson:
+    path:     /CommentJson/{idbook}/{idetd}/{body}
+    defaults: { _controller: "BooksBundle:Books:commentBookJson" }
+AllCommentJson:
+    path:     /AllCommentJson/{idbook}
+    defaults: { _controller: "BooksBundle:Books:commentJson" }
+deleteCommentJson:
+    path:     /deleteCommentJson/{idComment}
+    defaults: { _controller: "BooksBundle:Books:deleteCommentJson" }
+

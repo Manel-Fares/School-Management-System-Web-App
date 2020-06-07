@@ -1,0 +1,86 @@
+class_absence:
+    resource: "@ClassBundle/Resources/config/routing/absence.yml"
+    prefix:   /absence
+class:
+    resource: "@ClassBundle/Resources/config/routing/classe.yml"
+    prefix:   /class
+emploi:
+    resource: "@ClassBundle/Resources/config/routing/emplois.yml"
+    prefix:   /emploi
+calendar:
+    resource: "@ClassBundle/Resources/config/routing/calendarannuel.yml"
+    prefix:   /calendar
+
+
+class_homepage:
+    path:     /indexClass
+    defaults: { _controller: ClassBundle:Default:index }
+affectEtudClass:
+    path:     /etds
+    defaults: { _controller: ClassBundle:Default:affetudiclass }
+affct:
+    path:     /affct/{id}
+    defaults: { _controller: ClassBundle:Default:affect }
+affctense:
+    path:     /affctense/{id}/{idmat}
+    defaults: { _controller: ClassBundle:Default:affectEnsei }
+affctens:
+    path:     /ens
+    defaults: { _controller: ClassBundle:Default:affenseigclass }
+
+abcenseetud:
+    path:     /absetud
+    defaults: { _controller: ClassBundle:Default:getAbsence }
+
+empleetud:
+    path:     /empletud
+    defaults: { _controller: ClassBundle:Default:getEmplois }
+pdf:
+    path:     /pdf
+    defaults: { _controller: ClassBundle:Default:PDF }
+projet_indexPdf:
+    path:     /Pdfff
+    defaults: { _controller: "ClassBundle:Default:indexPdf" }
+    methods:  [GET, POST]
+search:
+    path:     /search
+    defaults: { _controller: ClassBundle:Default:liveSearch }
+
+
+
+jsonClasse:
+    path:     /jsonClasse
+    defaults: { _controller: ClassBundle:Default:JsonClasse }
+JsonAddClasse:
+    path:     /JsonAddClasse/{name}/{niv}/{spec}/{nbr}/{desc}
+    defaults: { _controller: ClassBundle:Default:JsonAddClasse }
+jsonMatid:
+    path:     /jsonMatid/{id}
+    defaults: { _controller: ClassBundle:Default:JsonMatId }
+jsonUserid:
+    path:     /jsonUserid/{id}
+    defaults: { _controller: ClassBundle:Default:JsonUserId }
+jsonMat:
+    path:     /jsonMat
+    defaults: { _controller: ClassBundle:Default:JsonMat }
+jsonUser:
+    path:     /jsonUser
+    defaults: { _controller: ClassBundle:Default:JsonUser }
+jsonAbsence:
+    path:     /jsonAbsence
+    defaults: { _controller: ClassBundle:Default:JsonAbsence }
+jsonAddAbsence:
+    path:     /jsonAddAbsence/{mat}/{use}/{date}/{tdeb}/{tfin}/{email}/{m}/{d}/{td}/{tf}
+    defaults: { _controller: ClassBundle:Default:JsonAddAbsence }
+jsonDelete:
+    path:     /jsonDelete/{id}
+    defaults: { _controller: ClassBundle:Default:JsonDelete }
+jsonEditAbsence:
+    path:     /jsonEditAbsence/{id}/{mat}/{use}/{date}/{tdeb}/{tfin}
+    defaults: { _controller: ClassBundle:Default:JsonEditAbsence }
+jsonOnlineAbsence:
+    path:     /jsonOnlineAbsence/{user}
+    defaults: { _controller: ClassBundle:Default:JsonOnlineAbsence }
+jsonEmplois:
+    path:     /jsonEmplois/{id}
+    defaults: { _controller: ClassBundle:Default:JsonEmplois }
