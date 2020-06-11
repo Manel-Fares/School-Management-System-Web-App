@@ -1,0 +1,16 @@
+{% extends 'interfaceAdministrateur.html.twig' %}
+{% block body %}
+    <h1>Classe edit</h1>
+
+    {{ form_start(edit_form) }}
+        {{ form_widget(edit_form) }}
+        <input type="submit" class="btn btn-outline-success" value="Edit" />
+    {{ form_end(edit_form) }}
+
+    <ul>
+        <li>
+            <a href="{{ path('classe_index') }}">Back to the list</a>
+        </li>
+
+    </ul>
+{% endblock %}

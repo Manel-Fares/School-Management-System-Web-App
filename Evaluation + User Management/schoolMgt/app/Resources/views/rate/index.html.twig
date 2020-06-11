@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Rates list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Idrating</th>
+                <th>Rating</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for rate in rates %}
+            <tr>
+                <td><a href="{{ path('rate_show', { 'idrating': rate.idrating }) }}">{{ rate.idrating }}</a></td>
+                <td>{{ rate.rating }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('rate_show', { 'idrating': rate.idrating }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('rate_edit', { 'idrating': rate.idrating }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('rate_new') }}">Create a new rate</a>
+        </li>
+    </ul>
+{% endblock %}

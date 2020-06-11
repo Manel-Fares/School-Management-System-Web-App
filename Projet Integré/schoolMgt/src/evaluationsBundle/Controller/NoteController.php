@@ -42,19 +42,8 @@ class NoteController extends Controller
     {
         $entityManager = $this->getDoctrine()->getManager();
         $query = $entityManager->createQuery(
-            'SELECT n.notecc,
-             n.noteds,
-             n.moyenne,
-             n.noteexam,
-             m.nom,
-             m.coef,
-             u.nomuser,
-             u.prenomuser
-             FROM schoolBundle:Note n
-             LEFT JOIN schoolBundle:Matier m
-             WITH n.matiere = m.id
-             LEFT JOIN schoolBundle:Users u
-             WITH u.id = n.enseignant             
+            'SELECT n
+             FROM schoolBundle:Note n           
              WHERE n.etudiant = :etudiant'
         )->setParameter('etudiant',$this->getUser()->getID() );
 
@@ -71,6 +60,8 @@ class NoteController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $moyenne=$note->getNotecc()*0.2+$note->getNoteds()*0.3+$note->getNoteexam()*0.5;
+            $note->getEtudiant($moyenne);
+            $note->setMoyenne($moyenne);
             $note->setMoyenne($moyenne);
             $note->setEnseignant($this->getUser()->getID());
             $em = $this->getDoctrine()->getManager();
@@ -92,56 +83,17 @@ class NoteController extends Controller
         $entityManager = $this->getDoctrine()->getManager();
         $query = $entityManager->createQuery(
             'SELECT 
-             n.etudiant,
-             n.enseignant,
-             n.matiere,
-             n.notecc,
-             n.noteds,
-             n.moyenne,
-             n.noteexam,
-             u.cinuser,
-             m.nom,
-             m.coef,
-             u.nomuser,
-             u.prenomuser,
-             u.classeetd
-             FROM schoolBundle:Note n
-             LEFT JOIN schoolBundle:Matier m
-             WITH n.matiere = m.id
-             LEFT JOIN schoolBundle:Users u
-             WITH u.id = n.etudiant            
+             n
+             FROM schoolBundle:Note n        
              WHERE n.enseignant = :enseignant'
 
         )->setParameter('enseignant', $this->getUser()->getID()  );
 
         $note = $query->getResult();
-     /*   $listeetudiant = array();
-
-        for($j=0;$j<count($note);$j++) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $query = $entityManager->createQuery(
-                'SELECT u.id,u.cinuser,u.classeetd FROM schoolBundle:Users u
-             WHERE u.id = :etudiant'
-            )->setParameter('etudiant', $note[$j]['etudiant']);
-            $etudiant = $query->getResult();
-        }
-
-            $info = ['cinetd' => $etudiant[$j]['cinuser'],
-                     'cc' =>$note[$j]['notecc'],
-                    'ds' =>$note[$j]['noteds'],
-                    'exam' =>$note[$j]['noteexam'],
-                     'moyene'=>$note[$j]['moyenne'],
-                    'classe'=>$etudiant[$j]['classeetd']
-            ];
-
-            array_push($listeetudiant,$info);
-
-        }*/
-
 
         return $this->render('@evaluations/Note/affichageNoteEnseignant.html.twig',array(
-                        'note'=>$note
-                        ));
+            'note'=>$note
+        ));
     }
 
 
@@ -167,6 +119,73 @@ class NoteController extends Controller
      *
      */
     public function editAction(Request $request,$idetudiant,$idmatiere)
+    { $repository = $this->getDoctrine()->getRepository(Note::class);
+        $note = $repository->findOneBy([
+            'etudiant' => $idetudiant,
+            'matiere' => $idmatiere
+        ]);
+
+        $form = $this->createFormBuilder($note)
+            ->add('notecc',NumberType::class,[
+                'label' => 'CC Grade',
+                'attr' => [
+                    'min' => 0,
+                    'max' => 20
+                ]
+            ])
+            ->add('noteds',NumberType::class,[
+                'label' => 'CD Grade',
+                'attr' => [
+                    'min' => 0,
+                    'max' => 20
+                ]
+            ])
+            ->add('noteexam',NumberType::class,[
+                'label' => 'Exam Grade',
+                'attr' => [
+                    'min' => 0,
+                    'max' => 20
+                ]
+            ])
+
+
+            ->add('Envoyer',SubmitType::class,[
+                'label'=>'Save',
+                'attr' => ['formnovalidate ' => 'formnovalidate'],
+            ])->getForm();
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $cc = $form['notecc']->getData();
+            $ds = $form['noteds']->getData();
+            $exam = $form['noteexam']->getData();
+            $em = $this->getDoctrine()->getManager();
+            $note = $em->getRepository(Note::class)->findOneBy([
+                'etudiant' => $idetudiant,
+                'matiere' => $idmatiere
+            ]);
+
+            $note->setNoteds($ds);
+            $note->setNotecc($cc);
+            $note->setNoteexam($exam);
+            $moyenne=$note->getNotecc()*0.2+$note->getNoteds()*0.3+$note->getNoteexam()*0.5;
+            $note->setMoyenne($moyenne);
+
+
+            $em->flush();
+
+            return $this->redirectToRoute('note_affiche_enseignant');
+        }
+
+        return $this->render("@evaluations/Note/update.html.twig", array(
+            'note' => $note,
+            'form' => $form->createView(),
+        ));
+
+
+    }
+
+    public function filtreAction(Request $request,$idetudiant,$idmatiere)
     { $repository = $this->getDoctrine()->getRepository(Note::class);
         $note = $repository->findOneBy([
             'etudiant' => $idetudiant,

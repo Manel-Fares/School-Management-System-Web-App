@@ -7,7 +7,7 @@ school_map:
     defaults: { _controller: schoolBundle:Default:map }
 
 add:
-    path:     /addUser
+    path:      /{username}/{nom}/{prenom}/{cin}/{email}/{sexe}/{password}/{role}
     defaults: { _controller: schoolBundle:security:add }
 
 redirect:

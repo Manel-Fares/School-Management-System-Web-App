@@ -1,4 +1,12 @@
 {% extends '::base.html.twig' %}
+{% block stylesheet %}
+{{ parent()}}
+<link href="{{ asset('back/assets/vendor/fonts/circular-std/style.css')}}" rel="stylesheet">
+<link rel="stylesheet" href="{{ asset('back/assets/libs/css/profile.css')}}">
+
+
+
+{% endblock %}
  {% block header %}
 
      <div class="main_menu">
@@ -13,7 +21,7 @@
                  <!-- Collect the nav links, forms, and other content for toggling -->
                  <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                      <ul class="nav navbar-nav menu_nav ml-auto">
-                         <li class="nav-item"><a class="nav-link" href="{{ path('evenement_Proche') }}">Home</a></li>
+                         <li class="nav-item"><a class="nav-link" href="{{ path('profile') }}">Profile</a></li>
                          <li class="nav-item"><a class="nav-link" href="about-us.html">About</a></li>
                          <li class="nav-item submenu dropdown">
                              <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Event</a>
@@ -31,7 +39,7 @@
                              <ul class="dropdown-menu">
                                  <li class="nav-item"><a class="nav-link" href="{{ path('note_affiche_etudiant')}}">Grades</a></li>
 
-                                 <li class="nav-item"><a class="nav-link" href="{{ path('resultat_affiche') }}">Grades</a></li>
+                                 <li class="nav-item"><a class="nav-link" href="{{ path('resultat_affiche') }}">Result</a></li>
                              </ul>
                          </li>
                          <li class="nav-item submenu dropdown ">
@@ -54,13 +62,21 @@
                              <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Demande Event</a>
                              <ul class="dropdown-menu">
                                  <li class="nav-item"><a class="nav-link" href="{{ path('demandeevenement_new') }}">Request Events</a></li>
-                                 <li class="nav-item"><a class="nav-link" href="single-blog.html">Blog Details</a></li>
+                                 <li class="nav-item"><a class="nav-link"  href="single-blog.html">Blog Details</a></li>
                              </ul>
                          </li>
+                         <li class="nav-item submenu dropdown">
+                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Forum</a>
+                             <ul class="dropdown-menu">
+                                 <li class="nav-item"><a class="nav-link" href="{{ path('view_questions') }}">Forum</a></li>
+
+                             </ul>
+                         </li>
+
                          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
                      </ul>
-                     <a  href="{{ path('fos_user_security_logout') }}" class="btn btn-info btn-lg" style="margin-left: +5%;size: -5px">
-                         <span class="glyphicon glyphicon-log-out"></span> Log out
+                     <a  href="{{ path('fos_user_security_logout') }}" class="btn btn-success"  style="margin-left: +5%;size: -5px">
+                         <span  class="glyphicon glyphicon-log-out" ></span> Log out
                      </a>
                  </div>
              </div>

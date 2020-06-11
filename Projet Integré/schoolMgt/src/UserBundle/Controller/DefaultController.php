@@ -6,12 +6,50 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use CMEN\GoogleChartsBundle\GoogleCharts\Charts\PieChart;
 use schoolBundle\Entity\Users;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
+
 class DefaultController extends Controller
 {
     public function indexAction()
     {
         return $this->render('UserBundle:Default:index.html.twig');
     }
+
+    public function alluserAction()
+    {
+        $user = $this->getDoctrine()->getManager()->getRepository('schoolBundle:Users')->findAll();
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($user);
+
+
+        return new JsonResponse($formatted);
+    }
+
+    public function loginAction($username,$password)
+    {
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $query = $entityManager->createQuery(
+            'SELECT u
+             FROM schoolBundle:Users u        
+             WHERE u.username = :username
+             AND u.password like :password'
+
+        )->setParameters(array(
+            'username'=>$username,
+            'password'=>$password.'%')
+        );
+
+        $user = $query->getResult();
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($user);
+        return new JsonResponse($formatted);
+    }
+
+
+
     public function statistiqueUserAction()
     {
         $pieChartUser = new PieChart();

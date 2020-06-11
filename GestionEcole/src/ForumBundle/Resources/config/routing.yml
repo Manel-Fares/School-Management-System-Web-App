@@ -1,0 +1,27 @@
+forum_homepage:
+    path:     /
+    defaults: { _controller: ForumBundle:Default:index }
+admin:
+    path:     /add
+    defaults: { _controller: ForumBundle:Question:addQuestion }
+answers_listing_admin:
+    path:     /admin/answers/
+    defaults: { _controller: ForumBundle:Admin:answersListingAdmin }
+answer_valid:
+    path:     /admin/answer/{id}/valid
+    defaults: { _controller: ForumBundle:Admin:validAnswer }
+openquest:
+    path:     /admin/open/{id}
+    defaults: { _controller: ForumBundle:Admin:opens }
+closeques:
+    path:     /admin/close/{id}
+    defaults: { _controller: ForumBundle:Admin:closes }
+banUser:
+    path:     /admin/ban/{id}
+    defaults: { _controller: ForumBundle:Admin:banUser }
+unbanUser:
+    path:     /admin/unban/{id}
+    defaults: { _controller: ForumBundle:Admin:unbanUser }
+chartPieAction:
+    path:     /admin/stat
+    defaults: { _controller: ForumBundle:Admin:chartPie }

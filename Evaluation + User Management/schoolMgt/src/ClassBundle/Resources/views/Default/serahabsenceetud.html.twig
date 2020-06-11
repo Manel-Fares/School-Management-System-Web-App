@@ -1,0 +1,26 @@
+
+
+        <table  >
+            <thead >
+            <tr>
+                <th>Date</th>
+                <th>Timedeb</th>
+                <th>Timefin</th>
+                <th>Matiere</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            {% for absence in absences %}
+                <tr>
+                    <td>{% if absence.date %}{{ absence.date|date('Y-m-d') }}{% endif %}</td>
+                    <td>{% if absence.timedeb %}{{ absence.timedeb|date('H:i:s') }}{% endif %}</td>
+                    <td>{% if absence.timefin %}{{ absence.timefin|date('H:i:s') }}{% endif %}</td>
+                    <td>{{ absence.idMatiere.nom }}</td>
+
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+

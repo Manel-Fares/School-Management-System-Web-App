@@ -1,0 +1,30 @@
+
+    <br>
+    <h2 align="center"> Les Notes Des Modules</h2>
+    <br>
+    <table class="table table-striped">
+        <thead style="background-color: #37737f" >
+        <tr>
+            <th>Nom Matiere</th>
+            <th>Coefficent</th>
+            <th>Moyenne</th>
+
+        </tr>
+        </thead>
+        {%  for n in note %}
+            <tr>
+                <td>{{ n.nom }}</td>
+                <td>{{ n.coef }}</td>
+                <td>{{ n.moyenne }}</td>
+
+            </tr>
+        {% endfor %}
+
+
+    </table>
+    <br>
+    <p align="center"> <h3> Votre Resultat Scolaire est :  {%  for r in resultat %}
+        {{ r.resultat }}
+    {% endfor %}
+</h3></p>
+

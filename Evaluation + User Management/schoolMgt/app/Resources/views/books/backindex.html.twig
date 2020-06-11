@@ -1,0 +1,60 @@
+{% extends 'interfacePersonnel.html.twig' %}
+{% block body %}
+  {#  <h1>Book creation</h1>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <input type="submit" value="Create" />
+    {{ form_end(form) }}
+
+    <ul>
+        <li>
+            <a href="{{ path('books_index') }}">Back to the list</a>
+        </li>
+    </ul>
+    #}
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="card">
+            <h5 class="card-header">Books</h5>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered first" id="myTable">
+                        <thead>
+
+                        <tr>
+                            <th>Titre Book</th>
+                            <th>Description</th>
+                            <th>Status</th>
+                            <th>Categorie</th>
+
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        {% for book in books  %}
+                        <tr>
+
+                            <td><a href="{{ path('books_edit', { 'idbook': book.idbook }) }}">{{ book.titrebook }}</a></td>
+                            <td>{{ book.descriptionbook }}</td>
+                            <td>{{ book.etatbook }}</td>
+                            <td>{{ book.categoriebook }}</td>
+
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <th>Titre Book</th>
+                            <th>Description</th>
+                            <th>Status</th>
+                            <th>Categorie</th>
+
+                        </tr>
+
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

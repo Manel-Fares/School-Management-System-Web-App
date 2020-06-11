@@ -1,5 +1,5 @@
 {% extends 'interfaceEtudiant.html.twig' %}
-{% block content %}
+{% block body %}
 <br>
 <h2 align="center"> Les Notes Des Modules</h2>
 <br>
@@ -14,8 +14,8 @@
     </thead>
     {%  for n in note %}
         <tr>
-            <td>{{ n.nom }}</td>
-            <td>{{ n.coef }}</td>
+            <td>{{ n.matiere.nom }}</td>
+            <td>{{ n.matiere.coef }}</td>
             <td>{{ n.moyenne }}</td>
 
         </tr>

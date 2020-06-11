@@ -60,10 +60,17 @@
 
 
 
-                        <li class="nav-item submenu dropdown active">
+                        <li class="nav-item submenu dropdown ">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pages</a>
                             <ul class="dropdown-menu">
                                 <li class="nav-item"><a class="nav-link" href="elements.html">Elements</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item submenu dropdown ">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Class</a>
+                            <ul class="dropdown-menu">
+                                <li class="nav-item"><a class="nav-link" href="{{ path('abcenseetud')}}">Absences</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{ path('empleetud')}}">Emplois</a></li>
                             </ul>
                         </li>
                         <li class="nav-item submenu dropdown">
@@ -74,10 +81,10 @@
                             </ul>
                         </li>
                         <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-                    </ul>
-                    <a  href="{{ path('fos_user_security_logout') }}" class="btn btn-info btn-lg" style="margin-left: +5%;size: -5px">
-                        <span class="glyphicon glyphicon-log-out"></span> Log out
-                    </a>
+                    </ul>{% block logout %}
+                    <a  href="{{ path('fos_user_security_login') }}" class="btn btn-info btn-lg" style="margin-left: +5%;size: -5px">
+                        <span class="glyphicon glyphicon-log-out"></span> Login
+                    </a>{% endblock %}
                 </div>
             </div>
         </nav>
@@ -112,8 +119,9 @@
 <!--================End Impress Area =================-->
 
 <!--================ start footer Area  =================-->
-<footer class="footer-area p_120">
-    {% block footer %}
+{% block footer %}
+
+    <footer class="footer-area p_120">
 
         <div class="container">
             <div class="row">
@@ -191,8 +199,9 @@
                 </div>
             </div>
         </div>
-    {% endblock  %}
-</footer>
+
+    </footer>
+{% endblock  %}
 <!--================ End footer Area  =================-->
 
 

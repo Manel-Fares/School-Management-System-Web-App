@@ -1,0 +1,63 @@
+{% extends 'interfacePersonnel.html.twig' %}
+
+{% block body %}
+<div class="container" >
+    <div class="container">
+        <form method="post">
+            <input type="text" placeholder="your text .." name="search">
+            <input type="submit" value="rechercher">
+        </form>
+    <h1>Clubs list</h1>
+
+            <div id="tmpmodal"></div>
+
+            <div class="card">
+
+                <h5 class="card-header">clubs list</h5>
+                <div class="card-body">
+
+                    <table class="table">
+        <thead>
+            <tr>
+                <th>Idclub</th>
+                <th>Nomclub</th>
+                <th>Idresponsable</th>
+                <th>Domaine</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for club in clubs %}
+            <tr>
+
+                <td>
+                    <a href="{{ path('club_show', { 'idclub': club.getIdclub() }) }}">{{ club.getIdclub() }}</a></td>
+                <td>{{ club.getNomclub() }}</td>
+                <td>{{ club.getIdresponsable() }}</td>
+                <td>{{ club.getDomaine() }}</td>
+                <td>
+
+                    <ul>
+                        <li>
+                            <a href="{{ path('club_show', { 'idclub': club.getIdclub() }) }}">show</a>
+                        </li>
+                        {% if club.idclub!= 1 %}
+                      <!--  <li>
+                            <a href="{{ path('club_edit', { 'idclub': club.getIdclub() }) }}">edit</a>
+                        </li>-->
+                        {% endif %}
+                    </ul>
+
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('club_new') }}">Create a new club</a>
+        </li>
+    </ul>
+    </div>
+{% endblock %}

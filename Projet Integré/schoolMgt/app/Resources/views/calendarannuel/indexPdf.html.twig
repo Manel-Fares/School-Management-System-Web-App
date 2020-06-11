@@ -1,0 +1,36 @@
+<html>
+<head></head>
+<body style="background-color: #D8BFD8;">
+<br>
+<br>
+<br>
+    <h1 style="color:#8B008B;text-align: center;">Calendar Annuel list</h1>
+<div style=" margin: auto;width: 50%;padding: 10px;">
+    <table border="2">
+        <thead>
+        <tr>
+        <th>Subject</th>
+        <th>Term</th>
+        <th>Datec</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for calendarannuel in projets %}
+
+        <tr>
+
+            <td>{{ calendarannuel.subject }}</td>
+
+
+            <td>{{ calendarannuel.term }}</td>
+
+
+            <td>{% if calendarannuel.datec %}{{ calendarannuel.datec|date('Y-m-d') }}{% endif %}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+</body>
+</html>

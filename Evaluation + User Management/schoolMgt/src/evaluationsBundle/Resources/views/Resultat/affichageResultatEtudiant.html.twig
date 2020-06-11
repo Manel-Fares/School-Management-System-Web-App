@@ -1,0 +1,89 @@
+{% extends 'interfaceEtudiant.html.twig' %}
+{% block title %}Result{% endblock %}
+{% block body %}
+<section class="profile_area" style="background-color: rgba(210,203,249,0.36)">
+
+<div class="container" align="center">
+    <br>                    <img width="15%" src="{{ asset('front/img/logo.png')}}" alt="">
+
+    <h2 style="color:#554e93">  School Result </h2>
+    <br>
+    <table class="table" width="80%" border="3" style="color: #0d0d0d ; background-color: #f6f3fc">
+        <tr>
+            <TD width="11%" rowspan=3> <img src="{{ asset(app.user.picuser) }}" alt="User Avatar" class="rounded-circle user-avatar-xl">
+            </TD>
+            <th style="color:#1f2184" width="15%">Student Name  </th>
+            <td colspan=6> {{ app.user.prenomuser }} {{ app.user.nomuser }} </td>
+
+        </tr>
+        <tr>
+            <th style="color:#1f2184" width="15%">Class</th>
+            <td colspan=6>{{ app.user.classeetd.name }}</td>
+        </tr>
+        <tr>
+            <th style="color:#1f2184" width="15%">Result Date  </th>
+            <td colspan=6>{{ resultat[0].dateresultat |date("m/d/Y") }}</td>
+        </tr>
+
+    </table>
+
+    <br>
+            <table  class="table" width="80%"  border="3" style="color: #0d0d0d ; background-color: #f6f3fc">
+
+
+                    <tr>
+                        <th style="color:#1f2184">  Subject Name</th>
+                        <th style="color:#1f2184">  Coefficent</th>
+                        <th style="color:#1f2184">  Teacher Name</th>
+                        <th style="color:#1f2184">  Score</th>
+                        <th style="color:#1f2184">  CC Grade  </th>
+                        <th style="color:#1f2184">  CD Grade </th>
+                        <th style="color:#1f2184">  Exam Grade </th>
+                    </tr>
+                    <tr>
+
+                    </tr>
+                    {%  for n in note %}
+                        <tr>
+                            <td> {{ n.matiere.nom }}</td>
+                            <td> {{ n.matiere.coef }}</td>
+                            <td> {{ n.enseignant.prenomuser }} {{ n.enseignant.nomuser }}</td>
+                            <td> {{ n.moyenne }}  </td>
+                            <td> {{ n.notecc }}    </td>
+                            <td> {{ n.noteds }}    </td>
+                            <td> {{ n.noteexam }}    </td>
+                        </tr>
+                    {% endfor %}
+
+
+    </table>
+
+<br>
+    <table class="table" width="80%" border="3" style="color: #0d0d0d ; background-color: #f6f3fc">
+
+        <tr>
+            <th  width="10%"> <b style="color:#980c1b "> Final Result</b></th>
+            <td width="10%"> {{ resultat[0].resultat }}</td>
+            <td>
+                {% if   resultat[0].resultat  >= 10  %}
+                    Pass
+                {% else %}
+                    Failed
+                {% endif %}
+
+            </td>
+        </tr>
+
+    </table>
+<br>
+</div>
+</section>
+{% endblock %}
+{% block footer %}
+    <div style="background-color: rgba(210,203,249,0.36)">
+        .<br>.<br>
+
+    </div>
+    {% endblock %}
+
+

@@ -4,8 +4,12 @@ namespace BooksBundle\Controller;
 
 use BooksBundle\Entity\Books;
 use BooksBundle\Entity\Likes;
+use EvenementBundle\Entity\Users;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 /**
  * Like controller.
@@ -26,6 +30,23 @@ class LikesController extends Controller
         return $this->render('likes/index.html.twig', array(
             'likes' => $likes,
         ));
+    }
+    public function AllLikeAction()
+
+    {
+        $em = $this->getDoctrine()->getManager();
+        //  $user = $this->container->get('security.token_storage')->getToken()->getUser();
+
+
+         $Likes= $em->getRepository('BooksBundle:Likes')->findAll();
+        //  $wishliste = $em->getRepository('BooksBundle:Wishliste')->findBy(array("idetd"=>$user->getId()));
+
+        //$books = $em->getRepository('BooksBundle:Books')->findAll();
+        //  $bookscategorie = $em->getRepository('BooksBundle:Books')->findAll();
+
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($Likes);
+        return new JsonResponse($formatted);
     }
 
     /**
@@ -50,6 +71,47 @@ class LikesController extends Controller
             'like' => $like,
             'form' => $form->createView(),
         ));
+    }
+    public function newLikeAction(Request $request){
+        $likes = new Likes();
+        $em = $this->getDoctrine()->getManager();
+        $book = $em->getRepository(Books::class)->findOneBy(array("idbook"=>$request->get("idbook")));
+
+
+        $user = $em->getRepository(Users::class)->findOneBy(array("id"=>$request->get("idetd")));
+
+
+
+        $book->setNbrLike($book->getNbrLike()+1);
+       $em->persist($book);
+        $em->flush();
+        $likes->setIdbook($book);
+        $likes->setIdetd($user);
+
+        $em->persist( $likes);
+        $em->flush();
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($likes);
+        return new JsonResponse($formatted);
+    }
+    public function deleteLikeJsonAction(Request $request){
+
+
+        $em = $this->getDoctrine()->getManager();
+        $Likes = $em->getRepository(Likes::class)->findOneBy(array("idlike"=>$request->get("idlike")));
+        $book = $em->getRepository(Books::class)->findOneBy(array("idbook"=>$Likes->getIdbook()));
+
+
+        if($book->getNbrLike()>0)
+            $book->setNbrLike($book->getNbrLike()-1);
+        $em->persist($book);
+
+
+        $em->remove($Likes);
+        $em->flush();
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($Likes);
+        return new JsonResponse($formatted);
     }
     public function addAction($idbook){
 
@@ -119,6 +181,12 @@ class LikesController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $Likes = $em->getRepository(Likes::class)->find($idlike);
+        $book = $em->getRepository(Books::class)->findOneBy(array("idbook"=>$Likes->getIdbook()));
+
+
+        if($book->getNbrLike()>0)
+        $book->setNbrLike($book->getNbrLike()-1);
+        $em->persist($book);
 
 
         $em->remove($Likes);

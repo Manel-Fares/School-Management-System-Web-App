@@ -4,9 +4,12 @@ namespace BooksBundle\Controller;
 
 use BooksBundle\Entity\Reservationbook;
 use BooksBundle\Entity\Books;
+use EvenementBundle\Entity\Users;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 /**
  * Reservationbook controller.
  *
@@ -26,6 +29,16 @@ class ReservationbookController extends Controller
         return $this->render('reservationbook/index.html.twig', array(
             'reservationbooks' => $reservationbooks,
         ));
+    }
+    public function AllBookingAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $reservationbooks = $em->getRepository('BooksBundle:Reservationbook')->findAll();
+
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($reservationbooks);
+        return new JsonResponse($formatted);
     }
 
     /**
@@ -68,6 +81,29 @@ class ReservationbookController extends Controller
         $em->persist( $Reservation);
         $em->flush();
         return $this->redirectToRoute("reservationbook_index");
+
+
+    }
+    public function addBookingJSonAction(Request $request){
+
+        $Reservation = new Reservationbook();
+
+        $em = $this->getDoctrine()->getManager();
+        $book = $em->getRepository(Books::class)->find(array("idbook"=>$request->get("idbook")));
+        $user = $em->getRepository(Users::class)->findOneBy(array("id"=>$request->get("idetd")));
+
+
+
+
+        $Reservation->setIdbook($book);
+        $Reservation->setIdetd($user);
+        $Reservation->setDated(new \DateTime('now'));
+        $Reservation->setDatef(new \DateTime('now'));
+        $em->persist($Reservation);
+        $em->flush();
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($Reservation);
+        return new JsonResponse($formatted);
 
 
     }
@@ -117,6 +153,19 @@ class ReservationbookController extends Controller
 
 
         return $this->redirectToRoute('reservationbook_index');
+    }
+    public function deleteBookingJsonAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $reservationbook=$em->getRepository('BooksBundle:Reservationbook')->findOneBy(array("idreservation"=>$request->get('idBooking')));
+
+        $em->remove($reservationbook);
+        $em->flush();
+
+
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($reservationbook);
+        return new JsonResponse($formatted);
     }
     /**
      * Deletes a reservationbook entity.

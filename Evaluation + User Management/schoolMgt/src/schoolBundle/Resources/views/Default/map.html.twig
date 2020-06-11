@@ -1,0 +1,127 @@
+{% extends "base.html.twig" %}
+ {% block stylesheets %}
+     <link rel="stylesheet" href="https://bootswatch.com/4/litera/bootstrap.min.css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"
+           integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ=" crossorigin="anonymous"/>
+ {% endblock %}
+{% block img %}
+
+{% endblock %}
+
+{% block body %}
+
+        <div class="container py-lg-5 py-md-4 py-sm-4 py-3">
+            <h1 style="color: #002f9e">Location</h1>
+
+
+            <div class="privacy about">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6381.253043819946!2d10.186915172852967!3d36.8992819698169!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12e2cb75abef9f39%3A0xb7b85ec579f3acb!2sESPRIT!5e0!3m2!1sfr!2stn!4v1586210912491!5m2!1sfr!2stn"
+                                width="100%" height="500px" frameborder="0" style="border:0;" allowfullscreen=""
+                                aria-hidden="false"
+                                tabindex="0"></iframe>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    <!--================Contact Area =================-->
+    <section class="contact_area p_120">
+
+        <div class="container">
+            <h1 style="color: #002f9e">Contact Informations</h1>
+            <br>
+
+
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="contact_info">
+                        <div class="info_item">
+                            <i class="lnr lnr-home"></i>
+                            <h6>2 rue André Ampère  2083  </h6>
+                            <p>Pôle Technologique - El Ghazala</p>
+                        </div>
+                        <div class="info_item">
+                            <i class="lnr lnr-phone-handset"></i>
+                            <h6><a href="#">T (216) 70 250 000</a></h6>
+                            <p>Mon to Fri 9am to 6 pm</p>
+                        </div>
+                        <div class="info_item">
+                            <i class="lnr lnr-envelope"></i>
+                            <h6><a href="#">contact@esprit.tn</a></h6>
+                            <p>Send us your query anytime!</p>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+                <div class="col-lg-9">
+                    {{ form_start(form, {'attr': {'novalidate':'novalidate'}}) }}
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ form_widget(form.name) }}
+                                {{ form_errors(form.name) }}
+                            </div>
+                            <div class="form-group">
+
+                                {{ form_widget(form.email) }}
+                                {{ form_errors(form.email) }}
+                            </div>
+                            <div class="form-group">
+                                {{ form_widget(form.subject) }}
+                                {{ form_errors(form.subject) }}
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 ">
+                            <div class="form-group">
+                                {{ form_widget(form.message) }}
+                                {{ form_errors(form.message) }}
+                            </div>
+                        </div>
+                    <div style="display:none">
+                        {{ form_rest(form) }}
+                    </div>
+                        <div class="col-md-12 ">
+                            <button type="submit" value="submit" class="btn submit_btn">Send Message</button>
+
+                            {{ form_end(form) }}
+                        </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    {#<script>
+
+        function initMap() {
+            var myLatLng = {lat: -25.363, lng: 131.044};
+
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 4,
+                center: myLatLng
+            });
+
+            var marker = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                title: 'Hello World!'
+            });
+        }
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9JmJv8Bm7Z1K8k7d0tP9EIp0qzBuAKv8&callback=initMap">
+    </script>#}
+
+{% endblock %}

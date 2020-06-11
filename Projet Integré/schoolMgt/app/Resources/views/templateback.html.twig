@@ -93,8 +93,8 @@
                                 <h5 class="mb-0 text-white nav-user-name">{{ app.user.prenomuser }} {{ app.user.nomuser }}</h5>
                                 <span class="status"></span><span class="ml-2">Available</span>
                             </div>
-                            <a class="dropdown-item" href="#"><i class="fas fa-user mr-2"></i>Account</a>
-                            <a class="dropdown-item" href="#"><i class="fas fa-cog mr-2"></i>Setting</a>
+                            <a class="dropdown-item" href="{{ path('profile') }}"><i class="fas fa-user mr-2"></i>Account</a>
+                            <a class="dropdown-item" href="{{ path('profile_edit') }}"><i class="fas fa-cog mr-2"></i>Setting</a>
                             <a class="dropdown-item" href="{{ path('fos_user_security_logout') }}"><i class="fas fa-power-off mr-2"></i>Logout</a>
                         </div>
                     </li>
@@ -179,11 +179,11 @@
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-3" aria-controls="submenu-3"><i class="fas fa-fw fa-chart-pie"></i>Chart</a>
+                            <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-3" aria-controls="submenu-3"><i class="fas fa-fw fa-chart-pie"></i>Absences</a>
                             <div id="submenu-3" class="collapse submenu" style="">
                                 <ul class="nav flex-column">
                                     <li class="nav-item">
-                                        <a class="nav-link" href="chart-c3.html">C3 Charts</a>
+                                        <a class="nav-link" href="{{ path('absence_new') }}">C3 Charts</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="chart-chartist.html">Chartist Charts</a>
@@ -199,6 +199,50 @@
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="chart-gauge.html">Guage</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-360" aria-controls="submenu-360"><i class="fas fa-fw fa-chart-pie"></i>Class</a>
+                                        <div id="submenu-360" class="collapse submenu" style="">
+                                            <ul class="nav flex-column">
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="{{ path('classe_index')}}">Afficher Class</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="{{ path('affectEtudClass')}}">Affecter Etudiant</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="{{ path('affctens')}}">Affecter Enseignant</a>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                    </li>  <li class="nav-item">
+                                        <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-460" aria-controls="submenu-460"><i class="fas fa-fw fa-chart-pie"></i>Emplois</a>
+                                        <div id="submenu-460" class="collapse submenu" style="">
+                                            <ul class="nav flex-column">
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="{{ path('emplo_index')}}">Afficher Emplois</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="{{ path('emplo_new')}}">Ajouter Emplois</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li><li class="nav-item">
+                                        <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-560" aria-controls="submenu-560"><i class="fas fa-fw fa-chart-pie"></i>Absence</a>
+                                        <div id="submenu-560" class="collapse submenu" style="">
+                                            <ul class="nav flex-column">
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="{{ path('absence_index')}}">Afficher Absence</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="{{ path('absence_new')}}">Ajouter Absence</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li> <li class="nav-item">
+                                        <a class="nav-link"  href="{{ path('calend_index') }}"><i class="fa fa-fw fa-rocket"></i>Calendar Annual</a>
+
                                     </li>
                                 </ul>
                             </div>
@@ -474,6 +518,21 @@
 <script src="{{ asset('back/assets/vendor/charts/c3charts/d3-5.4.0.min.js') }}"></script>
 <script src="{{ asset('back/assets/vendor/charts/c3charts/C3chartjs.js') }}"></script>
 <script src="{{ asset('back/assets/libs/js/dashboard-ecommerce.js') }}"></script>
+    <script>
+        $(document).ready( function () {
+            let u = $("#sel").val();
+
+            $('input[name=data]').val(u);
+            $("#selt").change(function () {
+                var selectedCountry = $(this).children("option:selected").val();
+                console.log(selectedCountry);
+                $('input[name=data]').val(selectedCountry);
+            });
+
+        });
+
+
+    </script>
     </div>{% endblock %}
 </body>
 

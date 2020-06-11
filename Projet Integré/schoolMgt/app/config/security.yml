@@ -1,13 +1,14 @@
 security:
     encoders:
-        FOS\UserBundle\Model\UserInterface: bcrypt
+        FOS\UserBundle\Model\UserInterface: plaintext
 
     role_hierarchy:
         ROLE_ETUDIANT:    ROLE_ETUDIANT
         ROLE_PERSONNEL:   ROLE_PERSONNEL
-        ROLE_NSEIGNIANT:   ROLE_ENSEIGNIANT
-        ROLE_AMDIN:       ROLE_AMDIN
+        ROLE_ENSEIGNIANT:   ROLE_ENSEIGNIANT
+        ROLE_ADMINISTRATEUR:       ROLE_ADMINISTRATEUR
         ROLE_SUPER_ADMIN: ROLE_ADMIN
+        ROLE_USER:       ROLE_USER
 
     providers:
         fos_userbundle:
@@ -32,3 +33,6 @@ security:
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/, role: ROLE_ADMIN }
+        - { path: ^/personel/, role: ROLE_PERSONNEL }
+#        - { path: ^/Etudiant/, role: ROLE_ETUDIANT }
+#        - { path: ^/Enseignant/, role: ROLE_ENSEIGNANT }

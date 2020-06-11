@@ -1,0 +1,41 @@
+
+
+<div class="modal fade bd-example-modal-lg" id="myModalchoose" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
+
+    <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <center><h1>Evenement</h1></center>
+                        <div class="modal-header">
+
+                            <div class="row" style="margin-top: +10%">
+
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pr-xl-0 pr-lg-0 pr-md-0  m-b-30">
+
+                                    <div class="product-slider">
+                                        <img src="{{ asset('images/'~evenement.image)}} "style="height: 250px;width: 260px;" data-toggle="modal" data-target="#exampleModalCenter">
+                                    </div>
+
+                                </div>
+
+
+                        </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pl-xl-0 pl-lg-0 pl-md-0 border-left m-b-30" style="margin-top: +10%;" >
+
+                                <div class="product-details">
+                                    <h2 class="modal-title" id="exampleModalCenterTitle">Date Debut: {{ evenement.datedebut|date("m/d/Y") }}</h2><br>
+                                    <h2 class="modal-title" id="exampleModalCenterTitle">Date Fin: {{ evenement.datefin|date("m/d/Y") }}</h2>
+                                    <form method="POST">
+                                        <input type="submit" value="Participer" class="btn btn-labeled btn-primary">
+                                    </form>
+
+
+
+
+                                </div>
+                            </div></div>
+
+                    </div>
+                </div>
+            </div>
+
+<script src="{{ asset('front/js/rating.js') }}"></script>

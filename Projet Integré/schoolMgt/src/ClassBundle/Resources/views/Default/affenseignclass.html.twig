@@ -1,0 +1,50 @@
+{% extends 'interfaceAdministrateur.html.twig' %}
+{% block body %}
+    <h1>Affectation Enseignant list</h1>
+
+    <table class="table" >
+        <thead>
+        <tr>
+            <th>prenom Enseignant</th>
+            <th>Nom Enseignant</th>
+            <th>Email</th>
+            <th>Cin Enseignant</th>
+            <th>Date Naissance Enseignant</th>
+            <th>Matiere</th>
+            <th>Classe</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for mu in matiereUser %}
+            <tr>
+                <td>{{ mu.idenseignant.prenomuser }}</td>
+                <td>{{ mu.idenseignant.nomuser }}</td>
+                <td>{{ mu.idenseignant.email }}</td>
+                <td>{{ mu.idenseignant.cinuser }}</td>
+                <td>{{ mu.idenseignant.datenaissanceuser|date }}</td>
+                <td>
+                    {{ mu.idmatiere.nom }}
+                </td>
+                <td>
+                    <select id="selt">
+                        {% for cls in classe %}
+                            <option name="sel" id="sel" value="{{ cls.id }}">{{ cls.name }}</option>
+
+                        {% endfor %}
+                    </select></td>
+
+
+                <td><form method="post" action="{{ path('affctense', { 'id': mu.idenseignant.id,'idmat': mu.idmatiere.id }) }}">
+                        <input type="hidden" id="data" name="data">
+                        <button type="submit" style="background: none;border: none;">
+                            <i class="fa fa-check"></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

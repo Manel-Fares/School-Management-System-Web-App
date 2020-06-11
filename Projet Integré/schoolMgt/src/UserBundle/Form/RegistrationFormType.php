@@ -26,6 +26,7 @@ class RegistrationFormType extends AbstractType
            ->add('prenomuser')
            ->add('cinuser',NumberType::class)
 
+
            ->add('datenaissanceuser',BirthdayType::class,array(
                'label' =>'Birth Date',
 
@@ -39,15 +40,16 @@ class RegistrationFormType extends AbstractType
 
            ->add('roles',ChoiceType::class,array(
                'choices'=> array(
-                   'Administrateur'=> 'ROLE_AMDIN',
-                   'Personnel'=> 'ROLE_PERSONNEL',
-                   'Etudiant'=> 'ROLE_ETUDIANT',
-                   'Enseignant'=> 'ROLE_ENSEIGNIANT'
+                   'Administrator'=> 'ROLE_AMDIN',
+                   'Staff'=> 'ROLE_PERSONNEL',
+                   'Student'=> 'ROLE_ETUDIANT',
+                   'Teacher'=> 'ROLE_ENSEIGNIANT'
                ),
                'required'=>true,
                'multiple'=>true,
                'label'=>'roles'
            ));
+
     }
 
     public  function getParent()

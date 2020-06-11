@@ -21,7 +21,7 @@
             <div class="card-body">
                 <form action="#" id="basicform" data-parsley-validate="">
                     <div class="form-group">
-                        {{ form_label(form.titrebook,'Name :') }}
+                        {{ form_label(form.titrebook,' ') }}
                         {{ form_widget(form.titrebook,{'attr': {'class':'form-control'}}) }}
 
                     </div>
@@ -37,8 +37,9 @@
                         {{ form_label(form.categoriebook,'Categorie :') }}
                         {{ form_widget(form.categoriebook,{'attr': {'class':'form-control'}}) }}
                     </div>
+                    {{ form_row(form.file)}}
                     <div class="form-group">
-                        {{ form_widget(form)}}
+
 
 
                     </div>
@@ -46,10 +47,11 @@
                         <div class="col-sm-6 pl-0">
                             <p class="text-right">
 
-                                {{ form_end(form) }}
+
                             </p>
                         </div>
                     </div>
+                    {{ form_end(form) }}
                 </form>
             </div>
         </div>

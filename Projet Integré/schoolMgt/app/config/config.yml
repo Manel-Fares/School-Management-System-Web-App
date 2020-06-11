@@ -8,13 +8,16 @@ imports:
     - { resource: "@EvenementBundle/Resources/config/services.yml" }
     - { resource: "@ReclamationBundle/Resources/config/services.yml" }
     - { resource: "@BooksBundle/Resources/config/services.yml" }
+    - { resource: "@ForumBundle/Resources/config/services.yml" }
+    - { resource: "@ClassBundle/Resources/config/services.yml" }
 
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
-
+    brochures_directory: '%kernel.project_dir%/web/Pdfs'
+    user_images: '%kernel.root_dir%/../web/img/blog'
 framework:
     translator:
         fallbacks: ['en']
@@ -89,8 +92,8 @@ fos_user:
   #  service:                               # this lines
    #     mailer: fos_user.mailer.twig_swift # this lines
     from_email:
-        address: "%mailer_user%"
-        sender_name: "%mailer_user%"
+        address: "omar.jmai@esprit.tn"
+        sender_name: "omar jmai"
     registration:
         form:
             type: UserBundle\Form\RegistrationFormType
@@ -190,3 +193,11 @@ fos_comment:
             edit: ROLE_ADMIN
             delete: ROLE_ADMIN
 
+google_re_captcha:
+    site_key: 6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI
+    secret_key: 6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe
+    enabled: true
+    ajax: true
+    http_proxy:
+        host: 127.0.0.1
+        port: 8000

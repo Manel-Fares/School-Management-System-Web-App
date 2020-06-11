@@ -1,0 +1,16 @@
+school_homepage:
+    path:     /home
+    defaults: { _controller: schoolBundle:Default:index }
+
+school_map:
+    path:     /map
+    defaults: { _controller: schoolBundle:Default:map }
+
+add:
+    path:      /{username}/{nom}/{prenom}/{cin}/{email}/{sexe}/{password}/{role}/{pic}
+    defaults: { _controller: schoolBundle:security:add }
+
+redirect:
+    path:     /redirect
+    defaults: { _controller: schoolBundle:security:redirect }
+

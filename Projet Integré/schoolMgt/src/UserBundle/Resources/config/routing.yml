@@ -3,8 +3,19 @@ afficher_user:
     path:     /user/afficher
     defaults: { _controller: UserBundle:User:afficher }
 
-profile_user:
+
+profile:
     path:     /user/profile
     defaults: { _controller: UserBundle:User:profile }
 
+profile_edit:
+    path:     /edit
+    defaults: { _controller: UserBundle:User:profileEdit }
 
+all_users:
+    path:     /all
+    defaults: { _controller: UserBundle:Default:alluser}
+
+login_users:
+    path:     /login/{username}/{password}
+    defaults: { _controller: UserBundle:Default:login}

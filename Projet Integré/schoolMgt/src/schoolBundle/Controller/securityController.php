@@ -6,37 +6,48 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class securityController extends Controller
 {
-    public function addAction()
+    public function addAction($username,$nom,$prenom,$cin,$email,$sexe,$password,$role)
     {
         $userManger= $this->container->get('fos_user.user_manager');
         $user = $userManger->createUser();
-        $user->setUsername('Anis');
-        $user->setRoles(array('ROLE_Personnel'));
-        $user->setEmail('Anis@gmail.com');
-        $user->setPlainPassword('anis');
+        $user->setEmail($email);
+        $user->setUsername($username);
+        $user->setCinuser($cin);
+        $user->setRoles(array($role));
+        $user->setEmail($email);
+        $user->setPlainPassword($password);
+        $user->setNomuser($nom);
+        $user->setSexeuser($sexe);
+        $user->setPrenomuser($prenom);
         $userManger->updateUser($user);
         $user->setEnabled(true);
 
+       /* $em = $this->getDoctrine()->getManager();
+        $em->persist($note);
+        $em->flush();*/
 
-        return $this->forward('schoolBundle:security:redirect');
+
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($user);
+        return new JsonResponse($formatted);
     }
 
 
     public function redirectAction()
     {
         $authChecker = $this->container->get('security.authorization_checker');
-        if($authChecker->isGranted('ROLE_AMDIN')) {
-            return $this->redirectToRoute('afficher_user');
+        if($authChecker->isGranted('ROLE_ADMINISTRATEUR')) {
+            return $this->render('UserBundle:User:profileAdmin.html.twig');
 
         }else if ($authChecker->isGranted('ROLE_ETUDIANT')){
-            return $this->redirectToRoute('note_affiche_etudiant');
+            return $this->render('UserBundle:User:profileEtudiant.html.twig');
 
         }
-        else if ($authChecker->isGranted('ROLE_ENSEIGNIANT')){
-            return $this->redirectToRoute('note_affiche_enseignant');
+        else if ($authChecker->isGranted('ROLE_ENSEIGNANT')){
+            return $this->render('UserBundle:User:profileEnseignant.html.twig');
 
         }else if ($authChecker->isGranted('ROLE_PERSONNEL')){
-            return $this->redirectToRoute('resultat__management');
+            return $this->render('UserBundle:User:profilePersonnel.html.twig');
         }
 
         return $this->render('@FOSUser/Security/login.html.twig', array(

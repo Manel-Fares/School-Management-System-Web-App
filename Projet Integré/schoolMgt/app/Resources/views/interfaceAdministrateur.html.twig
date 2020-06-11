@@ -95,6 +95,50 @@
                           </li>
   #}
                         <li class="nav-item">
+                            <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-360" aria-controls="submenu-360"><i class="fas fa-fw fa-chart-pie"></i>Class</a>
+                            <div id="submenu-360" class="collapse submenu" style="">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ path('classe_index')}}">Afficher Class</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ path('affectEtudClass')}}">Affecter Etudiant</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ path('affctens')}}">Affecter Enseignant</a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </li>  <li class="nav-item">
+                            <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-460" aria-controls="submenu-460"><i class="fas fa-fw fa-chart-pie"></i>Emplois</a>
+                            <div id="submenu-460" class="collapse submenu" style="">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ path('emplo_index')}}">Afficher Emplois</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ path('emplo_new')}}">Ajouter Emplois</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li><li class="nav-item">
+                            <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-560" aria-controls="submenu-560"><i class="fas fa-fw fa-chart-pie"></i>Absence</a>
+                            <div id="submenu-560" class="collapse submenu" style="">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ path('absence_index')}}">Afficher Absence</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ path('absence_new')}}">Ajouter Absence</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li> <li class="nav-item">
+                            <a class="nav-link"  href="{{ path('calend_index') }}"><i class="fa fa-fw fa-rocket"></i>Calendar Annual</a>
+
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-7" aria-controls="submenu-7"><i class="fas fa-fw fa-inbox"></i>Apps <span class="badge badge-secondary">Gest Clubs</span></a>
                             <div id="submenu-7" class="collapse submenu" style="">
                                 <ul class="nav flex-column">

@@ -3,14 +3,20 @@
 namespace evaluationsBundle\Controller;
 
 use CMEN\GoogleChartsBundle\GoogleCharts\Charts\PieChart;
+use Jhg\NexmoBundle\JhgNexmoBundle;
 use schoolBundle\Entity\Classe;
-use schoolBundle\Entity\Club;
+use EvenementBundle\Entity\Club;
 use schoolBundle\Entity\Resultat;
 use schoolBundle\Entity\Users;
-use schoolBundle\Form\ResultatType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use PhpOffice\PhpWord\Style\Image;
+use PhpOffice\PhpWord\Shared\Converter;
+use PhpOffice\PhpWord\PhpWord;
+use PhpOffice\PhpWord\IOFactory;
+
+
 
 /**
  * Resultat controller.
@@ -18,6 +24,105 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class ResultatController extends Controller
 {
+    public function transcriptAction($idetudiant)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $query = $entityManager->createQuery(
+            'SELECT n
+             FROM schoolBundle:Note n         
+             WHERE n.etudiant = :etudiant'
+        )->setParameter('etudiant',$idetudiant);
+
+        $note= $query->getResult();
+
+        $phpWord = new PhpWord();
+        $section = $phpWord->addSection();
+        $imagesFolder = $this->get('kernel')->getRootDir() . '/../web/images/';
+        $image = $imagesFolder.'esprit.jpg';
+        $image2 = $imagesFolder.'tampon.png';
+        $text='Trascript';
+
+        //Absolute positioning
+        $section->addTextBreak(3);
+        $section->addText($text,array(
+            'size' => 22,
+            'bold' => true,
+            'color' => '#8B0000',
+            'underline'=>'single'));
+        $section->addImage(
+            $image,
+            array(
+                'width'            => Converter::cmToPixel(3),
+                'height'           => Converter::cmToPixel(3),
+                'positioning'      => Image::POSITION_ABSOLUTE,
+                'posHorizontal'    => Image::POSITION_HORIZONTAL_RIGHT,
+                'posHorizontalRel' => Image::POSITION_RELATIVE_TO_MARGIN,
+                'posVerticalRel'   => Image::POSITION_RELATIVE_TO_MARGIN,
+                'marginLeft'       => Converter::cmToPixel(15.5),
+                'marginTop'        => Converter::cmToPixel(1.55),
+            )
+        );
+
+        $section->addLine(['weight' => 1, 'width' => 500, 'height' => 0]);
+        $section->addText('Full Name:    '.$note[0]->getEtudiant()->getNomuser().'  '.$note[0]->getEtudiant()->getPrenomuser());
+        $section->addText('N°CIN:    '.$note[0]->getEtudiant()->getcinuser());
+        $section->addText('Class:    '.$note[0]->getEtudiant()->getClasseetd()->getName());
+        $section->addLine(['weight' => 1, 'width' => 500, 'height' => 0]);
+
+        $table = $section->addTable();
+        for($j=0;$j<count($note);$j++){
+            $table->addRow();
+                $table->addCell(2000)->addText($note[$j]->getMatiere()->getNom());
+            $table->addRow();
+                $table->addCell(1000);
+                $table->addCell(2000)->addText('Coefficient:');
+                $table->addCell(2000)->addText($note[$j]->getMatiere()->getCoef());
+            $table->addRow();
+                $table->addCell(1000);
+                $table->addCell(2000)->addText('CD Grade:');
+                $table->addCell(2000)->addText( $note[$j]->getNoteds());
+            $table->addRow();
+                $table->addCell(1000);
+                $table->addCell(2000)->addText('CC Grade:');
+                $table->addCell(2000)->addText($note[$j]->getNotecc());
+            $table->addRow();
+                $table->addCell(1000);
+                $table->addCell(2000)->addText('Exam Grade:');
+                $table->addCell(2000)->addText($note[$j]->getNoteexam());
+            $table->addRow();
+                $table->addCell(1000);
+                $table->addCell(2000)->addText('Score:');
+                $table->addCell(2000)->addText($note[$j]->getMoyenne());
+        }
+
+        $table->addCell(1750)->ddTextBreak(1);
+
+        $section->addImage(
+            $image2,
+            array(
+                'width'            => Converter::cmToPixel(3),
+                'height'           => Converter::cmToPixel(3),
+                'posHorizontal'    => Image::POSITION_HORIZONTAL_LEFT,
+                'posHorizontalRel' => Image::POSITION_RELATIVE_TO_MARGIN,
+                'posVerticalRel'   => Image::POSITION_RELATIVE_TO_PAGE,
+                'marginLeft'       => Converter::cmToPixel(15.5),
+                'marginTop'        => Converter::cmToPixel(1.55),
+            )
+        );
+
+        $objWriter = IOFactory::createWriter($phpWord, 'Word2007');
+
+        $filePath = 'word/'.$note[0]->getEtudiant()->getNomuser().' '.$note[0]->getEtudiant()->getPrenomuser().md5(uniqid()) . '.docx';
+        // Write file into path
+        $objWriter->save($filePath);
+        $this->addFlash('success', 'Transcript downloaded');
+
+
+        return $this->render('@evaluations/Note/affichageNoteEtudiant.html.twig',array('note'=>$note));
+
+
+
+    }
 
 
     public function indexAction(){
@@ -28,26 +133,30 @@ class ResultatController extends Controller
     public function calculerAction(){
         $entityManager = $this->getDoctrine()->getManager();
         $liste=$entityManager
-            ->createQuery("SELECT distinct n.etudiant FROM schoolBundle:Note n ");
+            ->createQuery("SELECT distinct u
+            FROM schoolBundle:Users u
+            where u.roles like :role")
+            ->setParameter('role', '%"'.'ROLE_ETUDIANT'.'"%');
+        ;
+
         $listeEtudiant = $liste->getResult();
 
         for($j=0;$j<count($listeEtudiant);$j++)
         {
             $entityManager = $this->getDoctrine()->getManager();
             $query = $entityManager->createQuery(
-            'SELECT n.moyenne, m.coef FROM schoolBundle:Note n
-             LEFT JOIN schoolBundle:Matier m  WITH n.matiere = m.id                     
+                'SELECT n FROM schoolBundle:Note n                
              WHERE n.etudiant = :etudiant'
-            )->setParameter('etudiant',$listeEtudiant[$j]['etudiant'] );
+            )->setParameter('etudiant',$listeEtudiant[$j]);
             $listeNote = $query->getResult();
 
             $sumcCoef=0;  $sumMoy=0;
             for($i=0;$i<count($listeNote);$i++) {
-                $sumcCoef += $listeNote[$i]['coef'];
-                $sumMoy += $listeNote[$i]['moyenne']*$listeNote[$i]['coef'];
+                $sumcCoef += $listeNote[$i]->getMatiere()->getCoef();
+                $sumMoy += $listeNote[$i]->getMoyenne()*$listeNote[$i]->getMatiere()->getCoef();
             }
             $resultat = new Resultat();
-            $resultat->setEtudiant($listeEtudiant[$j]['etudiant']);
+            $resultat->setEtudiant($listeEtudiant[$j]);
             $date = new \DateTime('now', new \DateTimeZone('Asia/Kolkata'));
             $date->format('yy-m-d');
             $resultat->setDateresultat($date);
@@ -68,34 +177,20 @@ class ResultatController extends Controller
         return new Response(
             $snappy->getOutput($html),
             200,
-        array(
-            'Content-Type'=>'application/pdf',
-            'Content-Disposition'=>'inline; filename="'.$filename.'.pdf"'
-        )
+            array(
+                'Content-Type'=>'application/pdf',
+                'Content-Disposition'=>'inline; filename="'.$filename.'.pdf"'
+            )
         );
     }
     public function resutlatEtudiantAction()
     {
-        $matiere =array();
-        $enseignant =array();
-
         $em=$this->getDoctrine()->getManager();
 
         $entityManager = $this->getDoctrine()->getManager();
         $query = $entityManager->createQuery(
-            'SELECT n.notecc,
-             n.noteds,
-             n.moyenne,
-             n.noteexam,
-             m.nom,
-             m.coef,
-             u.nomuser,
-             u.prenomuser
-             FROM schoolBundle:Note n
-             LEFT JOIN schoolBundle:Matier m
-             WITH n.matiere = m.id
-             LEFT JOIN schoolBundle:Users u
-             WITH u.id = n.enseignant             
+            'SELECT n
+             FROM schoolBundle:Note n         
              WHERE n.etudiant = :etudiant'
         )->setParameter('etudiant',$this->getUser()->getID()  );
 
@@ -105,7 +200,7 @@ class ResultatController extends Controller
             'SELECT r.resultat
              FROM schoolBundle:Resultat r            
              WHERE r.etudiant = :etudiant'
-        )->setParameter('etudiant',1 );
+        )->setParameter('etudiant',$this->getUser()->getID()  );
 
         $res = $query2->getResult();
         dump($res);
@@ -113,23 +208,18 @@ class ResultatController extends Controller
             array('note'=>$note,'resultat'=>$res));
     }
 
+    public function  sendSMSAction()
+    {
+        return $this->render('@school/Default/test.html.twig');
+
+    }
+
     public function gererResultatsAction(){
 
-            $entityManager = $this->getDoctrine()->getManager();
-            $query = $entityManager->createQuery(
-                'SELECT r.etudiant,
-                r.resultat,
-             u.cinuser,
-             u.nomuser,
-             u.prenomuser
-             FROM schoolBundle:Resultat r
-             LEFT JOIN schoolBundle:Users u
-             WITH u.id = r.etudiant '
-             );
+        $resultat= $this->getDoctrine()->getRepository(Resultat::class)->findAll();
 
-            $res = $query->getResult();
 
-            return $this->render('@evaluations/Resultat/gestionResultat.html.twig',array('resultat'=>$res));
+        return $this->render('@evaluations/Resultat/gestionResultat.html.twig',array('resultat'=>$resultat));
 
 
     }
@@ -138,15 +228,10 @@ class ResultatController extends Controller
 
         $entityManager = $this->getDoctrine()->getManager();
         $query = $entityManager->createQuery(
-            'SELECT n.notecc,n.etudiant,
-             n.noteds, n.moyenne, n.noteexam,
-             m.nom, m.coef,
-             u.nomuser, u.prenomuser, u.classeetd,u.cinuser,u.email,u.numteluser
+            'SELECT n
+             
              FROM schoolBundle:Note n
-             LEFT JOIN schoolBundle:Matier m
-             WITH n.matiere = m.id
-             LEFT JOIN schoolBundle:Users u
-             WITH u.id = n.etudiant            
+                        
              WHERE n.etudiant = :etudiant'
         )->setParameter('etudiant',$idetudiant );
 
@@ -169,7 +254,7 @@ class ResultatController extends Controller
     public function statistiqueReussiteAction()
     {
         $pieChart = new PieChart();
-            $em= $this->getDoctrine();
+        $em= $this->getDoctrine();
         $res = $em->getRepository(Resultat::class)->findAll();
         $totalEtudiant=count($res);
 
@@ -184,16 +269,16 @@ class ResultatController extends Controller
                 $echec += 1;
             }
         }
-           $succes=$succes*100/$totalEtudiant;
-            $echec=$echec*100/$totalEtudiant;
+        $succes=$succes*100/$totalEtudiant;
+        $echec=$echec*100/$totalEtudiant;
 
 
         $pieChart->getData()->setArrayToDataTable(
             [['Resussite','pourcentage de reussite'],
                 ['Success',$succes],
-            ['Failure',$echec]
+                ['Failure',$echec]
 
-                ]
+            ]
         );
         $pieChart->getOptions()->setHeight(400);
         $pieChart->getOptions()->setWidth(600);
@@ -208,7 +293,7 @@ class ResultatController extends Controller
 
         return $this->render('@evaluations/Resultat/statistique.html.twig', array(
             'piechart' => $pieChart,
-            ));
+        ));
     }
 
     public function statistiqueUserAction()
@@ -233,7 +318,7 @@ class ResultatController extends Controller
 
             if ($tab['0'] == 'ROLE_ETUDIANT') {
                 $nbEtudiant += 1;
-            } else if ($tab['0'] == 'ROLE_ADMIN'){
+            } else if ($tab['0'] == 'ROLE_ADMINISTRATEUR'){
                 $nbAdministrateur += 1;
             } else if ($tab['0'] == 'ROLE_PERSONNEL'){
                 $nbPersonnel += 1;
@@ -315,9 +400,9 @@ class ResultatController extends Controller
         $res = $repository->findAll();
         $entityManager = $this->getDoctrine()->getManager();
         foreach ($res as $r){
-        $entityManager->remove($r);
-        $entityManager->flush();
-    }
+            $entityManager->remove($r);
+            $entityManager->flush();
+        }
         return $this->redirectToRoute('resultat__management');
     }
 
@@ -327,33 +412,30 @@ class ResultatController extends Controller
     {
         $entityManager = $this->getDoctrine()->getManager();
         $query = $entityManager->createQuery(
-            'SELECT n.notecc,n.noteds,n.moyenne,n.noteexam,m.nom,n.etudiant,
-             m.coef,u.nomuser,u.prenomuser,u.classeetd
-             FROM schoolBundle:Note n LEFT JOIN schoolBundle:Matier m
-             WITH n.matiere = m.id
-             LEFT JOIN schoolBundle:Users u WITH u.id = n.etudiant            
+            'SELECT n
+             FROM schoolBundle:Note n         
              WHERE n.etudiant = :etudiant'
         )->setParameter('etudiant',$idetudiant);
 
         $info = $query->getResult();
-      /*  $em = $this->getDoctrine()->getManager();
-        $resultat = $em->getRepository(Resultat::class)->findAll();*/
+        /*  $em = $this->getDoctrine()->getManager();
+          $resultat = $em->getRepository(Resultat::class)->findAll();*/
 
         $writer = $this->container->get('egyg33k.csv.writer');
         $csv = $writer::createFromFileObject(new \SplTempFileObject());
-        $etudiant='Nom  '.$info['0']['nomuser'].' '.$info['0']['prenomuser'];
+        $etudiant='Nom  '.$info['0']->getEtudiant()->getNomuser().' '.$info['0']->getEtudiant()->getPrenomuser();
 
         $csv->insertOne($etudiant);
-        $csv->insertOne('Classe    '.$info['0']['classeetd']);
-        $csv->insertOne('Matieres                                    ');
+        $csv->insertOne('Classe    '.$info['0']->getEtudiant()->getClasseetd()->getName());
+        $csv->insertOne('Matieres                    ');
         for($j=0;$j<count($info);$j++){
 
-            $csv->insertOne('Coefficient :    '.$info[$j]['coef']);
-            $csv->insertOne('Nom :    '.$info[$j]['nom']);
-            $csv->insertOne('Note DS :    '.$info[$j]['noteds']);
-            $csv->insertOne('Note CC:    '.$info[$j]['notecc']);
-            $csv->insertOne('Note Exam :    '.$info[$j]['noteexam']);
-            $csv->insertOne('Moyenne :    '.$info[$j]['moyenne']);
+            $csv->insertOne('Nom :    '.$info[$j]->getMatiere()->getNom());
+            $csv->insertOne('Coefficient :    '.$info[$j]->getMatiere()->getCoef());
+            $csv->insertOne('Note DS :    '.$info[$j]->getNoteds());
+            $csv->insertOne('Note CC:    '.$info[$j]->getNotecc());
+            $csv->insertOne('Note Exam :    '.$info[$j]->getNoteexam());
+            $csv->insertOne('Moyenne :    '.$info[$j]->getMoyenne());
 
         }
         $csv->output('Resultat.csv');

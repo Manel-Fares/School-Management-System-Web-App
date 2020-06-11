@@ -1,0 +1,143 @@
+{% extends 'base.html.twig' %}
+{% block mystyle %}
+    <style>
+        .btn{
+            background-color:green;
+            color:white;
+            font-weight: bold;
+
+        }
+a{
+    color: green;
+}
+        .page-item.active .page-link {
+
+     background-color: green;
+     border-color: green;
+ }
+        .page-link{
+            color:green;
+        }
+    </style>
+{% endblock %}
+{% block body %}
+
+
+
+    <div class="container">
+        <h1 style="font-size:60px">Forum :</h1>
+    <br>
+    <br>
+    <br>
+    <br>
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="ui-block responsive-flex">
+                    <div class="ui-block-title">
+                        <div class="h6 title">All questions <small>{{ " ( Total " ~ pagination.getTotalItemCount ~ " ) " }}</small>
+                        </div>
+                        <form  method="post">
+                            <div class="row" style="width:650px;">
+                                <div class="col-md-9">
+                                <input class="form-control" type="text" name="search" placeholder="Chercher..." style="width: 350px;border-right: none;">
+
+                                </div>
+                                <div class="col-md-3" style="margin-left: -140px;">
+                                <button style="border-radius: 1px;" >
+                                    <i class="fa fa-2x  fa-search" style="color: green;"></i>
+                                </button>
+                                </div>
+                            </div>
+                        </form>
+
+                        <div class="col-12" style="text-align: right;">
+                            <a href="{{ path('add_question') }}">
+                                <button type="button" style="background-color:green;border-color: green;" class="btn btn-success">Ask question</button>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <div class="container" style="border: 2px solid black;background-color: #DCDCDC	;width: 1125px;margin-left: 190px;">
+        <div class="row" >
+
+            <div class="col-12" >
+
+
+                {% for question in pagination %}
+                    <div class="ui-block" id="opResult" style="border-bottom: 2px solid black;">
+
+
+                        <article class="hentry post video">
+                            <div class="post__author author vcard inline-items" >
+                                <div class="author-date col-12">
+                                    <div class="post__date">
+                                        <time class="published" style="float: right;font-size: 9px; font-weight: bold;  ">
+
+                                            {{ " asked " ~ question.createdAt|date("d M Y") ~ " at " ~ question.createdAt|date("H:i") }}
+                                        </time>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                           <div class="row">
+
+                                {% if (app.user) and ("ROLE_PERSONNEL" in app.user.roles) %}
+                                    <div class="col-md-2"><a href="{{ path('view_question', { id: question.idQuestion }) }}"><span style="font-weight: bold;" style="text-align: center;">Question :</span> {{ question.title }}</a>
+                                    </div>
+                                <div class="col-md-2"> <a href="{{ path('delete_question', { id: question.idQuestion }) }}" ><i class="fa fa-lg fa-times" aria-hidden="true" style="text-align: center;"></i></a>
+                                </div>
+                                {% else %}
+                                    <a href="{{ path('view_question', { id: question.idQuestion }) }}">{{ question.title }}</a>
+                                {% endif %}
+                           </div>
+
+
+                        </article>
+
+
+
+
+
+                    </div>
+                {% endfor %}
+                <br>
+
+                <div class="pagination align-items-center" >
+                    {{ knp_pagination_render(pagination) }}
+                </div>
+            </div>
+
+
+
+
+        </div>
+    </div>
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+{% endblock %}

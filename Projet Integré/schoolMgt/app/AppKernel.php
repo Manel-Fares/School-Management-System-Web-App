@@ -35,6 +35,14 @@ class AppKernel extends Kernel
             new FOS\CommentBundle\FOSCommentBundle(),
             new FOS\RestBundle\FOSRestBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle($this),
+            new ForumBundle\ForumBundle(),
+            new ClassBundle\ClassBundle(),
+            new AncaRebeca\FullCalendarBundle\FullCalendarBundle(),
+            new JMS\TranslationBundle\JMSTranslationBundle(),
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+            new KleeGroup\GoogleReCaptchaBundle\GoogleReCaptchaBundle(),
+
+
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
