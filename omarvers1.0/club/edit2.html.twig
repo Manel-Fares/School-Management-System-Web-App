@@ -1,0 +1,40 @@
+{% extends 'interfaceEtudiant.html.twig' %}
+
+{% block body %}
+<section class="banner_area">
+    <div class="banner_inner d-flex align-items-center">
+        <div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background="" style="transform: translateY(-147.365px);"></div>
+        <div class="container">
+            <div class="banner_content text-center">
+                <h2>Elements</h2>
+                <div class="page_link">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="container">
+
+<iv class="card  bg-transparent mb-3" style="width: 70%;margin-left: +20%;margin-top: +5%">
+    <div class="card-header"style="font-size: 30px"><center> Club edit</center></div>
+    <div class="card-body">
+        <h5 class="card-title"></h5>
+
+
+    {{ form_start(edit_form) }}
+        {{ form_widget(edit_form) }}
+        <input type="submit" value="Edit" class="genric-btn info circle" />
+    {{ form_end(edit_form) }}
+
+
+
+        <a href="{{ path('clubResponsable') }}" > <i class="fa fa-mail-reply" style="font-size:24px"></i> Back to the list</a>
+
+
+
+
+    </div>
+</iv>
+</div>
+{% endblock %}

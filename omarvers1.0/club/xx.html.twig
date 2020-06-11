@@ -1,0 +1,8 @@
+{% for club in clubs %}
+    {{club.x}}
+{% endfor %}
+{% for ev in evenements %}
+    {{ ev.nbr }}
+{% endfor %}
+<img src="{{ asset('images/'~evenement.image)}} "style="height: 50px;width: 60px;" onclick="print({{ evenement.image }})">
+
