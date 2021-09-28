@@ -1,0 +1,85 @@
+{% extends  'interfaceEtudiant.html.twig' %}
+
+{% block body %}
+    <section class="banner_area">
+        <div class="banner_inner d-flex align-items-center">
+            <div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background="" style="transform: translateY(-147.365px);"></div>
+            <div class="container">
+                <div class="banner_content text-center">
+                    <h2>Demande details</h2>
+                    <div class="page_link">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+        <div class="card-body">
+            <h5 class="card-title"></h5>
+            <div class="row" style="margin-top: +1%">
+
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pr-xl-0 pr-lg-0 pr-md-0  m-b-30" >
+
+
+                    <div class="product-slider">
+                        <div class="card-body" style="height: 480px">
+                            <img src="{{ asset('images/'~demandeevenement.image)}} " style="height: 400px;width: 400px;margin-right: +10%    " >
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pl-xl-0 pl-lg-0 pl-md-0 border-left m-b-30" >
+
+                    <div class="product-details" style="height: 700px ">
+
+                        <div class="border-bottom pb-3 mb-3"style="padding-top: +10%" >
+                            <h3 ><i class="fa fa-calendar" aria-hidden="true"></i> Start date :</h3><h5 style="color: #1e7e34">{% if demandeevenement.datedebut %}{{ demandeevenement.datedebut|date('Y-m-d') }}{% endif %}</h5>
+                            <h3 ><i class="fa fa-calendar" aria-hidden="true" ></i> End date :</h3><h5 style="color: #a00000">{% if demandeevenement.datefin %}{{ demandeevenement.datefin|date('Y-m-d') }}{% endif %}</h5>
+
+                            <h3><i class="fa fa-info-circle" style="font-size:24px;color: #985f0d"></i> Etat :</h3>
+                            {% if demandeevenement.etat=='valider'  %}<h5 style="color: #34ce57">{{ demandeevenement.etat }}</h5>
+                            {% else %}
+                            <h5 style="color: #a00000">{{ demandeevenement.etat }}</h5>
+                            {% endif %}
+                            <h3><i class="fa fa-id-badge" style="font-size:24px"></i> Club Name :</h3><h5>{{ demandeevenement.idclub.nomclub() }}</h5>
+
+
+                            <h3><i class="fa fa-dollar" style="font-size:24px;color: #2b542c"></i>Budgets :</h3><h5>{{ demandeevenement.budget }}</h5>
+                            <h3><i class="fa fa-edit" style="font-size:24px "></i>Description :</h3><p>{{ demandeevenement.description }}</p>
+
+
+
+
+
+                            <a href="{{ path('demandeevenement_show_club') }}">Back to the list</a> |
+
+
+                            <a href="{{ path('demandeevenement_edit2', { 'iddemandeevenement': demandeevenement.iddemandeevenement }) }}">Edit</a>
+
+
+                            {{ form_start(delete_form) }}
+                            <input type="submit" value="Delete" class="genric-btn danger circle arrow">
+                            {{ form_end(delete_form) }}
+
+
+                        </div>
+
+                    </div>
+
+
+
+
+
+
+
+                </div>
+            </div>
+        </div></div>
+
+</div>
+{% endblock %}

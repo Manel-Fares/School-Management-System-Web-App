@@ -1,16 +1,29 @@
-{% extends 'base.html.twig' %}
+{% extends 'interfaceEtudiant.html.twig' %}
 
 {% block body %}
+    <section class="banner_area">
+        <div class="banner_inner d-flex align-items-center">
+            <div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background="" style="transform: translateY(-147.365px);"></div>
+            <div class="container">
+                <div class="banner_content text-center">
+                    <h2>Demand Event</h2>
+                    <div class="page_link">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 <div class="container">
 
 
 
-    <iv class="card bg-light mb-3" style="width: 50%;">
-        <div class="card-header">Evenement</div>
+    <iv class="card  bg-transparent mb-3" style="width: 70%;margin-left: +20%;margin-top: +5%">
+        <div class="card-header"style="font-size: 30px"><center></center></div>
         <div class="card-body">
             <h5 class="card-title"></h5>
-            {{ form_start(form) }}
-           <!-- <form method="post">
+            {{ form_start(form, {'attr': {'novalidate':'novalidate'}}) }}
+            {{ form_errors(form) }}<!-- <form method="post">
 
                 <select id="cars" name="carlist" form="carform">
                     <option value="volvo">Volvo</option>
@@ -52,11 +65,11 @@
             {{ form_label(form.description,'description') }}
             {{ form_widget(form.description,{'attr':{'class':'single-input'}}) }}
             {{ form_errors(form.description) }}
-
-        </div>
-
         <input type="submit" value="Create" class="genric-btn success circle arrow"
         />
+
+</iv>
+
     </div>
 
     {{ form_end(form) }}

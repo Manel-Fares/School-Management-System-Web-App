@@ -1,3 +1,7 @@
+subject:
+    resource: "@SubjectsBundle/Resources/config/routing.yml"
+    prefix:   /
+
 class:
     resource: "@ClassBundle/Resources/config/routing.yml"
     prefix:   /

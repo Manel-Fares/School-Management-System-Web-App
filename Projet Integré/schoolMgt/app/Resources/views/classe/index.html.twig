@@ -1,8 +1,11 @@
-{% extends 'interfaceAdministrateur.html.twig' %}
+{% extends 'interfacePersonnel.html.twig' %}
 
 {% block body %}
     <div class="container">
     <h1>Classes list</h1>
+        <input  class="form-control"  aria-label="Search" type="text" placeholder="Search" name="search" id="re" onkeyup="searchh()" style="border-color:#003f81;width: 250px;">
+        <br>
+        <div id="det2">
 
     <table class="table">
         <thead >
@@ -11,8 +14,9 @@
                 <th>Name</th>
                 <th>Niveau</th>
                 <th>Spec</th>
-                <th>Nbretudiant</th>
+                <th>Student Nbr</th>
                 <th>Description</th>
+
 
             </tr>
         </thead>
@@ -32,11 +36,26 @@
         {% endfor %}
         </tbody>
     </table>
+        </div>
     <br>
     <ul>
         <li>
-            <a href="{{ path('classe_new') }}">Create a new classe</a>
+            <a href="{{ path('classe_new') }}">Create a new class</a>
         </li>
     </ul>
     </div>
+
+    <script>
+        function searchh(){
+          var sch=$("#re").val();
+        $.ajax({
+            url: "{{ path('clh') }}",
+            data:{dat: sch},
+            type: "POST",
+            success: function(data){
+                $('#det2').html(data).show();
+            }
+        });
+        }
+    </script>
 {% endblock %}

@@ -1,63 +1,88 @@
 {% extends 'interfacePersonnel.html.twig' %}
 
 {% block body %}
-<div class="container" >
-    <div class="container">
-        <form method="post">
-            <input type="text" placeholder="your text .." name="search">
-            <input type="submit" value="rechercher">
-        </form>
-    <h1>Clubs list</h1>
+    <div class="container" >
+        <div class="container">
+            <div class="form-inline d-flex justify-content-center md-form form-sm active-cyan-2 mt-2" style="width: 30%;margin-bottom: +1%">
 
-            <div id="tmpmodal"></div>
+                <i class="fas fa-search" aria-hidden="true"  style="background-color: #003f81;color: white;font-size: 30px"></i> <input  class="form-control form-control-sm mr-3 w-75"  aria-label="Search" type="text" placeholder="Search" name="search" id="re" onchange="searchh()" style="border-color:#003f81">
 
-            <div class="card">
+            </div>
 
-                <h5 class="card-header">clubs list</h5>
-                <div class="card-body">
 
-                    <table class="table">
-        <thead>
-            <tr>
-                <th>Idclub</th>
-                <th>Nomclub</th>
-                <th>Idresponsable</th>
-                <th>Domaine</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for club in clubs %}
-            <tr>
 
-                <td>
-                    <a href="{{ path('club_show', { 'idclub': club.getIdclub() }) }}">{{ club.getIdclub() }}</a></td>
-                <td>{{ club.getNomclub() }}</td>
-                <td>{{ club.getIdresponsable() }}</td>
-                <td>{{ club.getDomaine() }}</td>
-                <td>
+            <div  id="resultats">
 
-                    <ul>
-                        <li>
-                            <a href="{{ path('club_show', { 'idclub': club.getIdclub() }) }}">show</a>
-                        </li>
-                        {% if club.idclub!= 1 %}
-                      <!--  <li>
-                            <a href="{{ path('club_edit', { 'idclub': club.getIdclub() }) }}">edit</a>
+                <div class="card">
+
+                    <h5 class="card-header">clubs list</h5>
+                    <div class="card-body">
+
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Id club</th>
+                                <th></th>
+                                <th>club Name</th>
+                                <th>Responsable</th>
+                                <th>Domaine</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for club in clubs %}
+                                <tr>
+
+                                    <td>
+                                        <a href="{{ path('club_show', { 'idclub': club.idclub }) }}">{{ club.idclub }}</a></td>
+                                    <td><img src="{{ asset('images/'~club.image)}}" style="height: 100px;width: 100px"></td>
+                                    <td>{{ club.nomclub }}</td>
+                                    <td>{{ club.idresponsable }}</td>
+                                    <td>{{ club.domaine }}</td>
+                                    <td>
+
+                                        <ul>
+                                            <li>
+                                                <a href="{{ path('club_show', { 'idclub': club.idclub }) }}">show</a>
+                                            </li>
+                                            {% if club.idclub!= 1 %}
+                                                <!--  <li>
+                            <a href="{{ path('club_edit', { 'idclub': club.idclub }) }}">edit</a>
                         </li>-->
-                        {% endif %}
-                    </ul>
+                                            {% endif %}
+                                        </ul>
 
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('club_new') }}">Create a new club</a>
-        </li>
-    </ul>
-    </div>
+                        <ul>
+                            <li>
+                                <a href="{{ path('club_new') }}">Create a new club</a>
+                            </li>
+                        </ul>
+                    </div></div></div></div></div>
+    <script>
+        function searchh(){
+
+            var r=$("#re").val();
+            var data='rr';
+
+
+                $.ajax({
+                    type:"GET",
+                    url:"{{ (path('rech')) }}",
+                    data:{'titre':r},
+                    success:function (data) {
+                        $("#resultats").html(data).show();
+                    }
+                });
+            
+
+        }
+
+
+    </script>
 {% endblock %}

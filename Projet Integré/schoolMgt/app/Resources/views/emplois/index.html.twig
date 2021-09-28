@@ -1,24 +1,31 @@
-{% extends 'interfaceAdministrateur.html.twig' %}
+{% extends 'interfacePersonnel.html.twig' %}
 {% block body %}
     <h1>Emplois list</h1>
 
+    <input  class="form-control"  aria-label="Search" type="text" placeholder="Search" name="search" id="re" onkeyup="searchh()" style="border-color:#003f81;width: 250px;">
+    <br>
+    <div id="det222">
     <table  class="table">
         <thead >
             <tr>
-                <th >Idemplois</th>
+
                 <th>Date</th>
-                <th>Heure</th>
+                <th>Time</th>
                 <th>Source</th>
+                <th>Class</th>
+
 
             </tr>
         </thead>
         <tbody>
         {% for emplois in emplois %}
             <tr>
-                <td><a href="{{ path('emplo_show', { 'idemplois': emplois.idemplois }) }}">{{ emplois.idemplois }}</a></td>
+
                 <td>{% if emplois.date %}{{ emplois.date|date('Y-m-d') }}{% endif %}</td>
                 <td>{% if emplois.heure %}{{ emplois.heure|date('H:i:s') }}{% endif %}</td>
                 <td>{{ emplois.source }}</td>
+                <td>{{ emplois.nameclas.name }}</td>
+
                 <td>
                     <a href="{{ path('emplo_edit', { 'idemplois': emplois.idemplois }) }}"><i class="fa fa-edit"></i></a>
                 </td>
@@ -28,6 +35,7 @@
         {% endfor %}
         </tbody>
     </table>
+    </div>
 <br>
 <br>
 <br>
@@ -36,4 +44,18 @@
             <a href="{{ path('emplo_new') }}">Create a new emplois</a>
         </li>
     </ul>
+
+    <script>
+        function searchh(){
+            var sch=$("#re").val();
+            $.ajax({
+                url: "{{ path('sk') }}",
+                data:{dat: sch},
+                type: "POST",
+                success: function(data){
+                    $('#det222').html(data).show();
+                }
+            });
+        }
+    </script>
 {% endblock %}

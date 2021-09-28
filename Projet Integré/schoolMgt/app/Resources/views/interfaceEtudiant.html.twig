@@ -4,13 +4,11 @@
 <link href="{{ asset('back/assets/vendor/fonts/circular-std/style.css')}}" rel="stylesheet">
 <link rel="stylesheet" href="{{ asset('back/assets/libs/css/profile.css')}}">
 
-
-
 {% endblock %}
  {% block header %}
 
      <div class="main_menu">
-         <nav class="navbar navbar-expand-lg navbar-light">
+         <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #ffffff">
              <div class="container">
                  <!-- Brand and toggle get grouped for better mobile display -->
                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -22,17 +20,21 @@
                  <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                      <ul class="nav navbar-nav menu_nav ml-auto">
                          <li class="nav-item"><a class="nav-link" href="{{ path('profile') }}">Profile</a></li>
-                         <li class="nav-item"><a class="nav-link" href="about-us.html">About</a></li>
                          <li class="nav-item submenu dropdown">
                              <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Event</a>
                              <ul class="dropdown-menu">
                                  <li class="nav-item"><a class="nav-link" href="{{ path('evenement_image') }}"> Events</a>
-                                 <li class="nav-item"><a class="nav-link" href="{{ path('EvenementClub') }}"> your Events</a>
                                  <li class="nav-item"><a class="nav-link" href="{{ path('club_show_image') }}">Clubs</a></li>
                              </ul>
                          </li>
 
-
+                         <li class="nav-item submenu dropdown ">
+                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Class</a>
+                             <ul class="dropdown-menu">
+                                 <li class="nav-item"><a class="nav-link" href="{{ path('abcenseetud')}}">Absences</a></li>
+                                 <li class="nav-item"><a class="nav-link" href="{{ path('empleetud')}}">Emplois</a></li>
+                             </ul>
+                         </li>
 
                          <li class="nav-item submenu dropdown ">
                              <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Result</a>
@@ -40,6 +42,14 @@
                                  <li class="nav-item"><a class="nav-link" href="{{ path('note_affiche_etudiant')}}">Grades</a></li>
 
                                  <li class="nav-item"><a class="nav-link" href="{{ path('resultat_affiche') }}">Result</a></li>
+                             </ul>
+                         </li>
+                         <li class="nav-item submenu dropdown ">
+                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Courses</a>
+                             <ul class="dropdown-menu">
+                                 <li class="nav-item"><a class="nav-link" href="{{ path('Matier_affich')}}">Courses</a></li>
+
+
                              </ul>
                          </li>
                          <li class="nav-item submenu dropdown ">
@@ -54,17 +64,13 @@
                              <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Books</a>
                              <ul class="dropdown-menu">
                                  <li class="nav-item"><a class="nav-link" href="{{ path('books_index')}}">Display</a></li>
+                                 <li class="nav-item"><a class="nav-link" href="{{ path('reservationbook_index')}}">My Books</a></li>
+                                 <li class="nav-item"><a class="nav-link" href="{{ path('wishliste_index')}}">Wishliste</a></li>
 
 
                              </ul>
                          </li>
-                         <li class="nav-item submenu dropdown">
-                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Demande Event</a>
-                             <ul class="dropdown-menu">
-                                 <li class="nav-item"><a class="nav-link" href="{{ path('demandeevenement_new') }}">Request Events</a></li>
-                                 <li class="nav-item"><a class="nav-link"  href="single-blog.html">Blog Details</a></li>
-                             </ul>
-                         </li>
+
                          <li class="nav-item submenu dropdown">
                              <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Forum</a>
                              <ul class="dropdown-menu">
@@ -73,9 +79,9 @@
                              </ul>
                          </li>
 
-                         <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+
                      </ul>
-                     <a  href="{{ path('fos_user_security_logout') }}" class="btn btn-success"  style="margin-left: +5%;size: -5px">
+                     <a  href="{{ path('fos_user_security_logout') }}" class="btn btn-success"  style="margin-left: +5%;size: -5px;background-color: rgb(0,58,186)">
                          <span  class="glyphicon glyphicon-log-out" ></span> Log out
                      </a>
                  </div>

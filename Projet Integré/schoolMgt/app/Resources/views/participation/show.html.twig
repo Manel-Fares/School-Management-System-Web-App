@@ -1,8 +1,29 @@
-{% extends 'base.html.twig' %}
+{% extends 'interfaceEtudiant.html.twig' %}
 
 {% block body %}
-    <div class="container">
-        <div class="card bg-light mb-3" >
+    <section class="banner_area">
+        <div class="banner_inner d-flex align-items-center">
+            <div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background="" style="transform: translateY(-147.365px);"></div>
+            <div class="container">
+                <div class="banner_content text-center">
+                    <h2>Elements</h2>
+                    <div class="page_link">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>     <div  style="float: right ;border-left:solid ;margin-top: +20%;margin-right: +5% ">
+    {% if test is empty %}
+        <div id="xaxa"><input  onclick="valide({{ evenement.idevenement}}),tt({{ evenement.idevenement}})" type="button" class="genric-btn info circle" id="desc" value="Join" ></div>
+
+    {% else %}
+        <div id="xaxa"><input  onclick="valide({{ evenement.idevenement}}),tt({{ evenement.idevenement}})" type="button" class="genric-btn info circle" id="desc" value="Leave" ></div>
+    {% endif %}
+</div>
+
+
+
             <div class="card-body">
                 <h5 class="card-title"></h5>
                 <div class="row" style="margin-top: +1%">
@@ -12,10 +33,9 @@
 
                         <div class="product-slider">
                             <div class="card-body">
-                                <img src="{{ asset('images/'~evenement.image)}} " style="height: 100%;width: 100%" >
+                                <img src="{{ asset('images/'~evenement.image)}} " style="height: 300px;width: 400px;margin-right: +10%    " >
 
                             </div>
-
 
                         </div>
 
@@ -23,37 +43,26 @@
 
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pl-xl-0 pl-lg-0 pl-md-0 border-left m-b-30" >
 
-                        <div class="product-details" style="height: 455px">
-                            <div class="border-bottom pb-3 mb-3" style="margin-top: +50%;margin-left: +10px">
+                        <div class="product-details" style="height: 558px ;padding-top: +25%">
+                            <div class="border-bottom pb-3 mb-3" >
 
                                 <a href="{{ path('club_rate', { 'idclub': evenement.idclub }) }}">
-                                <h1>Organiser par: {{ evenement.idclub.nomclub }}</h1></a>
+                                    <h1>Organised by: {{ evenement.idclub.nomclub }}</h1></a>
                                 <h1 style="color: #1e7e34"><i class="fa fa-calendar" aria-hidden="true"></i>
-                                    Date Debut : {% if evenement.datedebut %}{{ evenement.datedebut|date('Y-m-d') }}{% endif %}</h1>
+                                    Start date : {% if evenement.datedebut %}{{ evenement.datedebut|date('Y-m-d') }}{% endif %}</h1>
                                 <h1 style="color: #a00000"><i class="fa fa-calendar" aria-hidden="true"></i>
-                                    Date Fin : {% if evenement.datefin %}{{ evenement.datefin|date('Y-m-d') }}{% endif %}</h1>
-                                <h1><i class="fa fa-group" aria-hidden="true"></i>nombre Participants: {{ ev.x }}</h1>
-                                <form method="POST">
-                                    <input type="submit" value="Participer" class="genric-btn info circle">
-                                </form>
-
-
-
-
-
+                                    End date: {% if evenement.datefin %}{{ evenement.datefin|date('Y-m-d') }}{% endif %}</h1>
+                                <h1><i class="fa fa-group" aria-hidden="true"></i>numbre of Participants: <div id="nbr">{{ ev.x }}</div></h1>
                                 <ul>
-                                <li>
-                                    <a href="{{ path('club_show_image') }}">Back to the list</a>
-                                </li>
+                                    <li>
+                                        <a href="{{ path('club_show_image') }}">Back to the list</a>
+                                    </li>
 
 
 
 
-                            </ul>
-
-                        </div>
-
-                    </div>
+                                </ul>
+                            </div></div></div></div></div></div>
 
 
 
@@ -61,7 +70,54 @@
 
 
 
-                </div>
-            </div>
-            </div></div></div>
+    </div>
+
+
+    <script>
+        function valide(x){
+
+            var r=document.getElementById('desc').value;
+            if(r=="Join")
+
+                t="Leave";
+            else
+            {
+                t="Join";
+            }
+            let urll = "{{ (path('participation_new', {'idevenement': 'ReplaceMeWithCorrectValue'})) }}";
+            urll = urll.replace("ReplaceMeWithCorrectValue", x);
+            $.ajax({
+                type:"GET",
+                url:urll,
+                data:{'titre':t},
+                success:function (data) {
+                    $("#nbr").html(data).show();
+                }
+            });
+
+        }
+        function tt(x){
+
+            var r=document.getElementById('desc').value;
+            if(r=="Join")
+
+                t="Leave";
+            else
+            {
+                t="Join";
+            }
+            let urll = "{{ (path('joinleave', {'idevenement': 'ReplaceMeWithCorrectValue'})) }}";
+            urll = urll.replace("ReplaceMeWithCorrectValue", x);
+            $.ajax({
+                type:"GET",
+                url:urll,
+                data:{'titre':t},
+                success:function (data) {
+                    $("#xaxa").html(data).show();
+                    console.log(data) }
+            });
+        }
+
+
+    </script>
 {% endblock  %}

@@ -41,8 +41,9 @@ class AppKernel extends Kernel
             new JMS\TranslationBundle\JMSTranslationBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new KleeGroup\GoogleReCaptchaBundle\GoogleReCaptchaBundle(),
-
-
+            new DocDocDoc\NexmoBundle\DocDocDocNexmoBundle(),
+            new EWZ\Bundle\RecaptchaBundle\EWZRecaptchaBundle(),
+            new SubjectsBundle\SubjectsBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

@@ -13,48 +13,45 @@
         </li>
     </ul>
     #}
-    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+    <div class="container-fluid  dashboard-content">
+    <!-- ============================================================== -->
+    <!-- pageheader -->
+    <!-- ============================================================== -->
+
+    <div class="row">
         <div class="card">
-            <h5 class="card-header">Books</h5>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-striped table-bordered first" id="myTable">
-                        <thead>
+    <table class="table table-striped table-responsive-md btn-table">
 
-                        <tr>
-                            <th>Titre Book</th>
-                            <th>Description</th>
-                            <th>Status</th>
-                            <th>Categorie</th>
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Descr</th>
+            <th>Status</th>
+            <th>Categ</th>
 
-                        </tr>
-                        </thead>
+            <th>Action</th>
+        </tr>
+        </thead>
+        {% for key,book in books  %}
+            <tbody>
+            <tr>
+                <th scope="row">{{ key+1 }}</th>
+                <td>{{ book.titrebook }}</td>
+                <td>{{ book.descriptionbook }}</td>
+                <td>{{ book.etatbook }}</td>
+                <td>{{ book.categoriebook }}</td>
+                <td><a href="{{ path('books_edit', { 'idbook': book.idbook }) }}">   <button type="button" class="btn btn-success" >UPDATE</button></a></td>
 
-                        <tbody>
-                        {% for book in books  %}
-                        <tr>
+            </tr>
+            </tbody>
 
-                            <td><a href="{{ path('books_edit', { 'idbook': book.idbook }) }}">{{ book.titrebook }}</a></td>
-                            <td>{{ book.descriptionbook }}</td>
-                            <td>{{ book.etatbook }}</td>
-                            <td>{{ book.categoriebook }}</td>
+        {% endfor %}
+    </table>
 
-                        </tr>
-                        {% endfor %}
-                        </tbody>
-                        <tfoot>
-                        <tr>
-                            <th>Titre Book</th>
-                            <th>Description</th>
-                            <th>Status</th>
-                            <th>Categorie</th>
-
-                        </tr>
-
-                        </tfoot>
-                    </table>
-                </div>
-            </div>
-        </div>
     </div>
+    </div>
+    </div>
+
 {% endblock %}

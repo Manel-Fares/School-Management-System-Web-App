@@ -1,9 +1,9 @@
-{% extends 'interfaceAdministrateur.html.twig' %}
+{% extends 'interfacePersonnel.html.twig' %}
 {% block body %}
     <div class="container">
     <h1>Classe creation</h1>
 
-    {{ form_start(form) }}
+    {{ form_start(form,{'attr': {'novalidate':'novalidate'} }) }}
         {{ form_widget(form) }}
         <input type="submit" class="btn btn-outline-success" value="Create" />
     {{ form_end(form) }}

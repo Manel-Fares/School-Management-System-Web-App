@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'interfaceEtudiant.html.twig' %}
 
 {% block body %}
 
@@ -12,6 +12,7 @@
                     <th>Title & Discription</th>
                     <th>Starting On</th>
                     <th>Ending On</th>
+                    <th>%</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
@@ -34,7 +35,15 @@
                         {% if reservationbook.datef %}{{ reservationbook.datef|date('Y-m-d') }}{% endif %}
                     </td>
                     <td>
-                        <a href="{{ path('reservationbook_delete', { 'idreservation': reservationbook.idreservation }) }}" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                        {% if date(reservationbook.datef) < date() %}
+                            <h1 style="color: #a00000">  End</h1>
+
+                            {% else %}
+                                <h4 style="color: #985f0d">  Pending</h4>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{{ path('reservationbook_delete', { 'idreservation': reservationbook.idreservation }) }}" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a>
                     </td>
                 </tr>
 

@@ -1,0 +1,72 @@
+{% extends  'interfaceEtudiant.html.twig' %}
+
+{% block body %}
+    <section class="banner_area">
+        <div class="banner_inner d-flex align-items-center">
+            <div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background="" style="transform: translateY(-147.365px);"></div>
+            <div class="container">
+                <div class="banner_content text-center">
+                    <h2>Your Demand </h2>
+                    <div class="page_link">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="container" >
+        <div id="tmpmodal"></div>
+        <div  style="float: right ;border-left:solid;margin-left: 1% ">
+
+            <h3 style="margin-left: +2%">**Demande Event**</h3>
+            <a class="nav-link" href="{{ path('demandeevenement_new') }}"><i class="fa fa-plus-circle" style="font-size:20px"></i>Add new Demane Events</a>
+        </div>
+        <div class="card" style="margin-top: +5%; width: 850px">
+
+            <center><h3 class="card-header">list Demande</h3></center>
+            <div class="card-body">
+
+                <table class="table">
+                    <thead>
+                    <tr>
+
+                        <th>Description</th>
+                        <th>Datedebut</th>
+                        <th>Datefin</th>
+                        <th>Etat</th>
+
+                        <th>Budget</th>
+                        <th>Image</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for demandeevenement in demandeevenements %}
+                        <tr>
+                            <td>{{ demandeevenement.description }}</td>
+                            <td>{% if demandeevenement.datedebut %}{{ demandeevenement.datedebut|date('Y-m-d') }}{% endif %}</td>
+                            <td>{% if demandeevenement.datefin %}{{ demandeevenement.datefin|date('Y-m-d') }}{% endif %}</td>
+                            {% if demandeevenement.etat=='valider' %}
+                                <td style="color: #1c7430">{{ demandeevenement.etat }}</td>
+
+                            {% else %}
+                                <td style="color: #a00000">{{ demandeevenement.etat }}</td>
+                            {% endif %}
+
+                            <td>{{ demandeevenement.budget }}</td>
+                            <td><img src="{{ asset('images/'~demandeevenement.image)}}"height="100px" width="200px"></td>
+                            <td>
+                                <ul>
+                                    <li>
+
+                                        <a href="{{ path('detail2', { 'iddemandeevenement': demandeevenement.iddemandeevenement }) }}" >show</a>
+                                    </li>
+
+                                </ul>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div></div></div>
+{% endblock %}

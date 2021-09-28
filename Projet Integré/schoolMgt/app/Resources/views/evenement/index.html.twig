@@ -1,5 +1,15 @@
 {% extends 'interfacePersonnel.html.twig' %}
+{% block notification %}
+    {% for notification in notifications %}
+        <li>
+            <p>{{ notification.description }} {{ notification.getDate()|date('Y-m-d') }}</p>
+        </li>
 
+    {% endfor %}
+<li>
+    <div class="list-footer"> <a href="{{ path('demandeevenement_index') }}">View all notifications</a></div>
+</li>
+{% endblock %}
 {% block body %}
 <div class="container" >
     <div id="tmpmodal"></div>
@@ -67,6 +77,8 @@
     </ul>
         </div></div>
 </div>
+    <div class="text-center">{{ knp_pagination_render(evenements) }}</div>
+
     <script>
         function print(x) {
             let url = "{{ (path('evenement_show', {'idevenement': 'ReplaceMeWithCorrectValue'})) }}";

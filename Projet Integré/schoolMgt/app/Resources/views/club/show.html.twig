@@ -1,3 +1,5 @@
+
+
 {% extends  'interfacePersonnel.html.twig' %}
 
 {% block body %}
@@ -19,7 +21,8 @@
                         </div>
                     </div>
                     <div class="carousel-inner">
-                        <h5 class="text-muted">Stat</h5>
+                        <h5 class="text-muted">
+                            Statistics</h5>
                         <div class="progress" style="width: 100%;height: 15%">
                             {% for club in clubs %}
                             {% for ev in evenements %}
@@ -36,14 +39,14 @@
                         <div class="col-6 border-right">
                             {% for club in clubs %}
                             {% for ev in evenements %}
-                            <div class="h4 font-weight-bold mb-0">{{(club.x/ev.nbr)|number_format(2,'.')*100}}%</div><span class="small text-gray"> Orgaiser Evenements </span>
+                            <div class="h4 font-weight-bold mb-0">{{(club.x/ev.nbr)|number_format(2,'.')*100}}%</div><span class="small text-gray"> This % Event </span>
                                 {% endfor %}
                             {% endfor %}
                         </div>
                         <div class="col-6">
                             {% for club in clubs %}
                             {% for ev in evenements %}
-                            <div class="h4 font-weight-bold mb-0">{{100-((club.x/ev.nbr)|number_format(2,'.')*100)}}%</div><span class="small text-gray">Les autres club </span>
+                            <div class="h4 font-weight-bold mb-0">{{100-((club.x/ev.nbr)|number_format(2,'.')*100)}}%</div><span class="small text-gray">Other club </span>
                             {% endfor %}
                             {% endfor %}
                         </div>
@@ -58,21 +61,22 @@
                     <div class="border-bottom pb-3 mb-3">
                         <h1>Club Info</h1></div>
                     <h1>Id Club : {{ club.getIdclub }}</h1>
-                    <h1>Nom Club : {{ club.getNomclub() }}</h1>
-                    <h1>Id Responsable : {{club.getIdresponsable() }}</h1>
+                    <h1> Club Name: {{ club.getNomclub() }}</h1>
+                    <h1>Responsable : {{club.getIdresponsable() }}</h1>
                     <h1>Domaine :{{ club.getDomaine() }}</h1>
 
                     <ul>
                         <li>
                             <a href="{{ path('club_index') }}">Back to the list</a>
                         </li>
+                        {% if club.getIdclub ==1 %}
                         <li>
                             <a href="{{ path('club_edit', { 'idclub': club.idclub }) }}">Edit</a>
                         </li>
-
+                        {% endif %}
 
                             {{ form_start(delete_form) }}
-                            <input type="submit" value="Delete">
+                            <input type="submit" value="Delete" class="btn circle btn-danger">
                             {{ form_end(delete_form) }}
 
                     </ul>

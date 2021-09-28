@@ -28,8 +28,8 @@
 
                         <div class="product-details">
 
-                            <h3>Id Evenement : {{ evenement.idevenement }}</h3>
-                            <h3>Id Club{{ evenement.idclub }}</h3>
+
+                            <h3>Club: {{ evenement.idclub.nomclub }}</h3>
                             <h3 style="color: #00ab6c">Date Debut : {% if evenement.datedebut %}{{ evenement.datedebut|date('Y-m-d') }}{% endif %}</h3>
                             <h3 style="color: #721c24">Date Fin : {% if evenement.datefin %}{{ evenement.datefin|date('Y-m-d') }}{% endif %}</h3>
 

@@ -1,10 +1,23 @@
-{% extends 'base.html.twig' %}
+{% extends 'interfaceEtudiant.html.twig' %}
 
 {% block body %}
+    <section class="banner_area">
+        <div class="banner_inner d-flex align-items-center">
+            <div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background="" style="transform: translateY(-147.365px);"></div>
+            <div class="container">
+                <div class="banner_content text-center">
+                    <h2>Elements</h2>
+                    <div class="page_link">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     <div class="container" style="margin-top: +10%">
         <div id="tmpmodal"></div>
 
-        <div class="card">
+        <div class="card" style="width: 1100px">
 
             <h5 class="card-header">Evenements list</h5>
 
@@ -14,34 +27,32 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th >Idevenement</th>
-                        <th >Datedebut</th>
-                        <th >Datefin</th>
-                        <th >Idclub</th>
+                        <th></th>
+                        <th >Club</th>
+                        <th >Start date </th>
+                        <th >End Date </th>
+
                         <th >Image</th>
-                        <th >nombre Participants</th>
+                        <th >numbre Participants</th>
                         <th >Actions</th>
                     </tr>
                     </thead>
-                    <tbody class="table-primary">
+                    <tbody  >
                     <tr >
 
                         {% for evenement in evenements %}
                         <th >
-                        <td ><a href="{{ path('evenement_show', { 'idevenement': evenement.idevenement }) }}">{{ evenement.idevenement }}</a></td>
+                        <td ><a href="{{ path('evenement_show', { 'idevenement': evenement.idevenement }) }}"><img src="{{ asset('images/' ~ evenement.img ) }}" height="100px" width="250px"></a></td>
                         <td>{% if evenement.datedebut %}{{ evenement.datedebut|date('Y-m-d') }}{% endif %}</td>
                         <td>{% if evenement.datefin %}{{ evenement.datefin|date('Y-m-d') }}{% endif %}</td>
                             <td><img src="{{ asset('images/' ~ evenement.image) }}" height="100px" width="250px"></td>
 <td>{{  evenement.x}}</td>
                         <td>
-                            <ul>
-                                <li>
-                                    <button data-toggle="modal" data-target="#exampleModalCenter"  onclick="print({{ evenement.idevenement }})">Detail</button>
-                                </li>
-                                <li>
-                                    <a href="{{ path('evenement_edit', { 'idevenement': evenement.idevenement }) }}">edit</a>
-                                </li>
-                            </ul>
+
+                                    <a data-toggle="modal" data-target="#exampleModalCenter"  style="background-color: transparent" onclick="print({{ evenement.idevenement }})"> <i class="fa fa-reorder" style="font-size:24px ;color: #002a80"></i>
+                                        </a>
+
+                                    <a href="{{ path('evenement_edit', { 'idevenement': evenement.idevenement }) }}"><i class="fa fa-gears" style="font-size:24px"></i></a>
                         </td>
                         </th>
                     </tr>
@@ -49,12 +60,9 @@
                     </tbody>
                 </table>
 
-                <ul>
-                    <li>
-                        <a href="{{ path('evenement_new') }}">Create a new evenement</a>
-                    </li>
-                </ul>
-            </div></div>
+
+            </div>
+        </div>
     </div>
     <script>
         function print(x) {

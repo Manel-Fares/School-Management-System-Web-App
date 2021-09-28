@@ -1,51 +1,83 @@
 {% extends  'interfacePersonnel.html.twig' %}
 {% block body  %}
-    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-        <div class="card">
-            <h5 class="card-header">Reclamation</h5>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-striped table-bordered first" id="myTable">
-                        <thead>
+    <div class="container-fluid  dashboard-content">
+    <!-- ============================================================== -->
+    <!-- pageheader -->
+    <!-- ============================================================== -->
 
-                        <tr>
-                            <th>Type Reclamation</th>
-                            <th>Description</th>
-                            <th>Status</th>
-                            <th>Etudiant</th>
-                            <th>Email Etudiant</th>
+    <div class="row">
+    <div class="card">
+    <table class="table table-striped table-responsive-md btn-table">
 
-                        </tr>
-                        </thead>
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Student's Name</th>
+            <th>Mail</th>
+            <th>Reclam</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        {% for key,reclamation in reclamations  %}
+        <tbody>
+        <tr>
+            <th scope="row">{{ key+1 }}</th>
+            <td>{{ reclamation.idetd.username }}</td>
+            <td>{{ reclamation.idetd.email}}</td>
+            <td>{{ reclamation.sujetreclamation }}</td>
+            <td> {{ reclamation.descriptionreclamation }}</td>
+            {% if reclamation.statutreclamation is same as ("Traité") %}
+            <td>
+                <button type="button" class="btn btn-success" >{{ reclamation.statutreclamation }}</button>
+            </td>
+             {% else %}
+            <td>
+                <button type="button" class="btn btn-warning"  data-toggle="modal" data-target="#exampleModal{{ reclamation.idreclamation }}" >{{ reclamation.statutreclamation }}</button>
+            </td>
+                 {% endif %}
+            <td>
+               <a
+                <a href="{{ path('reclamation_deleteback', { 'idreclamation': reclamation.idreclamation }) }}"> <div class="btn btn-danger"><i class="fas fa-trash-alt"></i></div></a>
+            </td>
+        </tr>
+        </tbody>
 
-                        <tbody>
-                        {% for reclamation in reclamations  %}
-                            <tr>
 
-                                <td>{{ reclamation.sujetreclamation }}</td>
-                                <td>  {{ reclamation.descriptionreclamation }} </td>
-                                <td>   <a href="{{ path('reclamation_backedit', { 'idreclamation': reclamation.idreclamation }) }}">{{ reclamation.statutreclamation }}</a></td>
-                                <td> {{ reclamation.idetd.username }}</td>
-                                <td> {{ reclamation.idetd.email }}</td>
+            <div class="modal fade" id="exampleModal{{ reclamation.idreclamation }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{ path('reclamation_backedit', { 'idreclamation': reclamation.idreclamation ,'idetd': reclamation.idetd}) }}" method="post">
+                                <div class="form-group">
+                                    <label for="recipient-name"  class="col-form-label">Recipient:</label>
+                                    <input type="text" class="form-control"  name="sujet" placeholder="Subj..." id="recipient-name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="message-text" class="col-form-label">Message:</label>
+                                    <textarea class="form-control" name="msg" placeholder="Your Mesg..." id="message-text"></textarea>
+                                </div>
 
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Send message</button>
+                        </div>
+                        </form>
+                        </div>
 
-                            </tr>
-                        {% endfor %}
-                        </tbody>
-                        <tfoot>
-                        <tr>
-                            <th>Titre Book</th>
-                            <th>Description</th>
-                            <th>Status</th>
-                            <th>Etudiant</th>
-                            <th>Email Etudiant</th>
-
-                        </tr>
-
-                        </tfoot>
-                    </table>
+                    </div>
                 </div>
             </div>
-        </div>
+        {% endfor %}
+    </table>
+    </div>
+    </div>
     </div>
 {% endblock %}

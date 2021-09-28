@@ -2,7 +2,7 @@
 {% block body %}
 
     <!--================Home Banner Area =================-->
-    <section class="home_banner_area blog_banner">
+   <!-- <section class="home_banner_area blog_banner">
         <div class="banner_inner d-flex align-items-center">
             <div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background=""></div>
             <div class="container">
@@ -13,108 +13,183 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section>-->
 
     <!--================End Home Banner Area =================-->
+
     <div class="blog-wrap">
         <div class="container">
+
             <div class="row">
                 <div class="col-md-9 blog-left">
+
+                    <div  id="resultats">
                     <ul class="bolg-post-list">
-
                         {% for book in books  %}
-                        <li>
-                            <article class="blog-post">
-                                <div class="featured-post">
-                                    <a href="{{ path('books_show', { 'idbook': book.idbook }) }}">
-                                        <img src="{{ asset('images/') }}{{ book.picbook }}" alt="" >
-                                    </a>
-                                </div>
+                            <li>
+                                <article class="blog-post" >
+                                    <div class="featured-post">
+                                        <a href="{{ path('books_show', { 'idbook': book.idbook }) }}">
+                                            <img src="{{ asset('images/') }}{{ book.picbook }}" alt="" style="width: 400px; height: 200px" >
+                                        </a>
+                                    </div>
 
-                                <div class="divider25"></div>
-                                <div class="content">
-                                    <h3 class="title">
-                                        <a href="#">{{ book.titrebook }}</a>
-                                    </h3>
-                                    <ul class="meta-post">
+                                    <div class="divider25"></div>
+                                    <div class="content">
 
-                                        <li class="comment">
+                                        <ul class="meta-post">
 
-                                            {% set con = false %}
-                                            {% set id = 0 %}
-                                            {% set break = false %}
-                                            {% for Like in Likes if not break %}
+                                            <li class="comment">
 
-                                                {% if  (book.idbook == Like.idbook.idbook) %}
-                                                    {% set break = true %}
-                                                    {% set id = Like.idLike %}
-                                                    {% set con = true %}
+                                                {% set con = false %}
+                                                {% set id = 0 %}
+                                                {% set break = false %}
+                                                {% for Like in Likes if not break %}
 
-                                                {% endif %}
-                                            {% endfor %}
-                                            {% if con %}
-                                            <a href="{{ path('likes_delete', { 'idlike': id }) }}">
+                                                    {% if  (book.idbook == Like.idbook.idbook) %}
+                                                        {% set break = true %}
+                                                        {% set id = Like.idLike %}
+                                                        {% set con = true %}
 
-                                                {{ book.nbrLike }}
-                                                Likes
-                                                <i class="fas fa-heart"></i></a>
+                                                    {% endif %}
+                                                {% endfor %}
+                                                {% if con %}
+                                                    <a href="{{ path('likes_delete', { 'idlike': id }) }}">
+                                                        <svg class="bi bi-heart-fill" width="2em" height="2em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" color="#D84242">
+                                                            <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" clip-rule="evenodd"/>
+                                                        </svg></a>
                                                 {% else %}
                                                     <a href="{{ path('likes_add', { 'idbook': book.idbook }) }}">
-
-                                                        {{ book.nbrLike }}
-                                            Likes
-                                                    <i class="far fa-heart"></i></a>
-
-                                            {% endif %}
-                                            <a href="{{ path('books_show', { 'idbook': book.idbook }) }}">
-                                                2 Comments
-                                                <i class="far fa-comment"></i>
-                                            </a>
-
-                                        </li>
-                                        <li class="date">
-                                            <a href="#">
-                                                February 20, 2017
-                                            </a>
-                                        </li>
-
-
-                                    </ul>
-
-                                    <div class="entry-post">
-                                        <p>{{ book.descriptionbook }}</p>
-                                        <div class="more-link">
-                                            {% if book.etatbook =='Disponible' %}
-                                            <a href="{{ path('reservationbook_add', { 'idbook': book.idbook }) }}" class="read-more-btn">Reservé</a>
-                                                {% else %}
-                                                    <a  class="read-more-btn" disabled="disabled">Non Disponible</a>
-                                            {% endif %}
-                                            {% set id = 0 %}
-                                            {% set con = false %}
-                                            {% set break = false %}
-                                              {% for wish in wishliste if not break %}
-
-                                            {% if  (book.idbook == wish.idbook.idbook) %}
-                                                {% set break = true %}
-                                                {% set con = true %}
-                                                {% set id = wish.idlist %}
-                                            {% endif %}
-                                            {% endfor %}
-                                            {% if con %}
-                                            <a href="{{ path('wishliste_delete', { 'idbook': id}) }}" class="read-more-btn">remove Wishliste</a>
-                                            {% else %}
-                                                <a href="{{ path('wishliste_add', { 'idbook': book.idbook }) }}" class="read-more-btn">add Wishliste</a>
+                                                        <svg class="bi bi-heart" width="2em" height="2em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg"  >
+                                                            <path fill-rule="evenodd" d="M8 2.748l-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 01.176-.17C12.72-3.042 23.333 4.867 8 15z" clip-rule="evenodd"/>
+                                                        </svg>
+                                                    </a>
                                                 {% endif %}
 
-                                        </div>
 
+                                            </li>
+                                            <li class="date">
+                                                <a href="{{ path('books_show', { 'idbook': book.idbook }) }}">
+                                                    {# Likes#}
+                                                    <svg class="bi bi-chat" width="2em" height="2em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd" d="M2.678 11.894a1 1 0 01.287.801 10.97 10.97 0 01-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 01.71-.074A8.06 8.06 0 008 14c3.996 0 7-2.807 7-6 0-3.192-3.004-6-7-6S1 4.808 1 8c0 1.468.617 2.83 1.678 3.894zm-.493 3.905a21.682 21.682 0 01-.713.129c-.2.032-.352-.176-.273-.362a9.68 9.68 0 00.244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9.06 9.06 0 01-2.347-.306c-.52.263-1.639.742-3.468 1.105z" clip-rule="evenodd"/>
+                                                    </svg>
+                                                </a>
+                                            </li>
+                                            <li class="date">
+                                                <a href="#">
+                                                    {# Likes#}
+                                                    {% set id = 0 %}
+                                                    {% set con = false %}
+                                                    {% set break = false %}
+                                                    {% for wish in wishliste if not break %}
+
+                                                        {% if  (book.idbook == wish.idbook.idbook) %}
+                                                            {% set break = true %}
+                                                            {% set con = true %}
+                                                            {% set id = wish.idlist %}
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                    {% if con %}
+                                                        <a href="{{ path('wishliste_delete', { 'idbook': id}) }}"><svg class="bi bi-bookmark-fill" width="2em" height="2em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" color="#4A4441">
+                                                                <path fill-rule="evenodd" d="M3 3a2 2 0 012-2h6a2 2 0 012 2v12l-5-3-5 3V3z" clip-rule="evenodd"/>
+                                                            </svg></a>
+                                                    {% else %}
+                                                        <a href="{{ path('wishliste_add', { 'idbook': book.idbook }) }}">  <svg class="bi bi-bookmark" width="2em" height="2em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                                <path fill-rule="evenodd" d="M8 12l5 3V3a2 2 0 00-2-2H5a2 2 0 00-2 2v12l5-3zm-4 1.234l4-2.4 4 2.4V3a1 1 0 00-1-1H5a1 1 0 00-1 1v10.234z" clip-rule="evenodd"/>
+                                                            </svg></a>
+                                                    {% endif %}
+                                                </a>
+                                            </li>
+
+
+                                        </ul>
+                                        <ul class="meta-post">
+
+
+                                            <div class="likes-bar">
+                                                {% set b = false %}
+                                                {% for llkk in LikesByUser if not b %}
+                                                {% if (llkk.idbook.idbook == book.idbook) %}
+                                                <p><a href="#" ><img src="{{ asset(llkk.idetd.picuser) }}" alt="" style=" overflow:hidden;
+    -webkit-border-radius:50px;
+    -moz-border-radius:50px;
+    border-radius:50px;
+    width:30px;
+    height:30px;">Brynn</a> and
+                                                    {% set b = true %}
+
+                                                    {% endif %}
+                                                    {% endfor %}
+                                                    <a href="#" data-toggle="modal" data-target="#exampleModal{{ book.idbook }}">{{ book.nbrLike }} Students</a> like this</p>
+                                                <div class="modal fade" id="exampleModal{{ book.idbook }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                {% for llkk in LikesByUser %}
+                                                                    {% if (llkk.idbook.idbook == book.idbook) %}
+
+                                                                    <img src="{{ asset(llkk.idetd.picuser) }}" alt="" style=" overflow:hidden;
+    -webkit-border-radius:50px;
+    -moz-border-radius:50px;
+    border-radius:50px;
+    width:30px;
+    height:30px;"> {{ llkk.idetd.username }} <br>
+
+                                                                    {% endif %}
+                                                                  {% endfor %}
+
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <!-- Button trigger modal -->
+
+
+                                            <!-- Modal -->
+
+
+                                            <li><a href="#">1.2M Views<i class="lnr lnr-eye"></i></a></li>
+                                            <li><a href="#">06 Comments<i class="lnr lnr-bubble"></i></a></li>
+                                        </ul>
+                                        <h3 class="title" style="color: black">
+
+                                            {{ book.titrebook }}
+                                        </h3>
+                                        <div class="entry-post">
+                                            <p>{{ book.descriptionbook }}</p>
+                                            <div class="more-link">
+                                                {% if book.etatbook =='Disponible' %}
+                                                    <a href="{{ path('reservationbook_add', { 'idbook': book.idbook }) }}" class="read-more-btn" >add To My Books</a>
+                                                {% else %}
+                                                    <a  class="read-more-btn" disabled="disabled" >Non Disponible</a>
+                                                {% endif %}
+
+
+                                            </div>
+
+                                        </div>
                                     </div>
-                                </div>
-                            </article>
-                        </li>
+                                </article>
+                            </li>
                         {% endfor %}
                     </ul>
-                    <div class="blog-pagination">
+                </div>
+
+
+                 <!--   <div class="blog-pagination">
                         <ul class="">
                             <li class="prev">
                                 <a href="#">
@@ -139,12 +214,18 @@
                                 </a>
                             </li>
                         </ul>
+                    </div>-->
+                    <div class="navigation">
+                        {{ knp_pagination_render(books) }}
                     </div>
                 </div>
                 <div class="col-md-3 sidebar">
                     <div class="widget widget-search">
                         <form action="#" method="get" accept-charset="utf-8">
-                            <input type="text" name="widget-search" placeholder="Search">
+
+                            <input  class="form-control form-control-sm mr-3 w-75"  aria-label="Search" type="text" placeholder="Search" name="search" id="re" onkeyup="searchh()" style="border-color:#003f81">
+
+
                         </form>
                     </div>
                     <div class="widget widget-categories">
@@ -153,9 +234,9 @@
                         </div>
                         <ul class="cat-list">
                             {% for book in categorie %}
-                            <li>
-                                <a href="{{ path('books_filtrage', { 'categoriebook': book.categoriebook }) }}"><i class="fas fa-chevron-right"></i> {{ book.categoriebook }}<span>(03)</span></a>
-                            </li>
+                                <li>
+                                    <a href="{{ path('books_filtrage', { 'categoriebook': book.categoriebook }) }}"><i class="fas fa-chevron-right"></i> {{ book.categoriebook }}<span>(03)</span></a>
+                                </li>
                             {% endfor %}
                         </ul>
                     </div>
@@ -183,6 +264,44 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
+    <script>
+        function searchh(){
+
+            var r=$("#re").val();
+            var data='rr';
+
+
+                $.ajax({
+                    type:"GET",
+                    url:"{{ (path('booksSerach_index')) }}",
+                    data:{'titre':r},
+                    success:function (data) {
+                        $("#resultats").html(data).show();
+
+                    }
+                });
+
+
+        }
+        function valide(x){
+
+
+            let urll = "{{ (path('wish', {'idlist': 'ReplaceMeWithCorrectValue'})) }}";
+            urll = urll.replace("ReplaceMeWithCorrectValue", x);
+            $.ajax({
+                type:"GET",
+                url:urll,
+                data:{'titre':x},
+                success:function (data) {
+                    $("#wish").html(data).show();
+                    console.log(data);
+                }
+            });
+
+        }
+
+    </script>
 {% endblock %}

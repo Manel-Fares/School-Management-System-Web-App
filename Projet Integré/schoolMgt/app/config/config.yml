@@ -10,6 +10,7 @@ imports:
     - { resource: "@BooksBundle/Resources/config/services.yml" }
     - { resource: "@ForumBundle/Resources/config/services.yml" }
     - { resource: "@ClassBundle/Resources/config/services.yml" }
+    - { resource: "@SubjectsBundle/Resources/config/services.yml" }
 
 
 # Put parameters here that don't need to change on each machine where the app is deployed
@@ -92,11 +93,13 @@ fos_user:
   #  service:                               # this lines
    #     mailer: fos_user.mailer.twig_swift # this lines
     from_email:
-        address: "omar.jmai@esprit.tn"
-        sender_name: "omar jmai"
+        address: "school.contacte.service@gmail.com"
+        sender_name: "school Service"
     registration:
         form:
             type: UserBundle\Form\RegistrationFormType
+
+
 
 #KNP_Paginator
 
@@ -110,6 +113,10 @@ knp_snappy:
         enabled:    true
         binary:     /usr/local/bin/wkhtmltoimage #"\"C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltoimage.exe\"" for Windows users
         options:    []
+
+doc_doc_doc_nexmo:
+    api_key: 12d2fd01
+    api_secret: sVopO9PurQHuW7Nf
 
 knp_paginator:
     page_range: 5                       # number of links showed in the pagination menu (e.g: you have 10 pages, a page_range of 3, on the 5th page you'll see links to page 4, 5, 6)
@@ -192,6 +199,13 @@ fos_comment:
             view: IS_AUTHENTICATED_ANONYMOUSLY
             edit: ROLE_ADMIN
             delete: ROLE_ADMIN
+
+ewz_recaptcha:
+    public_key:  6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI
+    private_key: 6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe
+    # Not needed as "%kernel.default_locale%" is the default value for the locale key
+    locale_key:  %kernel.default_locale%
+    locale_from_request: true
 
 google_re_captcha:
     site_key: 6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI

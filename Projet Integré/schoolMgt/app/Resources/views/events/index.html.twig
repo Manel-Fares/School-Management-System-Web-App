@@ -1,0 +1,124 @@
+{% extends 'interfacePersonnel2.html.twig' %}
+{% block body %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+    <script>
+
+        $(document).ready(function() {
+            var calendar = $('#calendar').fullCalendar({
+                editable:true,
+                header:{
+                    left:'prev,next today',
+                    center:'title',
+                    right:'month,agendaWeek,agendaDay'
+                },
+
+                selectable:true,
+                selectHelper:true,
+                select: function(start, end, allDay)
+                {
+                    var title = prompt("Enter Event Title");
+                    if(title)
+                    {
+                        var start = $.fullCalendar.formatDate(start, "Y-MM-DD HH:mm:ss");
+                        var end = $.fullCalendar.formatDate(end, "Y-MM-DD HH:mm:ss");
+                        $.ajax({
+                            url:"{{ path('AddData') }}",
+                            type:"POST",
+                            data:{title:title, start:start, end:end},
+                            success:function(data)
+                            {
+                                $('#calendar').fullCalendar('rerenderEvents');
+                                alert("Added Successfully");
+                                location.reload();
+                            }
+                        })
+                    }
+                },
+                editable:true,
+                eventResize:function(event)
+                {
+                    var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
+                    var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
+                    var title = event.title;
+                    var id = event.id;
+                    $.ajax({
+                        url:"{{ path('UpdateData') }}",
+                        type:"POST",
+                        data:{title:title, start:start, end:end, id:id},
+                        success:function(data){
+                            $('#calendar').fullCalendar('rerenderEvents');
+                            alert('Event Update');
+                            location.reload();
+                        }
+                    })
+                },
+
+                eventDrop:function(event)
+                {
+                    var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
+                    var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
+                    var title = event.title;
+                    var id = event.id;
+                    $.ajax({
+                        url:"{{ path('UpdateData') }}",
+                        type:"POST",
+                        data:{title:title, start:start, end:end, id:id},
+                        success:function(data)
+                        {
+                            $('#calendar').fullCalendar('rerenderEvents');
+                            alert("Event Updated");
+                            location.reload();
+                        }
+                    });
+                },
+
+                eventClick:function(event)
+                {
+                    if(confirm("Are you sure you want to remove it?"))
+                    {
+                        var id = event.id;
+                        $.ajax({
+                            url:"{{ path('DeleteData') }}",
+                            type:"POST",
+                            data:{id:id},
+                            success:function(data)
+                            {
+                                $('#calendar').fullCalendar('rerenderEvents');
+                                alert("Event Removed");
+                                location.reload();
+                            }
+                        })
+                    }
+                },
+                events: [
+                    {% for events in events %}
+                    {
+                        id: '{{ events.id }}',
+                        title: '{{ events.title }}',
+                        start: '{{ events.startEvent|date('Y-m-d H:i:s') }}',
+                        end: '{{ events.endEvent|date('Y-m-d H:i:s') }}',
+                    },
+                    {% endfor %}
+                ],
+
+            });
+        });
+
+    </script>
+    <br />
+    <br />
+    <a href="{{ path('pdf') }}">Export Pdf</a>
+    <br />
+    <br />
+    <br />
+    <div class="container">
+        <div id="calendar" style="width: 900px;"></div>
+    </div>
+
+
+{% endblock %}
