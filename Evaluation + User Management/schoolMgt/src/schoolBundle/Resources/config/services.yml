@@ -1,4 +1,0 @@
-services:
-#    school.example:
-#        class: schoolBundle\Example
-#        arguments: ["@service_id", "plain_value", "%parameter%"]
