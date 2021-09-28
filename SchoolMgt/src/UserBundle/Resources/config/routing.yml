@@ -1,0 +1,138 @@
+
+afficher_user:
+    path:     /user/afficher
+    defaults: { _controller: UserBundle:User:afficher }
+
+
+profile:
+    path:     /user/profile
+    defaults: { _controller: UserBundle:User:profile }
+
+profile_edit:
+    path:     /edit
+    defaults: { _controller: UserBundle:User:profileEdit }
+
+
+forgot_password_sms:
+    path:     /forgotpasswordsms
+    defaults: { _controller: UserBundle:User:forgotpassword }
+
+all_users:
+    path:     /all
+    defaults: { _controller: UserBundle:Default:alluser}
+
+login_users:
+    path:     /login/{username}/{password}
+    defaults: { _controller: UserBundle:Default:login}
+
+
+password_users:
+    path:     /password/{username}
+    defaults: { _controller: UserBundle:Default:forgetPassword}
+
+delete_users:
+    path:     /delete/{username}
+    defaults: { _controller: UserBundle:Default:delete}
+
+note_users:
+    path:     /notesetudiant/{id}
+    defaults: { _controller: UserBundle:Default:noteEtudiant}
+
+getres_users:
+    path:     /getres
+    defaults: { _controller: UserBundle:Default:allResultat}
+
+calculres_users:
+    path:     /calculres
+    defaults: { _controller: UserBundle:Default:calculerRes}
+
+deleteres_users:
+    path:     /deleteres
+    defaults: { _controller: UserBundle:Default:deleteRes}
+
+stat_users:
+    path:     /statuser
+    defaults: { _controller: UserBundle:Default:statUser}
+
+list_class:
+    path:     /getclasse/{id}
+    defaults: { _controller: UserBundle:Default:listeClasses}
+
+note_enseig:
+    path:     /noteenseignant/{idM}/{idC}/{idE}
+    defaults: { _controller: UserBundle:Default:noteEnseigant}
+
+list_matiere:
+    path:     /getmatiere/{idE}/{idC}
+    defaults: { _controller: UserBundle:Default:listeMatieres}
+
+list_etudiant:
+    path:     /getEtud/{idC}
+    defaults: { _controller: UserBundle:Default:listeEtudiant}
+
+ajouter_note:
+    path:     /ajoutn/{ens}/{etd}/{m}/{cc}/{ds}/{exam}
+    defaults: { _controller: UserBundle:Default:addnote}
+
+
+modif_note:
+    path:     /modifn/{idetudiant}/{idmatiere}/{idenseignant}/{cc}/{ds}/{exam}
+    defaults: { _controller: UserBundle:Default:modifn}
+
+res_etudiant:
+    path:     /resetudiant/{id}
+    defaults: { _controller: UserBundle:Default:ResultatEtd}
+
+all_club:
+    path:     /club/all
+    defaults: { _controller: UserBundle:Default:allClub}
+
+
+all2:
+    path:     /club/al/{idclub}
+    defaults: { _controller: UserBundle:Default:all2 }
+add_rating:
+    path:     /club/add/{rating}/{idc}/{idu}
+    defaults: { _controller: UserBundle:Default:addRating }
+allEvent:
+    path:     /event/all
+
+    defaults: { _controller:UserBundle:Default:all }
+allEventDetaille:
+    path:     /event/alldetail/{idevenement}
+    defaults: { _controller: UserBundle:Default:AllDetaille }
+addParticipation:
+    path:     /event/add/{ide}/{idu}
+    defaults: { _controller: UserBundle:Default:addParticipation }
+recuperer:
+    path:     /club/recuperer/{x}
+    defaults: { _controller: UserBundle:Default:recupererClubSpecifique }
+demande:
+    path:     /demande/add/{desc}/{dd}/{df}/{b}/{idc}/{pic}
+    defaults: { _controller: UserBundle:Default:demandeEvent }
+consulte:
+    path:     /demande/cons/{idu}
+    defaults: { _controller: UserBundle:Default:Demandespecifique }
+deletedemande:
+    path:     /demande/delete/{id}
+    defaults: { _controller: UserBundle:Default:deleteMobile }
+nbrPartEvent:
+    path:     /event/nbrPartEvent/
+    defaults: { _controller: UserBundle:Default:PartEvent }
+test:
+    path:     /event/test/{idu}/{ide}
+    defaults: { _controller: UserBundle:Default:Test }
+testResp:
+    path:     /c/{idu}
+    defaults: { _controller: UserBundle:Default:ClubResponsabletest}
+clubResp:
+    path:     /club/clubresp/{idu}
+    defaults: { _controller: UserBundle:Default:ClubResponsable}
+editclub:
+    path:     /club/clubedit/{idclb}/{img}/{d}
+    defaults: { _controller: UserBundle:Default:ClubEdit}
+Eventclb:
+    path:     /eventcl/{idu}
+    defaults: { _controller: UserBundle:Default:afficherEvenementClub}
+
+

@@ -1,0 +1,38 @@
+{% extends 'interfaceEnseignant.html.twig' %}
+{% block title %}Edit{% endblock %}
+
+{% block body%}
+
+    <div class="container-fluid dashboard-content">
+        <div class="row">
+
+            <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 col-12">
+                <div class="card">
+                    <div class="card-body">
+
+                        <div class="text-center">
+                            <h2 class="font-24 mb-0"> Update Profile  </h2>
+                        </div>
+                    </div>
+                    <div class="card-body border-top">
+
+
+                        {{ form_start(form) }}
+
+                        {{ form_widget(form) }}
+
+                        {{ form_end(form) }}
+
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'interfaceEtudiant.html.twig' %}
+{% block title %}Edit{% endblock %}
+{% block body %}
+<section class="profile_area" style="background-color: rgba(210,203,249,0.36)" >
+
+<br><br>
+    <div class="container" align="center">
+
+        <div class="col-lg-6" align="left">
+            <div class="card" >
+                <div class="card-header text-center" ><h2 style="color: #002a80">Edit Profile</h2></div>
+                <div class="card-body" style="background-color:#bbbbe4 " >
+
+                    {{ form_start(form, {'attr': {'novalidate':'novalidate'}}) }}
+                    {{ form_errors(form) }}
+
+                    {{ form_widget(form) }}
+                    {{ form_end(form) }}
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+{% endblock %}
+{% block footer %}
+{% endblock %}

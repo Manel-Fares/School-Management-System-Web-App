@@ -1,0 +1,60 @@
+{% extends 'interfaceEtudiant.html.twig' %}
+
+{% block body %}
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <div class="container">
+        <h1>Absences list</h1>
+        <center>
+        <p>Total Absence : {{ countou }}</p>
+        </center>
+        <br>
+        <input  class="form-control"  aria-label="Search" type="text" placeholder="Search" name="search" id="search" onkeyup="searchh()" style="border-color:#003f81;width: 250px;">
+<br>
+<br>
+            <div id="show">
+        <table class="table" >
+            <thead >
+            <tr>
+                <th>Date</th>
+                <th>Timedeb</th>
+                <th>Timefin</th>
+                <th>Matiere</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            {% for absence in absences %}
+                <tr>
+                    <td>{% if absence.date %}{{ absence.date|date('Y-m-d') }}{% endif %}</td>
+                    <td>{% if absence.timedeb %}{{ absence.timedeb|date('H:i:s') }}{% endif %}</td>
+                    <td>{% if absence.timefin %}{{ absence.timefin|date('H:i:s') }}{% endif %}</td>
+                    <td>{{ absence.idMatiere.nom }}</td>
+
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+            </div>
+    </div>
+    <script>
+        function searchh(){
+            var sch=$("#search").val();
+            $.ajax({
+                url: "{{ path('search') }}",
+                data:{dat: sch},
+                type: "POST",
+                success: function(data){
+                    $('#show').html(data).show();
+                }
+            });
+        }
+    </script>
+{% endblock %}
+
