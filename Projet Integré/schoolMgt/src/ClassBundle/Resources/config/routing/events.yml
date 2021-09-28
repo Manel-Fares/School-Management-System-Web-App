@@ -1,0 +1,22 @@
+events_index:
+    path:     /
+    defaults: { _controller: "ClassBundle:Events:index" }
+    methods:  GET
+LoadData:
+    path:     /LoadEvents
+    defaults: { _controller: "ClassBundle:Events:Load" }
+    methods:  [GET, POST]
+AddData:
+    path:     /AddEvents
+    defaults: { _controller: "ClassBundle:Events:Add" }
+    methods:  [GET, POST]
+UpdateData:
+    path:     /UpdateEvents
+    defaults: { _controller: "ClassBundle:Events:Update" }
+    methods:  [GET, POST]
+DeleteData:
+    path:     /DeleteEvents
+    defaults: { _controller: "ClassBundle:Events:Delete" }
+    methods:  [GET, POST]
+
+

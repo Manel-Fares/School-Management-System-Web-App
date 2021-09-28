@@ -1,0 +1,54 @@
+{% extends 'interfacePersonnel.html.twig' %}
+{% block body %}
+    <h1>Student List</h1>
+    {# onchange="sort(this.value),sort2(this.value) #}
+    <center>
+    <select class="btn btn-primary dropdown-toggle" id="re" onchange="select()" style="width: 150px"  >
+        {% for cls in classe %}
+            <option name="sel" id="sel" value="{{ cls.id }}">{{ cls.name }}</option>
+        {% endfor %}
+
+    </select>
+    </center>
+    <br>
+    <br>
+    <div id="detou">
+    <table class="table" >
+        <thead>
+        <tr>
+            <th>Last Name</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Cin Student</th>
+            <th>Date of birth</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for etds in etds %}
+            <tr>
+                <td>{{ etds.prenomuser }}</td>
+                <td>{{ etds.nomuser }}</td>
+                <td>{{ etds.email }}</td>
+                <td>{{ etds.cinuser }}</td>
+                <td>{{ etds.datenaissanceuser|date }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+    <script>
+        function select(){
+            var sch=$("#re").val();
+            $.ajax({
+                url: "{{ path('getStudentbyclass') }}",
+                data:{dat: sch},
+                type: "POST",
+                success: function(data){
+                    $('#detou').html(data).show();
+                }
+            });
+        }
+    </script>
+
+
+{% endblock %}

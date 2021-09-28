@@ -1,0 +1,30 @@
+{% extends 'interfaceEnseignant.html.twig' %}
+{% block body %}
+
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+    <div class="card">
+    <h3 class="card-header">List of Questions</h3>
+    <div class="card-body">
+    <table class="table table-striped">
+        <thead>
+
+    <tr>
+        <th>Name</th>
+    </tr>
+        </thead>
+        <tbody>
+    {% for m in quiz %}
+        <tr>
+            <td><a href="{{ path('QQuiz_affich_ens',{'id':m.id}) }}">{{ m.nom }}</a></td>
+            <td>{{ m.chapitre.id }}</td>
+            <td><a class="fa fa-trash" href="{{ path('Quiz_supp',{'id':m.id}) }}"></a></td>
+            <td><a href="{{ path('QQuiz_ajout',{'id':m.id}) }}">affect Question to quiz</a></td>
+        </tr>
+    {% endfor %}
+        </tbody>
+    </table>
+    </div>
+    </div>
+    </div>
+
+{% endblock %}

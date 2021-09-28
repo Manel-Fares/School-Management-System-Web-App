@@ -1,0 +1,29 @@
+<div id="divtou">
+    <table class="table" >
+        <thead>
+        <tr>
+            <th>prenom Enseignant</th>
+            <th>Nom Enseignant</th>
+            <th>Email</th>
+            <th>Cin Enseignant</th>
+            <th>Date Naissance Enseignant</th>
+            <th>Matiere</th>
+
+        </tr>
+
+        </thead>
+        <tbody>
+        {% for teacher in teacher %}
+            <tr>
+                <td>{{ teacher.idUser.prenomuser }}</td>
+                <td>{{ teacher.idUser.nomuser }}</td>
+                <td>{{ teacher.idUser.email }}</td>
+                <td>{{ teacher.idUser.cinuser }}</td>
+                <td>{{ teacher.idUser.datenaissanceuser|date }}</td>
+                <td>{{ teacher.idMatiere.nom }}</td>
+
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>

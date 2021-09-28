@@ -1,0 +1,28 @@
+{% extends 'interfacePersonnel.html.twig' %}
+
+<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+    <div class="card">
+        <h3 class="card-header">Chapters</h3>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Chapter </th>
+
+                </tr>
+                </thead>
+                <tbody>
+                {% set i=1 %}
+                {% for m in quiz %}
+                    <tr>
+                        <td><a href="#">quiz {{ i }} {{ m.nom }}</a></td>
+                    </tr>
+                    {% set i=i+1 %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

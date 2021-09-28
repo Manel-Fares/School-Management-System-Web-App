@@ -1,0 +1,41 @@
+{% extends 'interfacePersonnel.html.twig' %}
+{% block body %}
+
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+    <div class="card">
+    <h3 class="card-header">Subjects Management</h3>
+    <div class="card-body">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+    <tr>
+        <th>Name</th>
+        <th>Coef</th>
+        <th>Responsable</th>
+        <th>Show Teacher</th>
+        <th>Add Teacher</th>
+        <th>Delete</th>
+        <th>Edit</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    {% for m in matier %}
+        <tr>
+            <td><a href="{{ path('Chapitre_affich_admin',{'id':m.id}) }}">{{ m.nom }}</a></td>
+            <td>{{ m.coef }}</td>
+            <td>{{ m.responsable.prenomuser }}  {{ m.responsable.nomuser }}</td>
+            <td><a  href="{{ path('Matier_teachers',{'id':m.id}) }}">show teachers</a></td>
+            <td><a class="fa fa-plus" href="{{ path('Matier_ense',{'id':m.id}) }}"></a></td>
+            <td><a class="fa fa-trash" href="{{ path('Matier_supp',{'id':m.id}) }}"></a></td>
+            <td><a class="fas fa-edit" href="{{ path('Matier_update',{'id':m.id}) }}"></a></td>
+
+        </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+    </div>
+    </div>
+    </div>
+
+{% endblock %}

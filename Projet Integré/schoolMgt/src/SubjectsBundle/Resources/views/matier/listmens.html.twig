@@ -1,0 +1,34 @@
+{% extends 'interfacePersonnel.html.twig' %}
+{% block body %}
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="card">
+                <h3 class="card-header">Teacher(s) of subject {{ matier.nom }}</h3>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+    <tr>
+        <th>Full Name</th>
+        <th>NIC</th>
+        <th>Email</th>
+    </tr>
+
+                        </thead>
+                        <tbody>
+    {% for m in teachers %}
+        <tr>
+            <td>{{ m.nomuser }} {{ m.prenomuser }}</td>
+            <td>{{ m.cinuser }}</td>
+            <td>{{ m.email }}</td>
+            <td><a class="fa fa-trash" href="{{ path('Ensegner_supp',{'idm':matier.id , 'ide':m.id}) }}"></a></td>
+            {% if matier.responsable.id == m.id %}
+            <td>head of subject</td>
+            {% endif %}
+        </tr>
+    {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+{% endblock %}

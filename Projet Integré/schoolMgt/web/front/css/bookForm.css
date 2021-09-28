@@ -1,0 +1,182 @@
+@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css);
+html {
+    box-sizing: border-box;
+}
+
+*,
+:before,
+:after {
+    box-sizing: inherit;
+}
+
+body {
+    margin: 1em;
+    background: #f4f4f6;
+}
+
+body {
+    margin: 1em;
+    background: #f4f4f6;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+}
+
+.cards {
+    display: -webkit-box;
+    display: flex;
+    flex-wrap: wrap;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+}
+@media (min-width: 37.5em) {
+    .cards {
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        flex-direction: row;
+        -webkit-box-pack: justify;
+        justify-content: space-between;
+    }
+}
+
+.card {
+    width: 100%;
+    margin-bottom: 1em;
+    background: #fff;
+    border-radius: 5px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0px 0px 1px #ddd;
+}
+@media (min-width: 37.5em) {
+    .card {
+        width: 49%;
+    }
+}
+@media (min-width: 70.5em) {
+    .card {
+        width: 24%;
+    }
+}
+.card.with-badge:after {
+    content: " ";
+    border: 30px solid #92ba3f;
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+}
+.card .inner-wrap {
+    padding: 1.5em;
+}
+.card .inner-wrap p:last-of-type {
+    margin-bottom: 0;
+}
+.card h3 {
+    margin: 0;
+    padding-bottom: 1em;
+    font-size: 0.8em;
+}
+.card h3 a {
+    color: #000;
+}
+.card h3 a:hover {
+    color: #000;
+}
+.card h3 img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    vertical-align: middle;
+    margin-right: 0.5em;
+}
+.card .title {
+    line-height: 1.5;
+    font-size: 1.2em;
+    display: block;
+}
+.card p {
+    margin-top: 1em;
+    font-size: 0.9em;
+    color: #777;
+    line-height: 1.6;
+}
+.card a {
+    color: #2a91e7;
+    text-decoration: none;
+}
+.card a:hover, .card a:focus {
+    color: #1469b1;
+    text-decoration: underline;
+}
+.card .likes-bar {
+    border: solid 1px #eee;
+    padding: 0 1.5em;
+    border-width: 1px 0 1px 0;
+    font-size: 88%;
+}
+.card .likes-bar p {
+    color: #888;
+}
+.card .likes-bar p a:first-of-type {
+    color: #333;
+    font-weight: bold;
+}
+.card .likes-bar img {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    vertical-align: middle;
+    margin-right: 0.5em;
+}
+.card .action-bar ul {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+.card .action-bar li {
+    list-style: none;
+    float: left;
+    text-align: center;
+    font-size: 1.1em;
+}
+.card .action-bar li a {
+    display: block;
+    padding: 1em 0;
+    color: #666;
+}
+.card .action-bar li a:hover, .card .action-bar li a:focus {
+    color: #000;
+    text-decoration: none;
+}
+.card .action-bar li.comments {
+    width: 60%;
+    text-align: left;
+    padding: 0 1.5em;
+    border: solid #eee;
+    border-width: 0 1px 0 0;
+}
+.card .action-bar li.comments .comments-link {
+    font-size: 0.7em;
+    font-weight: bold;
+}
+.card .action-bar li.share, .card .action-bar li.like {
+    width: 20%;
+}
+.card .action-bar li.share {
+    border: solid #eee;
+    border-width: 0 1px 0 0;
+}
+.card .action-bar span:not(.comments-link) {
+    position: absolute;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    width: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+}

@@ -1,0 +1,70 @@
+
+Matier_ajout:
+    path: /matier/addm
+    defaults: { _controller: SubjectsBundle:subject:add }
+Matier_affich:
+    path: /matier/listm
+    defaults: { _controller: SubjectsBundle:subject:affich }
+Matier_affich_res:
+    path: /matier/listmres
+    defaults: { _controller: SubjectsBundle:subject:affichres }
+Matier_affich_admin:
+    path: /matier/listmadmin
+    defaults: { _controller: SubjectsBundle:subject:affichadmin }
+Matier_supp:
+    path: /matier/listm/{id}
+    defaults: { _controller: SubjectsBundle:subject:suppm }
+Matier_update:
+    path: /matier/listmadmin/{id}
+    defaults: { _controller: SubjectsBundle:subject:update }
+Matier_ense:
+    path: /matier/affecter/{id}
+    defaults: { _controller: SubjectsBundle:subject:affecter }
+Matier_teachers:
+    path: /matier/teachers/{id}
+    defaults: { _controller: SubjectsBundle:subject:afficherens }
+Ensegner_supp:
+    path: /matier/listmensd/{idm}/{ide}
+    defaults: { _controller: SubjectsBundle:subject:deleteensegner }
+
+Chapitre_ajout:
+    path: /chapitre/addch/{id}
+    defaults: { _controller: SubjectsBundle:chapter:addch }
+Chapitre_affich:
+    path: /chapitre/listch/{id}
+    defaults: { _controller: SubjectsBundle:chapter:affich }
+Chapitre_affich_admin:
+    path: /chapitre/listchadmin/{id}
+    defaults: { _controller: SubjectsBundle:chapter:affichadmin }
+Chapitre_affich_ens:
+    path: /chapitre/listchens/{id}
+    defaults: { _controller: SubjectsBundle:chapter:affichens }
+Chapitre_supp:
+    path: /chapitre/listchsup/{id}
+    defaults: { _controller: SubjectsBundle:chapter:suppch }
+
+Quiz_ajout:
+    path: /quiz/add/{id}
+    defaults: { _controller: SubjectsBundle:quiz:add }
+Quiz_affich:
+    path: /quiz/listq/{id}
+    defaults: { _controller: SubjectsBundle:quiz:affich }
+Quiz_affich_admin:
+    path: /quiz/listqadmin/{id}
+    defaults: { _controller: SubjectsBundle:quiz:affichadmin }
+Quiz_affich_ens:
+    path: /quiz/listqens/{id}
+    defaults: { _controller: SubjectsBundle:quiz:affichens }
+Quiz_supp:
+    path: /quiz/list/{id}
+    defaults: { _controller: SubjectsBundle:quiz:sup }
+
+QQuiz_ajout:
+    path: /qquiz/add/{id}
+    defaults: { _controller: SubjectsBundle:qquiz:add }
+QQuiz_affich_ens:
+    path: /qquiz/listens/{id}
+    defaults: { _controller: SubjectsBundle:qquiz:affichens }
+QQuiz_supp:
+    path: /qquiz/listd/{id}
+    defaults: { _controller: SubjectsBundle:qquiz:supp }

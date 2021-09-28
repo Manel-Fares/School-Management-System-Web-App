@@ -1,0 +1,31 @@
+{% extends 'interfacePersonnel.html.twig' %}
+{% block body %}
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="card">
+            <h3 class="card-header">List of Chapters</h3>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>File</th>
+                        <th>Subject</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+    {% for m in chapitre %}
+        <tr>
+            <td><a href="{{ path('Quiz_affich',{'id':m.id}) }}">{{ m.nom }}</a></td>
+            <td><a href="{{ asset('chapters/' ~ m.fichier) }}">View chapter (PDF)</a></td>
+            <td>{{ m.matier.nom }}</td>
+            <td><a href="{{ path('Quiz_ajout',{'id':m.matier.id}) }}">Add Quiz</a></td>
+            <td><a class="fa fa-trash" href="{{ path('Chapitre_supp',{'id':m.id}) }}"></a></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+    </div>
+    </div>
+    </div>
+
+{% endblock %}

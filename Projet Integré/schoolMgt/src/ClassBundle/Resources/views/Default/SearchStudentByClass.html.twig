@@ -1,0 +1,29 @@
+<div id="detou">
+    <table class="table" >
+        <thead>
+        <tr>
+            <th>prenom Etudiant</th>
+            <th>Nom Etudiant</th>
+            <th>Email</th>
+            <th>Cin Etudiant</th>
+            <th>Date Naissance Etudiant</th>
+
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for etds in etds %}
+            <tr>
+                <td>{{ etds.prenomuser }}</td>
+                <td>{{ etds.nomuser }}</td>
+                <td>{{ etds.email }}</td>
+                <td>{{ etds.cinuser }}</td>
+                <td>{{ etds.datenaissanceuser|date }}</td>
+
+
+
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>

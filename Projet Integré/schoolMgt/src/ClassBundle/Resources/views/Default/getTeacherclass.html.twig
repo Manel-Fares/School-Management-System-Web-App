@@ -1,0 +1,54 @@
+{% extends 'interfacePersonnel.html.twig' %}
+{% block body %}
+    <h1>Teacher List</h1>
+<center>
+    <select class="btn btn-primary dropdown-toggle" id="re" onchange="select()" style="width: 150px"  >
+    {% for cls in classe %}
+        <option name="sel" id="sel" value="{{ cls.id }}">{{ cls.name }}</option>
+    {% endfor %}
+</select>
+</center>
+    <br>
+    <br>
+    <div id="divtou">
+    <table class="table" >
+        <thead>
+        <tr>
+            <th>Last Name</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Cin Teacher</th>
+            <th>Date of birth</th>
+            <th>Subject</th>
+            <th>Class</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for teacher in teacher %}
+            <tr>
+                <td>{{ teacher.idUser.prenomuser }}</td>
+                <td>{{ teacher.idUser.nomuser }}</td>
+                <td>{{ teacher.idUser.email }}</td>
+                <td>{{ teacher.idUser.cinuser }}</td>
+                <td>{{ teacher.idUser.datenaissanceuser|date }}</td>
+                <td>{{ teacher.idMatiere.nom }}</td>
+                <td>{{ teacher.idClass.name }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+    <script>
+        function select(){
+            var sch=$("#re").val();
+            $.ajax({
+                url: "{{ path('getTeacherbyclass') }}",
+                data:{dat: sch},
+                type: "POST",
+                success: function(data){
+                    $('#divtou').html(data).show();
+                }
+            });
+        }
+    </script>
+{% endblock %}

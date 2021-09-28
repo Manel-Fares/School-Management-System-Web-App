@@ -1,0 +1,37 @@
+{% extends 'interfaceEnseignant.html.twig' %}
+{% block body %}
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="card">
+            <h3 class="card-header">List of Questions</h3>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Question</th>
+                        <th>Option 1</th>
+                        <th>Option 2</th>
+                        <th>Option 3</th>
+                        <th>Answer</th>
+                        <th>Quiz Name</th>
+                        <th>Delete</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for m in qquiz %}
+                        <tr>
+                            <td>{{ m.question }}</td>
+                            <td>{{ m.ans1 }}</td>
+                            <td>{{ m.ans2 }}</td>
+                            <td>{{ m.ans3 }}</td>
+                            <td>{{ m.cans }}</td>
+                            <td>Quiz : {{ m.quiz.nom }}</td>
+                            <td><a class="fa fa-trash" href="{{ path('QQuiz_supp',{'id':m.id}) }}"></a></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
